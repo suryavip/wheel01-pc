@@ -92,7 +92,7 @@ namespace wheel01
                 if (read == lastSerialReceived) return;
                 lastSerialReceived = read;
 
-                if (read.StartsWith("ENC:"))
+                if (read.StartsWith("E:"))
                 {
                     string readEncoderPosition = read.Substring(4);
                     encoderPosition = int.Parse(readEncoderPosition);
