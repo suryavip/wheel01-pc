@@ -13,6 +13,9 @@ namespace wheel01
 {
     public partial class Form1 : Form
     {
+        string lastSerialReceived = "";
+        int encoderPosition = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -71,11 +74,34 @@ namespace wheel01
         private void DisplayUpdater_Tick(object sender, EventArgs e)
         {
             LogOutput.Text = Logger.allLogs;
+            EncoderPositionDisplayText.Text = encoderPosition.ToString();
+            EncoderPositionDisplayBar.Value = encoderPosition;
         }
 
         private void CopyLogToClipboardButton_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(Logger.allLogs);
+        }
+
+        private void SerialPortController_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                string read = SerialPortController.ReadLine();
+                if (read == null || read.Length == 0) return;
+                if (read == lastSerialReceived) return;
+                lastSerialReceived = read;
+
+                if (read.StartsWith("ENC:"))
+                {
+                    string readEncoderPosition = read.Substring(4);
+                    encoderPosition = int.Parse(readEncoderPosition);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddLine("Error on receiving data: " + ex.Message);
+            }
         }
     }
 }

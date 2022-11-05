@@ -21,7 +21,14 @@ namespace wheel01
 
         static public void InitVJoy()
         {
+            Logger.AddLine("Initializing vJoy device...");
+
             vJoy = new vJoy();
+
+            Logger.AddLine("Vendor: " + vJoy.GetvJoyManufacturerString());
+            Logger.AddLine("Product: " + vJoy.GetvJoyProductString());
+            Logger.AddLine("Version Number: " + vJoy.GetvJoySerialNumberString());
+
             VjdStat status = vJoy.GetVJDStatus(vJoyId);
             switch (status)
             {
@@ -44,6 +51,10 @@ namespace wheel01
                 Logger.AddLine("Failed to acquire device.");
                 return;
             }
+
+            Logger.AddLine(String.Format("Acquired: vJoy device number {0}", vJoyId));
+            Logger.AddLine(String.Format("FFB is {0}", Convert.ToString(vJoy.IsDeviceFfb(vJoyId))));
+
             vJoy.ResetVJD(vJoyId);
 
             vJoy.FfbRegisterGenCB(OnEffectObj, null);

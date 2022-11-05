@@ -32,14 +32,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.COMPortsComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.progressBar6 = new System.Windows.Forms.ProgressBar();
+            this.EncoderPositionDisplayText = new System.Windows.Forms.Label();
+            this.EncoderPositionDisplayBar = new System.Windows.Forms.ProgressBar();
             this.label13 = new System.Windows.Forms.Label();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.COMPortsRefreshButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.progressBar7 = new System.Windows.Forms.ProgressBar();
             this.label15 = new System.Windows.Forms.Label();
@@ -61,10 +63,8 @@
             this.VJoyInitDelay = new System.Windows.Forms.Timer(this.components);
             this.DisplayUpdater = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.LogOutput = new System.Windows.Forms.RichTextBox();
             this.CopyLogToClipboardButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.COMPortsRefreshButton = new System.Windows.Forms.Button();
+            this.LogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -96,8 +96,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.progressBar6);
+            this.groupBox1.Controls.Add(this.EncoderPositionDisplayText);
+            this.groupBox1.Controls.Add(this.EncoderPositionDisplayBar);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.richTextBox2);
             this.groupBox1.Controls.Add(this.label3);
@@ -114,24 +114,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Device";
             // 
-            // label12
+            // EncoderPositionDisplayText
             // 
-            this.label12.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(220, 60);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(119, 30);
-            this.label12.TabIndex = 18;
-            this.label12.Text = "-";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.EncoderPositionDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EncoderPositionDisplayText.Location = new System.Drawing.Point(220, 60);
+            this.EncoderPositionDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.EncoderPositionDisplayText.Name = "EncoderPositionDisplayText";
+            this.EncoderPositionDisplayText.Size = new System.Drawing.Size(119, 30);
+            this.EncoderPositionDisplayText.TabIndex = 18;
+            this.EncoderPositionDisplayText.Text = "-";
+            this.EncoderPositionDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // progressBar6
+            // EncoderPositionDisplayBar
             // 
-            this.progressBar6.Location = new System.Drawing.Point(10, 90);
-            this.progressBar6.Maximum = 4096;
-            this.progressBar6.Name = "progressBar6";
-            this.progressBar6.Size = new System.Drawing.Size(330, 20);
-            this.progressBar6.TabIndex = 17;
+            this.EncoderPositionDisplayBar.Location = new System.Drawing.Point(10, 90);
+            this.EncoderPositionDisplayBar.Maximum = 4095;
+            this.EncoderPositionDisplayBar.Name = "EncoderPositionDisplayBar";
+            this.EncoderPositionDisplayBar.Size = new System.Drawing.Size(330, 20);
+            this.EncoderPositionDisplayBar.TabIndex = 17;
             // 
             // label13
             // 
@@ -188,6 +188,17 @@
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
+            // COMPortsRefreshButton
+            // 
+            this.COMPortsRefreshButton.BackgroundImage = global::wheel01.Properties.Resources.arrows_rotate_11;
+            this.COMPortsRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.COMPortsRefreshButton.Location = new System.Drawing.Point(310, 20);
+            this.COMPortsRefreshButton.Name = "COMPortsRefreshButton";
+            this.COMPortsRefreshButton.Size = new System.Drawing.Size(30, 30);
+            this.COMPortsRefreshButton.TabIndex = 3;
+            this.COMPortsRefreshButton.UseVisualStyleBackColor = true;
+            this.COMPortsRefreshButton.Click += new System.EventHandler(this.COMPortsRefreshButton_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.button1);
@@ -215,6 +226,16 @@
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Game";
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::wheel01.Properties.Resources.left_right;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.Location = new System.Drawing.Point(220, 20);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 30);
+            this.button1.TabIndex = 22;
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // label14
             // 
@@ -389,6 +410,10 @@
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 0;
             // 
+            // SerialPortController
+            // 
+            this.SerialPortController.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPortController_DataReceived);
+            // 
             // VJoyInitDelay
             // 
             this.VJoyInitDelay.Enabled = true;
@@ -411,6 +436,17 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
             // 
+            // CopyLogToClipboardButton
+            // 
+            this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
+            this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(300, 20);
+            this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
+            this.CopyLogToClipboardButton.Size = new System.Drawing.Size(30, 30);
+            this.CopyLogToClipboardButton.TabIndex = 6;
+            this.CopyLogToClipboardButton.UseVisualStyleBackColor = true;
+            this.CopyLogToClipboardButton.Click += new System.EventHandler(this.CopyLogToClipboardButton_Click);
+            // 
             // LogOutput
             // 
             this.LogOutput.BackColor = System.Drawing.SystemColors.Window;
@@ -423,38 +459,6 @@
             this.LogOutput.Size = new System.Drawing.Size(280, 100);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
-            // 
-            // CopyLogToClipboardButton
-            // 
-            this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
-            this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(300, 20);
-            this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
-            this.CopyLogToClipboardButton.Size = new System.Drawing.Size(30, 30);
-            this.CopyLogToClipboardButton.TabIndex = 6;
-            this.CopyLogToClipboardButton.UseVisualStyleBackColor = true;
-            this.CopyLogToClipboardButton.Click += new System.EventHandler(this.CopyLogToClipboardButton_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::wheel01.Properties.Resources.left_right;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.Location = new System.Drawing.Point(220, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 30);
-            this.button1.TabIndex = 22;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // COMPortsRefreshButton
-            // 
-            this.COMPortsRefreshButton.BackgroundImage = global::wheel01.Properties.Resources.arrows_rotate_11;
-            this.COMPortsRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.COMPortsRefreshButton.Location = new System.Drawing.Point(310, 20);
-            this.COMPortsRefreshButton.Name = "COMPortsRefreshButton";
-            this.COMPortsRefreshButton.Size = new System.Drawing.Size(30, 30);
-            this.COMPortsRefreshButton.TabIndex = 3;
-            this.COMPortsRefreshButton.UseVisualStyleBackColor = true;
-            this.COMPortsRefreshButton.Click += new System.EventHandler(this.COMPortsRefreshButton_Click);
             // 
             // Form1
             // 
@@ -501,8 +505,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ProgressBar progressBar6;
+        private System.Windows.Forms.Label EncoderPositionDisplayText;
+        private System.Windows.Forms.ProgressBar EncoderPositionDisplayBar;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ProgressBar progressBar7;
