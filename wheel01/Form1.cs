@@ -13,8 +13,12 @@ namespace wheel01
 {
     public partial class Form1 : Form
     {
+        // Arduino to PC vars
         string lastSerialReceived = "";
         int encoderPosition = 0;
+
+        // PC to game vars
+        int steeringPosition = (VJoyWrapper.maxVJoy - VJoyWrapper.minVJoy) / 2;
 
         public Form1()
         {
@@ -34,6 +38,7 @@ namespace wheel01
         {
             VJoyInitDelay.Enabled = false;
             VJoyWrapper.InitVJoy();
+            VJoyWrapper.vJoy.SetAxis(steeringPosition, VJoyWrapper.vJoyId, HID_USAGES.HID_USAGE_X);
         }
 
         private void COMPortsRefreshButton_Click(object sender, EventArgs e)
@@ -94,13 +99,40 @@ namespace wheel01
 
                 if (read.StartsWith("E:"))
                 {
-                    string readEncoderPosition = read.Substring(2);
-                    encoderPosition = int.Parse(readEncoderPosition);
+                    OnCommandReceived(read.Substring(0, 1), read.Substring(2));
                 }
             }
             catch (Exception ex)
             {
                 Logger.AddLine("Error on receiving data: " + ex.Message);
+            }
+        }
+
+        private void OnCommandReceived(string command, string value)
+        {
+            switch (command)
+            {
+                case "E":
+                    int newEncoderPosition = int.Parse(value);
+                    if (newEncoderPosition < 16 && encoderPosition > 4085)
+                    {
+                        // overlap
+                        int plus = encoderPosition + (encoderPosition - 4095) + newEncoderPosition;
+
+                    }
+                    else if (newEncoderPosition > 4085 && encoderPosition < 16)
+                    {
+                        // underlap
+                        int minus = encoderPosition + (encoderPosition - 4095) + newEncoderPosition;
+
+                    }
+                    else
+                    {
+                        // normal
+                    }
+
+                    encoderPosition = newEncoderPosition;
+                    break;
             }
         }
     }

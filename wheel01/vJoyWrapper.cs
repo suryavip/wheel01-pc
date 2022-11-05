@@ -8,16 +8,16 @@ namespace wheel01
 {
     internal class VJoyWrapper
     {
-        const uint vJoyId = 1;
+        public const uint vJoyId = 1;
 
-        const int maxVJoy = 32767;
-        const int minVJoy = 0;
+        public const int maxVJoy = 32767;
+        public const int minVJoy = 0;
 
-        static vJoy vJoy;
+        static public vJoy vJoy;
 
         static FFBPType fFBPType;
-        static private vJoy.FFB_EFF_CONSTANT constantEffect;
-        static int ffbValue = 0;
+        static vJoy.FFB_EFF_CONSTANT constantEffect;
+        static public int ffbValue = 0;
 
         static public void InitVJoy()
         {
