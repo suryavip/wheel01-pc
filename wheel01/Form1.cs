@@ -94,7 +94,7 @@ namespace wheel01
 
                 if (read.StartsWith("E:"))
                 {
-                    string readEncoderPosition = read.Substring(4);
+                    string readEncoderPosition = read.Substring(2);
                     encoderPosition = int.Parse(readEncoderPosition);
                 }
             }
