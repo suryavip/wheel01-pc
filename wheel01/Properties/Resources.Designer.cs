@@ -63,9 +63,9 @@ namespace wheel01.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrows_rotate_1 {
+        internal static System.Drawing.Bitmap arrows_rotate_11 {
             get {
-                object obj = ResourceManager.GetObject("arrows-rotate 1", resourceCulture);
+                object obj = ResourceManager.GetObject("arrows-rotate 11", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,19 @@ namespace wheel01.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrows_rotate_11 {
+        internal static System.Drawing.Bitmap copy {
             get {
-                object obj = ResourceManager.GetObject("arrows-rotate 11", resourceCulture);
+                object obj = ResourceManager.GetObject("copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap left_right {
+            get {
+                object obj = ResourceManager.GetObject("left-right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

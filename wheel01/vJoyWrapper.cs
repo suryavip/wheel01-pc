@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using vJoyInterfaceWrap;
 
 namespace wheel01
 {
-    public class vJoyWrapper
+    internal class VJoyWrapper
     {
         const uint vJoyId = 1;
 
@@ -17,8 +16,8 @@ namespace wheel01
         static vJoy vJoy;
 
         static FFBPType fFBPType;
-
-        static vJoy.FFB_EFF_CONSTANT constantEffect;
+        static private vJoy.FFB_EFF_CONSTANT constantEffect;
+        static int ffbValue = 0;
 
         static public void InitVJoy()
         {
@@ -31,22 +30,18 @@ namespace wheel01
                 case VjdStat.VJD_STAT_FREE:
                     break;
                 case VjdStat.VJD_STAT_BUSY:
-                    Console.WriteLine("Device is already owned by another feeder.");
-                    Environment.Exit(1);
+                    Logger.AddLine("Device is already owned by another feeder.");
                     return;
                 case VjdStat.VJD_STAT_MISS:
-                    Console.WriteLine("Device is not installed or disabled.");
-                    Environment.Exit(1);
+                    Logger.AddLine("Device is not installed or disabled.");
                     return;
                 default:
-                    Console.WriteLine("Device general error.");
-                    Environment.Exit(1);
+                    Logger.AddLine("Device general error.");
                     return;
             }
             if (!vJoy.AcquireVJD(vJoyId))
             {
-                Console.WriteLine("Failed to acquire device.");
-                Environment.Exit(1);
+                Logger.AddLine("Failed to acquire device.");
                 return;
             }
             vJoy.ResetVJD(vJoyId);
@@ -67,7 +62,7 @@ namespace wheel01
             {
                 case FFBPType.PT_CONSTREP:
                     vJoy.Ffb_h_Eff_Constant(data, ref constantEffect);
-                    // ffbValue = constantEffect.Magnitude;
+                    ffbValue = constantEffect.Magnitude;
                     break;
                 default:
                     // Console.WriteLine(fFBPType);
