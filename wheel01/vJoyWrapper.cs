@@ -8,28 +8,30 @@ namespace wheel01
 {
     internal class VJoyWrapper
     {
-        public const uint vJoyId = 1;
+        public const uint deviceId = 1;
 
-        public const int maxVJoy = 32767;
-        public const int minVJoy = 0;
+        public const int maxValue = 32767;
+        public const int minValue = 0;
+        public const int valueRange = maxValue - minValue + 1;
+        public const int midValue = valueRange / 2;
 
-        static public vJoy vJoy;
+        static public vJoy device;
 
         static FFBPType fFBPType;
         static vJoy.FFB_EFF_CONSTANT constantEffect;
         static public int ffbValue = 0;
 
-        static public void InitVJoy()
+        static public void Init()
         {
-            Logger.AddLine("Initializing vJoy device...");
+            Logger.App("Initializing vJoy device...");
 
-            vJoy = new vJoy();
+            device = new vJoy();
 
-            Logger.AddLine("Vendor: " + vJoy.GetvJoyManufacturerString());
-            Logger.AddLine("Product: " + vJoy.GetvJoyProductString());
-            Logger.AddLine("Version Number: " + vJoy.GetvJoySerialNumberString());
+            Logger.App("Vendor: " + device.GetvJoyManufacturerString());
+            Logger.App("Product: " + device.GetvJoyProductString());
+            Logger.App("Version Number: " + device.GetvJoySerialNumberString());
 
-            VjdStat status = vJoy.GetVJDStatus(vJoyId);
+            VjdStat status = device.GetVJDStatus(deviceId);
             switch (status)
             {
                 case VjdStat.VJD_STAT_OWN:
@@ -37,27 +39,32 @@ namespace wheel01
                 case VjdStat.VJD_STAT_FREE:
                     break;
                 case VjdStat.VJD_STAT_BUSY:
-                    Logger.AddLine("Device is already owned by another feeder.");
+                    Logger.App("Device is already owned by another feeder.");
                     return;
                 case VjdStat.VJD_STAT_MISS:
-                    Logger.AddLine("Device is not installed or disabled.");
+                    Logger.App("Device is not installed or disabled.");
                     return;
                 default:
-                    Logger.AddLine("Device general error.");
+                    Logger.App("Device general error.");
                     return;
             }
-            if (!vJoy.AcquireVJD(vJoyId))
+            if (!device.AcquireVJD(deviceId))
             {
-                Logger.AddLine("Failed to acquire device.");
+                Logger.App("Failed to acquire device.");
                 return;
             }
 
-            Logger.AddLine(String.Format("Acquired: vJoy device number {0}", vJoyId));
-            Logger.AddLine(String.Format("FFB is {0}", Convert.ToString(vJoy.IsDeviceFfb(vJoyId))));
+            Logger.App(String.Format("Acquired: vJoy device number {0}", deviceId));
+            Logger.App(String.Format("FFB is {0}", Convert.ToString(device.IsDeviceFfb(deviceId))));
 
-            vJoy.ResetVJD(vJoyId);
+            device.ResetVJD(deviceId);
 
-            vJoy.FfbRegisterGenCB(OnEffectObj, null);
+            device.FfbRegisterGenCB(OnEffectObj, null);
+        }
+
+        static public bool SetAxis(int value, HID_USAGES axis)
+        {
+            return device.SetAxis(value, deviceId, axis);
         }
 
         /// <summary>
@@ -67,12 +74,12 @@ namespace wheel01
         /// <param name="userData"></param>
         static void OnEffectObj(IntPtr data, object userData)
         {
-            vJoy.Ffb_h_Type(data, ref fFBPType);
+            device.Ffb_h_Type(data, ref fFBPType);
 
             switch (fFBPType)
             {
                 case FFBPType.PT_CONSTREP:
-                    vJoy.Ffb_h_Eff_Constant(data, ref constantEffect);
+                    device.Ffb_h_Eff_Constant(data, ref constantEffect);
                     ffbValue = constantEffect.Magnitude;
                     break;
                 default:

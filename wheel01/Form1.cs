@@ -13,12 +13,18 @@ namespace wheel01
 {
     public partial class Form1 : Form
     {
-        // Arduino to PC vars
-        string lastSerialReceived = "";
-        int encoderPosition = 0;
+        const int maxEncoderValue = 4095;
+        const int minEncoderValue = 0;
+        const int encoderValueRange = maxEncoderValue - minEncoderValue + 1;
+        const int midEncoderValue = encoderValueRange / 2;
+        const int encoderBottomRange = minEncoderValue + 64;
+        const int encoderTopRange = maxEncoderValue - 64;
+
+        int encoderValue = midEncoderValue;
+        int encoderOverRotation = 0;
 
         // PC to game vars
-        int steeringPosition = (VJoyWrapper.maxVJoy - VJoyWrapper.minVJoy) / 2;
+        int steeringPosition = VJoyWrapper.midValue;
 
         public Form1()
         {
@@ -27,39 +33,39 @@ namespace wheel01
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Logger.AddLine("Detecting ports...");
+            Logger.App("Detecting ports...");
             String[] ports = SerialPort.GetPortNames();
             COMPortsComboBox.DataSource = ports;
-            Logger.AddLine("Port list updated!");
-            Logger.AddLine("Please wait until vJoy device initialized!");
+            Logger.App("Port list updated!");
+            Logger.App("Please wait until vJoy device initialized!");
         }
 
         private void VJoyInitDelay_Tick(object sender, EventArgs e)
         {
             VJoyInitDelay.Enabled = false;
-            VJoyWrapper.InitVJoy();
-            VJoyWrapper.vJoy.SetAxis(steeringPosition, VJoyWrapper.vJoyId, HID_USAGES.HID_USAGE_X);
+            VJoyWrapper.Init();
+            VJoyWrapper.SetAxis(steeringPosition, HID_USAGES.HID_USAGE_X);
         }
 
         private void COMPortsRefreshButton_Click(object sender, EventArgs e)
         {
-            Logger.AddLine("Refreshing ports...");
+            Logger.App("Refreshing ports...");
             String[] ports = SerialPort.GetPortNames();
             COMPortsComboBox.DataSource = ports;
-            Logger.AddLine("Port list updated!");
+            Logger.App("Port list updated!");
         }
 
         private void COMPortsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selected = COMPortsComboBox.SelectedItem.ToString();
-            Logger.AddLine("Connecting to " + selected + "...");
+            Logger.App("Connecting to " + selected + "...");
             try
             {
                 SerialPortController.Close();
             }
             catch (Exception ex)
             {
-                Logger.AddLine("Error closing previous connection: " + ex.Message);
+                Logger.App("Error closing previous connection: " + ex.Message);
             }
             finally
             {
@@ -70,22 +76,33 @@ namespace wheel01
                 }
                 catch (Exception ex)
                 {
-                    Logger.AddLine("Failed connecting to " + selected + ": " + ex.Message);
+                    Logger.App("Failed connecting to " + selected + ": " + ex.Message);
                 }
-                Logger.AddLine("Connected to " + selected + "!");
+                SerialPortController.Write("C:");
+                Logger.Tx("C:");
+                Logger.App("Connected to " + selected + "!");
             }
         }
 
         private void DisplayUpdater_Tick(object sender, EventArgs e)
         {
-            LogOutput.Text = Logger.allLogs;
-            EncoderPositionDisplayText.Text = encoderPosition.ToString();
-            EncoderPositionDisplayBar.Value = encoderPosition;
+            EncoderPositionDisplayText.Text = encoderValue.ToString();
+            EncoderPositionDisplayBar.Value = encoderValue;
+
+            EncoderMultRotPositionDisplayText.Text = ((encoderValueRange * encoderOverRotation) + encoderValue).ToString();
+
+
+            RxLogOutput.Text = Logger.rxLog;
+            TxLogOutput.Text = Logger.txLog;
+
+            SteeringRangeDisplayText.Text = (SteeringRangeSlider.Value * 180) + "°";
+
+            LogOutput.Text = Logger.appLog;
         }
 
         private void CopyLogToClipboardButton_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(Logger.allLogs);
+            Clipboard.SetText(Logger.appLog);
         }
 
         private void SerialPortController_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -94,8 +111,7 @@ namespace wheel01
             {
                 string read = SerialPortController.ReadLine();
                 if (read == null || read.Length == 0) return;
-                if (read == lastSerialReceived) return;
-                lastSerialReceived = read;
+                Logger.Rx(read);
 
                 if (read.StartsWith("E:"))
                 {
@@ -104,7 +120,7 @@ namespace wheel01
             }
             catch (Exception ex)
             {
-                Logger.AddLine("Error on receiving data: " + ex.Message);
+                Logger.App("Error on receiving data: " + ex.Message);
             }
         }
 
@@ -114,24 +130,20 @@ namespace wheel01
             {
                 case "E":
                     int newEncoderPosition = int.Parse(value);
-                    if (newEncoderPosition < 16 && encoderPosition > 4085)
+
+                    if (newEncoderPosition < encoderBottomRange && encoderValue > encoderTopRange)
                     {
                         // overlap
-                        int plus = encoderPosition + (encoderPosition - 4095) + newEncoderPosition;
-
+                        encoderOverRotation++;
                     }
-                    else if (newEncoderPosition > 4085 && encoderPosition < 16)
+                    else if (newEncoderPosition > encoderTopRange && encoderValue < encoderBottomRange)
                     {
                         // underlap
-                        int minus = encoderPosition + (encoderPosition - 4095) + newEncoderPosition;
-
-                    }
-                    else
-                    {
-                        // normal
+                        encoderOverRotation--;
                     }
 
-                    encoderPosition = newEncoderPosition;
+                    encoderValue = newEncoderPosition;
+                    
                     break;
             }
         }
