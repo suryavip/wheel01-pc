@@ -13,15 +13,15 @@ namespace wheel01
         public const int maxValue = 32767;
         public const int minValue = 0;
         public const int valueRange = maxValue - minValue + 1;
-        public const int midValue = valueRange / 2;
+        public const int midValue = (valueRange / 2) - 1;
 
-        static public vJoy device;
+        public static vJoy device;
 
         static FFBPType fFBPType;
         static vJoy.FFB_EFF_CONSTANT constantEffect;
-        static public int ffbValue = 0;
+        public static int ffbValue = 0;
 
-        static public void Init()
+        public static void Init()
         {
             Logger.App("Initializing vJoy device...");
 
@@ -62,7 +62,7 @@ namespace wheel01
             device.FfbRegisterGenCB(OnEffectObj, null);
         }
 
-        static public bool SetAxis(int value, HID_USAGES axis)
+        public static bool SetAxis(int value, HID_USAGES axis)
         {
             return device.SetAxis(value, deviceId, axis);
         }

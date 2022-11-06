@@ -32,6 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.COMPortsComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.EncoderMultRotPositionDisplayText = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.EncoderPositionDisplayText = new System.Windows.Forms.Label();
             this.EncoderPositionDisplayBar = new System.Windows.Forms.ProgressBar();
             this.label13 = new System.Windows.Forms.Label();
@@ -44,15 +46,14 @@
             this.SteeringRangeDisplayText = new System.Windows.Forms.Label();
             this.SteeringRangeSlider = new System.Windows.Forms.TrackBar();
             this.label12 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.FlipSteeringButton = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.progressBar7 = new System.Windows.Forms.ProgressBar();
             this.label15 = new System.Windows.Forms.Label();
             this.progressBar8 = new System.Windows.Forms.ProgressBar();
-            this.label8 = new System.Windows.Forms.Label();
-            this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.SteeringAxisDisplayText = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.SteeringAxisDisplayBar = new System.Windows.Forms.ProgressBar();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -69,8 +70,6 @@
             this.CopyLogToClipboardButton = new System.Windows.Forms.Button();
             this.LogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.EncoderMultRotPositionDisplayText = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
@@ -124,6 +123,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Device";
             // 
+            // EncoderMultRotPositionDisplayText
+            // 
+            this.EncoderMultRotPositionDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EncoderMultRotPositionDisplayText.Location = new System.Drawing.Point(220, 140);
+            this.EncoderMultRotPositionDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.EncoderMultRotPositionDisplayText.Name = "EncoderMultRotPositionDisplayText";
+            this.EncoderMultRotPositionDisplayText.Size = new System.Drawing.Size(119, 30);
+            this.EncoderMultRotPositionDisplayText.TabIndex = 21;
+            this.EncoderMultRotPositionDisplayText.Text = "-";
+            this.EncoderMultRotPositionDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(10, 140);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(200, 30);
+            this.label17.TabIndex = 19;
+            this.label17.Text = "Encoder Multi Rotation Position:";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // EncoderPositionDisplayText
             // 
             this.EncoderPositionDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -161,6 +182,7 @@
             this.TxLogOutput.Location = new System.Drawing.Point(180, 220);
             this.TxLogOutput.Name = "TxLogOutput";
             this.TxLogOutput.ReadOnly = true;
+            this.TxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.TxLogOutput.Size = new System.Drawing.Size(160, 110);
             this.TxLogOutput.TabIndex = 7;
             this.TxLogOutput.Text = "";
@@ -194,6 +216,7 @@
             this.RxLogOutput.Location = new System.Drawing.Point(10, 220);
             this.RxLogOutput.Name = "RxLogOutput";
             this.RxLogOutput.ReadOnly = true;
+            this.RxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.RxLogOutput.Size = new System.Drawing.Size(160, 110);
             this.RxLogOutput.TabIndex = 4;
             this.RxLogOutput.Text = "";
@@ -214,15 +237,14 @@
             this.groupBox2.Controls.Add(this.SteeringRangeDisplayText);
             this.groupBox2.Controls.Add(this.SteeringRangeSlider);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.FlipSteeringButton);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.progressBar7);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.progressBar8);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.progressBar2);
+            this.groupBox2.Controls.Add(this.SteeringAxisDisplayText);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.progressBar1);
+            this.groupBox2.Controls.Add(this.SteeringAxisDisplayBar);
             this.groupBox2.Location = new System.Drawing.Point(370, 10);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox2.Name = "groupBox2";
@@ -246,12 +268,13 @@
             // 
             this.SteeringRangeSlider.AutoSize = false;
             this.SteeringRangeSlider.Location = new System.Drawing.Point(10, 130);
-            this.SteeringRangeSlider.Maximum = 8;
-            this.SteeringRangeSlider.Minimum = 2;
+            this.SteeringRangeSlider.Maximum = 4;
+            this.SteeringRangeSlider.Minimum = 1;
             this.SteeringRangeSlider.Name = "SteeringRangeSlider";
             this.SteeringRangeSlider.Size = new System.Drawing.Size(240, 40);
             this.SteeringRangeSlider.TabIndex = 25;
-            this.SteeringRangeSlider.Value = 6;
+            this.SteeringRangeSlider.Value = 3;
+            this.SteeringRangeSlider.Scroll += new System.EventHandler(this.SteeringRangeSlider_Scroll);
             // 
             // label12
             // 
@@ -264,15 +287,16 @@
             this.label12.Text = "Steering Range:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // button1
+            // FlipSteeringButton
             // 
-            this.button1.BackgroundImage = global::wheel01.Properties.Resources.left_right;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.Location = new System.Drawing.Point(220, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 30);
-            this.button1.TabIndex = 22;
-            this.button1.UseVisualStyleBackColor = true;
+            this.FlipSteeringButton.BackgroundImage = global::wheel01.Properties.Resources.left_right;
+            this.FlipSteeringButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.FlipSteeringButton.Location = new System.Drawing.Point(220, 20);
+            this.FlipSteeringButton.Name = "FlipSteeringButton";
+            this.FlipSteeringButton.Size = new System.Drawing.Size(30, 30);
+            this.FlipSteeringButton.TabIndex = 22;
+            this.FlipSteeringButton.UseVisualStyleBackColor = true;
+            this.FlipSteeringButton.Click += new System.EventHandler(this.FlipSteeringButton_Click);
             // 
             // label14
             // 
@@ -314,25 +338,16 @@
             this.progressBar8.Step = 1;
             this.progressBar8.TabIndex = 18;
             // 
-            // label8
+            // SteeringAxisDisplayText
             // 
-            this.label8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(130, 20);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(80, 30);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "-";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // progressBar2
-            // 
-            this.progressBar2.Location = new System.Drawing.Point(130, 60);
-            this.progressBar2.Maximum = 16383;
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(120, 20);
-            this.progressBar2.Step = 1;
-            this.progressBar2.TabIndex = 7;
+            this.SteeringAxisDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SteeringAxisDisplayText.Location = new System.Drawing.Point(130, 20);
+            this.SteeringAxisDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.SteeringAxisDisplayText.Name = "SteeringAxisDisplayText";
+            this.SteeringAxisDisplayText.Size = new System.Drawing.Size(80, 30);
+            this.SteeringAxisDisplayText.TabIndex = 14;
+            this.SteeringAxisDisplayText.Text = "-";
+            this.SteeringAxisDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
             // 
@@ -345,14 +360,15 @@
             this.label4.Text = "Steering Axis:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // progressBar1
+            // SteeringAxisDisplayBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 60);
-            this.progressBar1.Maximum = 16383;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(120, 20);
-            this.progressBar1.Step = 1;
-            this.progressBar1.TabIndex = 0;
+            this.SteeringAxisDisplayBar.Location = new System.Drawing.Point(10, 60);
+            this.SteeringAxisDisplayBar.Maximum = 32767;
+            this.SteeringAxisDisplayBar.Name = "SteeringAxisDisplayBar";
+            this.SteeringAxisDisplayBar.Size = new System.Drawing.Size(240, 20);
+            this.SteeringAxisDisplayBar.Step = 1;
+            this.SteeringAxisDisplayBar.TabIndex = 0;
+            this.SteeringAxisDisplayBar.Value = 16383;
             // 
             // label11
             // 
@@ -515,28 +531,6 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Pedals";
             // 
-            // EncoderMultRotPositionDisplayText
-            // 
-            this.EncoderMultRotPositionDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EncoderMultRotPositionDisplayText.Location = new System.Drawing.Point(220, 140);
-            this.EncoderMultRotPositionDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.EncoderMultRotPositionDisplayText.Name = "EncoderMultRotPositionDisplayText";
-            this.EncoderMultRotPositionDisplayText.Size = new System.Drawing.Size(119, 30);
-            this.EncoderMultRotPositionDisplayText.TabIndex = 21;
-            this.EncoderMultRotPositionDisplayText.Text = "-";
-            this.EncoderMultRotPositionDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label17
-            // 
-            this.label17.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(10, 140);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(200, 30);
-            this.label17.TabIndex = 19;
-            this.label17.Text = "Encoder Multi Rotation Position:";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -573,18 +567,17 @@
         private System.Windows.Forms.RichTextBox RxLogOutput;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar SteeringAxisDisplayBar;
         private System.Windows.Forms.ProgressBar progressBar5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ProgressBar progressBar4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ProgressBar progressBar3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label SteeringAxisDisplayText;
         private System.Windows.Forms.Label EncoderPositionDisplayText;
         private System.Windows.Forms.ProgressBar EncoderPositionDisplayBar;
         private System.Windows.Forms.Label label13;
@@ -594,7 +587,7 @@
         private System.Windows.Forms.ProgressBar progressBar8;
         private System.IO.Ports.SerialPort SerialPortController;
         private System.Windows.Forms.Timer VJoyInitDelay;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button FlipSteeringButton;
         private System.Windows.Forms.Timer DisplayUpdater;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RichTextBox LogOutput;

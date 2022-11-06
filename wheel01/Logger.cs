@@ -7,22 +7,22 @@ namespace wheel01
 {
     internal class Logger
     {
-        static public String appLog = "";
-        static public String rxLog = "";
-        static public String txLog = "";
+        public static String appLog = "";
+        public static String rxLog = "";
+        public static String txLog = "";
 
-        static public void App(string log)
+        public static void App(string log)
         {
             appLog = "- " + log + Environment.NewLine + appLog;
             Console.WriteLine(log);
         }
 
-        static public void Rx(string log)
+        public static void Rx(string log)
         {
             rxLog = log + Environment.NewLine + rxLog;
         }
 
-        static public void Tx(string log)
+        public static void Tx(string log)
         {
             txLog = log + Environment.NewLine + txLog;
         }

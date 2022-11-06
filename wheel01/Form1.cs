@@ -13,18 +13,9 @@ namespace wheel01
 {
     public partial class Form1 : Form
     {
-        const int maxEncoderValue = 4095;
-        const int minEncoderValue = 0;
-        const int encoderValueRange = maxEncoderValue - minEncoderValue + 1;
-        const int midEncoderValue = encoderValueRange / 2;
-        const int encoderBottomRange = minEncoderValue + 64;
-        const int encoderTopRange = maxEncoderValue - 64;
-
-        int encoderValue = midEncoderValue;
-        int encoderOverRotation = 0;
-
-        // PC to game vars
+        int steeringRotationRange = 3;
         int steeringPosition = VJoyWrapper.midValue;
+        bool steeringFlipped = false;
 
         public Form1()
         {
@@ -86,16 +77,18 @@ namespace wheel01
 
         private void DisplayUpdater_Tick(object sender, EventArgs e)
         {
-            EncoderPositionDisplayText.Text = encoderValue.ToString();
-            EncoderPositionDisplayBar.Value = encoderValue;
+            EncoderPositionDisplayText.Text = Encoder.currentValue.ToString();
+            EncoderPositionDisplayBar.Value = Encoder.currentValue;
 
-            EncoderMultRotPositionDisplayText.Text = ((encoderValueRange * encoderOverRotation) + encoderValue).ToString();
-
+            EncoderMultRotPositionDisplayText.Text = Encoder.CurrentMultiRotationValue().ToString();
 
             RxLogOutput.Text = Logger.rxLog;
             TxLogOutput.Text = Logger.txLog;
 
-            SteeringRangeDisplayText.Text = (SteeringRangeSlider.Value * 180) + "°";
+            SteeringAxisDisplayText.Text = steeringPosition.ToString();
+            SteeringAxisDisplayBar.Value = steeringPosition;
+
+            SteeringRangeDisplayText.Text = (steeringRotationRange * 360) + "°";
 
             LogOutput.Text = Logger.appLog;
         }
@@ -129,23 +122,50 @@ namespace wheel01
             switch (command)
             {
                 case "E":
-                    int newEncoderPosition = int.Parse(value);
-
-                    if (newEncoderPosition < encoderBottomRange && encoderValue > encoderTopRange)
-                    {
-                        // overlap
-                        encoderOverRotation++;
-                    }
-                    else if (newEncoderPosition > encoderTopRange && encoderValue < encoderBottomRange)
-                    {
-                        // underlap
-                        encoderOverRotation--;
-                    }
-
-                    encoderValue = newEncoderPosition;
-                    
+                    Encoder.UpdateValue(int.Parse(value));
+                    CalculateSteeringPosition();
                     break;
             }
+        }
+
+        private void SteeringRangeSlider_Scroll(object sender, EventArgs e)
+        {
+            steeringRotationRange = SteeringRangeSlider.Value;
+            CalculateSteeringPosition();
+        }
+
+        private void CalculateSteeringPosition()
+        {
+            double fullRange = Encoder.valueRange * steeringRotationRange;
+            double mult = VJoyWrapper.valueRange / fullRange;
+            double beforeOffset = Encoder.CurrentMultiRotationValue() * mult;
+            double afterOffset = beforeOffset + VJoyWrapper.midValue;
+
+            if (afterOffset > VJoyWrapper.maxValue)
+            {
+                afterOffset = VJoyWrapper.maxValue;
+            }
+
+            if (afterOffset < VJoyWrapper.minValue)
+            {
+                afterOffset = VJoyWrapper.minValue;
+            }
+
+            if (steeringFlipped)
+            {
+                afterOffset /= -1;
+                afterOffset += VJoyWrapper.maxValue;
+            }
+
+            steeringPosition = (int)afterOffset;
+
+            VJoyWrapper.SetAxis(steeringPosition, HID_USAGES.HID_USAGE_X);
+        }
+
+        private void FlipSteeringButton_Click(object sender, EventArgs e)
+        {
+            steeringFlipped = !steeringFlipped;
+            CalculateSteeringPosition();
         }
     }
 }
