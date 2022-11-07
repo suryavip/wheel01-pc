@@ -69,6 +69,7 @@ namespace wheel01
                 {
                     Logger.App("Failed connecting to " + selected + ": " + ex.Message);
                 }
+
                 SerialPortController.Write("C:");
                 Logger.Tx("C:");
                 Logger.App("Connected to " + selected + "!");
@@ -165,6 +166,7 @@ namespace wheel01
         private void FlipSteeringButton_Click(object sender, EventArgs e)
         {
             steeringFlipped = !steeringFlipped;
+            Logger.App("Flip steering wheel: " + steeringFlipped);
             CalculateSteeringPosition();
         }
     }
