@@ -108,17 +108,13 @@
             this.groupBox1.Controls.Add(this.EncoderPositionDisplayText);
             this.groupBox1.Controls.Add(this.EncoderPositionDisplayBar);
             this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.TxLogOutput);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.RxLogOutput);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.COMPortsRefreshButton);
             this.groupBox1.Controls.Add(this.COMPortsComboBox);
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(350, 340);
+            this.groupBox1.Size = new System.Drawing.Size(350, 160);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Device";
@@ -126,7 +122,7 @@
             // EncoderMultRotPositionDisplayText
             // 
             this.EncoderMultRotPositionDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EncoderMultRotPositionDisplayText.Location = new System.Drawing.Point(220, 140);
+            this.EncoderMultRotPositionDisplayText.Location = new System.Drawing.Point(220, 120);
             this.EncoderMultRotPositionDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.EncoderMultRotPositionDisplayText.Name = "EncoderMultRotPositionDisplayText";
             this.EncoderMultRotPositionDisplayText.Size = new System.Drawing.Size(119, 30);
@@ -137,7 +133,7 @@
             // label17
             // 
             this.label17.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(10, 140);
+            this.label17.Location = new System.Drawing.Point(10, 120);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(200, 30);
@@ -148,7 +144,7 @@
             // EncoderPositionDisplayText
             // 
             this.EncoderPositionDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EncoderPositionDisplayText.Location = new System.Drawing.Point(220, 70);
+            this.EncoderPositionDisplayText.Location = new System.Drawing.Point(220, 60);
             this.EncoderPositionDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.EncoderPositionDisplayText.Name = "EncoderPositionDisplayText";
             this.EncoderPositionDisplayText.Size = new System.Drawing.Size(119, 30);
@@ -158,7 +154,7 @@
             // 
             // EncoderPositionDisplayBar
             // 
-            this.EncoderPositionDisplayBar.Location = new System.Drawing.Point(10, 100);
+            this.EncoderPositionDisplayBar.Location = new System.Drawing.Point(10, 90);
             this.EncoderPositionDisplayBar.Maximum = 4095;
             this.EncoderPositionDisplayBar.Name = "EncoderPositionDisplayBar";
             this.EncoderPositionDisplayBar.Size = new System.Drawing.Size(330, 20);
@@ -167,7 +163,7 @@
             // label13
             // 
             this.label13.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(10, 70);
+            this.label13.Location = new System.Drawing.Point(10, 60);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(119, 30);
@@ -179,18 +175,18 @@
             // 
             this.TxLogOutput.BackColor = System.Drawing.SystemColors.Window;
             this.TxLogOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxLogOutput.Location = new System.Drawing.Point(180, 220);
+            this.TxLogOutput.Location = new System.Drawing.Point(180, 50);
             this.TxLogOutput.Name = "TxLogOutput";
             this.TxLogOutput.ReadOnly = true;
             this.TxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.TxLogOutput.Size = new System.Drawing.Size(160, 110);
+            this.TxLogOutput.Size = new System.Drawing.Size(160, 90);
             this.TxLogOutput.TabIndex = 7;
             this.TxLogOutput.Text = "";
             // 
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(180, 190);
+            this.label3.Location = new System.Drawing.Point(180, 20);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(119, 30);
@@ -201,7 +197,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 190);
+            this.label2.Location = new System.Drawing.Point(10, 20);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 30);
@@ -213,11 +209,11 @@
             // 
             this.RxLogOutput.BackColor = System.Drawing.SystemColors.Window;
             this.RxLogOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.RxLogOutput.Location = new System.Drawing.Point(10, 220);
+            this.RxLogOutput.Location = new System.Drawing.Point(10, 50);
             this.RxLogOutput.Name = "RxLogOutput";
             this.RxLogOutput.ReadOnly = true;
             this.RxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.RxLogOutput.Size = new System.Drawing.Size(160, 110);
+            this.RxLogOutput.Size = new System.Drawing.Size(160, 90);
             this.RxLogOutput.TabIndex = 4;
             this.RxLogOutput.Text = "";
             // 
@@ -248,7 +244,7 @@
             this.groupBox2.Location = new System.Drawing.Point(370, 10);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(260, 270);
+            this.groupBox2.Size = new System.Drawing.Size(220, 230);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Steering";
@@ -256,10 +252,10 @@
             // SteeringRangeDisplayText
             // 
             this.SteeringRangeDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SteeringRangeDisplayText.Location = new System.Drawing.Point(130, 100);
+            this.SteeringRangeDisplayText.Location = new System.Drawing.Point(110, 90);
             this.SteeringRangeDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.SteeringRangeDisplayText.Name = "SteeringRangeDisplayText";
-            this.SteeringRangeDisplayText.Size = new System.Drawing.Size(120, 30);
+            this.SteeringRangeDisplayText.Size = new System.Drawing.Size(100, 30);
             this.SteeringRangeDisplayText.TabIndex = 26;
             this.SteeringRangeDisplayText.Text = "-";
             this.SteeringRangeDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -267,11 +263,11 @@
             // SteeringRangeSlider
             // 
             this.SteeringRangeSlider.AutoSize = false;
-            this.SteeringRangeSlider.Location = new System.Drawing.Point(10, 130);
+            this.SteeringRangeSlider.Location = new System.Drawing.Point(10, 120);
             this.SteeringRangeSlider.Maximum = 4;
             this.SteeringRangeSlider.Minimum = 1;
             this.SteeringRangeSlider.Name = "SteeringRangeSlider";
-            this.SteeringRangeSlider.Size = new System.Drawing.Size(240, 40);
+            this.SteeringRangeSlider.Size = new System.Drawing.Size(200, 40);
             this.SteeringRangeSlider.TabIndex = 25;
             this.SteeringRangeSlider.Value = 3;
             this.SteeringRangeSlider.Scroll += new System.EventHandler(this.SteeringRangeSlider_Scroll);
@@ -279,10 +275,10 @@
             // label12
             // 
             this.label12.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(10, 100);
+            this.label12.Location = new System.Drawing.Point(10, 90);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(119, 30);
+            this.label12.Size = new System.Drawing.Size(100, 30);
             this.label12.TabIndex = 24;
             this.label12.Text = "Steering Range:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -291,7 +287,7 @@
             // 
             this.FlipSteeringButton.BackgroundImage = global::wheel01.Properties.Resources.left_right;
             this.FlipSteeringButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.FlipSteeringButton.Location = new System.Drawing.Point(220, 20);
+            this.FlipSteeringButton.Location = new System.Drawing.Point(180, 20);
             this.FlipSteeringButton.Name = "FlipSteeringButton";
             this.FlipSteeringButton.Size = new System.Drawing.Size(30, 30);
             this.FlipSteeringButton.TabIndex = 22;
@@ -301,50 +297,50 @@
             // label14
             // 
             this.label14.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(130, 190);
+            this.label14.Location = new System.Drawing.Point(110, 170);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(119, 30);
+            this.label14.Size = new System.Drawing.Size(100, 30);
             this.label14.TabIndex = 21;
             this.label14.Text = "-";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // progressBar7
             // 
-            this.progressBar7.Location = new System.Drawing.Point(130, 230);
+            this.progressBar7.Location = new System.Drawing.Point(110, 200);
             this.progressBar7.Maximum = 10000;
             this.progressBar7.Name = "progressBar7";
-            this.progressBar7.Size = new System.Drawing.Size(120, 20);
+            this.progressBar7.Size = new System.Drawing.Size(100, 20);
             this.progressBar7.Step = 1;
             this.progressBar7.TabIndex = 20;
             // 
             // label15
             // 
             this.label15.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(10, 190);
+            this.label15.Location = new System.Drawing.Point(10, 170);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(119, 30);
+            this.label15.Size = new System.Drawing.Size(100, 30);
             this.label15.TabIndex = 19;
             this.label15.Text = "FFB Value:";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // progressBar8
             // 
-            this.progressBar8.Location = new System.Drawing.Point(10, 230);
+            this.progressBar8.Location = new System.Drawing.Point(10, 200);
             this.progressBar8.Maximum = 10000;
             this.progressBar8.Name = "progressBar8";
-            this.progressBar8.Size = new System.Drawing.Size(120, 20);
+            this.progressBar8.Size = new System.Drawing.Size(100, 20);
             this.progressBar8.Step = 1;
             this.progressBar8.TabIndex = 18;
             // 
             // SteeringAxisDisplayText
             // 
             this.SteeringAxisDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SteeringAxisDisplayText.Location = new System.Drawing.Point(130, 20);
+            this.SteeringAxisDisplayText.Location = new System.Drawing.Point(110, 20);
             this.SteeringAxisDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.SteeringAxisDisplayText.Name = "SteeringAxisDisplayText";
-            this.SteeringAxisDisplayText.Size = new System.Drawing.Size(80, 30);
+            this.SteeringAxisDisplayText.Size = new System.Drawing.Size(60, 30);
             this.SteeringAxisDisplayText.TabIndex = 14;
             this.SteeringAxisDisplayText.Text = "-";
             this.SteeringAxisDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -355,7 +351,7 @@
             this.label4.Location = new System.Drawing.Point(10, 20);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 30);
+            this.label4.Size = new System.Drawing.Size(100, 30);
             this.label4.TabIndex = 6;
             this.label4.Text = "Steering Axis:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -365,7 +361,7 @@
             this.SteeringAxisDisplayBar.Location = new System.Drawing.Point(10, 60);
             this.SteeringAxisDisplayBar.Maximum = 32767;
             this.SteeringAxisDisplayBar.Name = "SteeringAxisDisplayBar";
-            this.SteeringAxisDisplayBar.Size = new System.Drawing.Size(240, 20);
+            this.SteeringAxisDisplayBar.Size = new System.Drawing.Size(200, 20);
             this.SteeringAxisDisplayBar.Step = 1;
             this.SteeringAxisDisplayBar.TabIndex = 0;
             this.SteeringAxisDisplayBar.Value = 16383;
@@ -373,10 +369,10 @@
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(100, 180);
+            this.label11.Location = new System.Drawing.Point(110, 140);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(90, 30);
+            this.label11.Size = new System.Drawing.Size(100, 30);
             this.label11.TabIndex = 17;
             this.label11.Text = "-";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -384,10 +380,10 @@
             // label10
             // 
             this.label10.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(100, 100);
+            this.label10.Location = new System.Drawing.Point(110, 80);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(90, 30);
+            this.label10.Size = new System.Drawing.Size(100, 30);
             this.label10.TabIndex = 16;
             this.label10.Text = "-";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -395,60 +391,60 @@
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(100, 20);
+            this.label9.Location = new System.Drawing.Point(110, 20);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(90, 30);
+            this.label9.Size = new System.Drawing.Size(100, 30);
             this.label9.TabIndex = 15;
             this.label9.Text = "-";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // progressBar5
             // 
-            this.progressBar5.Location = new System.Drawing.Point(10, 220);
+            this.progressBar5.Location = new System.Drawing.Point(10, 170);
             this.progressBar5.Maximum = 32767;
             this.progressBar5.Name = "progressBar5";
-            this.progressBar5.Size = new System.Drawing.Size(180, 20);
+            this.progressBar5.Size = new System.Drawing.Size(200, 20);
             this.progressBar5.Step = 1;
             this.progressBar5.TabIndex = 13;
             // 
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(10, 180);
+            this.label7.Location = new System.Drawing.Point(10, 140);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 30);
+            this.label7.Size = new System.Drawing.Size(100, 30);
             this.label7.TabIndex = 12;
             this.label7.Text = "Clutch:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // progressBar4
             // 
-            this.progressBar4.Location = new System.Drawing.Point(10, 140);
+            this.progressBar4.Location = new System.Drawing.Point(10, 110);
             this.progressBar4.Maximum = 32767;
             this.progressBar4.Name = "progressBar4";
-            this.progressBar4.Size = new System.Drawing.Size(180, 20);
+            this.progressBar4.Size = new System.Drawing.Size(200, 20);
             this.progressBar4.Step = 1;
             this.progressBar4.TabIndex = 11;
             // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(10, 100);
+            this.label6.Location = new System.Drawing.Point(10, 80);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(90, 30);
+            this.label6.Size = new System.Drawing.Size(100, 30);
             this.label6.TabIndex = 10;
             this.label6.Text = "Brake:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // progressBar3
             // 
-            this.progressBar3.Location = new System.Drawing.Point(10, 60);
+            this.progressBar3.Location = new System.Drawing.Point(10, 50);
             this.progressBar3.Maximum = 32767;
             this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(180, 20);
+            this.progressBar3.Size = new System.Drawing.Size(200, 20);
             this.progressBar3.Step = 1;
             this.progressBar3.TabIndex = 9;
             // 
@@ -458,7 +454,7 @@
             this.label5.Location = new System.Drawing.Point(10, 20);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 30);
+            this.label5.Size = new System.Drawing.Size(100, 30);
             this.label5.TabIndex = 8;
             this.label5.Text = "Throttle:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -483,9 +479,13 @@
             // 
             this.groupBox3.Controls.Add(this.CopyLogToClipboardButton);
             this.groupBox3.Controls.Add(this.LogOutput);
-            this.groupBox3.Location = new System.Drawing.Point(370, 290);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.RxLogOutput);
+            this.groupBox3.Controls.Add(this.TxLogOutput);
+            this.groupBox3.Location = new System.Drawing.Point(10, 180);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(340, 130);
+            this.groupBox3.Size = new System.Drawing.Size(350, 270);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
@@ -494,7 +494,7 @@
             // 
             this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
             this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(300, 20);
+            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(310, 230);
             this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
             this.CopyLogToClipboardButton.Size = new System.Drawing.Size(30, 30);
             this.CopyLogToClipboardButton.TabIndex = 6;
@@ -506,11 +506,11 @@
             this.LogOutput.BackColor = System.Drawing.SystemColors.Window;
             this.LogOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.LogOutput.HideSelection = false;
-            this.LogOutput.Location = new System.Drawing.Point(10, 20);
+            this.LogOutput.Location = new System.Drawing.Point(10, 150);
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
             this.LogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogOutput.Size = new System.Drawing.Size(280, 100);
+            this.LogOutput.Size = new System.Drawing.Size(290, 110);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
             // 
@@ -525,9 +525,9 @@
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.progressBar5);
             this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Location = new System.Drawing.Point(640, 10);
+            this.groupBox4.Location = new System.Drawing.Point(370, 250);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 270);
+            this.groupBox4.Size = new System.Drawing.Size(220, 200);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Pedals";
@@ -536,7 +536,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(851, 431);
+            this.ClientSize = new System.Drawing.Size(601, 461);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
