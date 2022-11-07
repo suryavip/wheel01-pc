@@ -465,6 +465,7 @@
             // 
             // SerialPortController
             // 
+            this.SerialPortController.ReceivedBytesThreshold = 16;
             this.SerialPortController.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPortController_DataReceived);
             // 
             // VJoyInitDelay
