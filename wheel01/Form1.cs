@@ -13,7 +13,7 @@ namespace wheel01
 {
     public partial class Form1 : Form
     {
-        int steeringRotationRange = 3;
+        double steeringRotationRange = 3;
         int steeringPosition = VJoyWrapper.midValue;
         bool steeringFlipped = false;
 
@@ -128,7 +128,8 @@ namespace wheel01
 
         private void SteeringRangeSlider_Scroll(object sender, EventArgs e)
         {
-            steeringRotationRange = SteeringRangeSlider.Value;
+            steeringRotationRange = (double)SteeringRangeSlider.Value / 2;
+            Logger.App("Set steering range: " + steeringRotationRange);
             CalculateSteeringPosition();
         }
 

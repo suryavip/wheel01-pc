@@ -228,12 +228,12 @@
             // 
             this.SteeringRangeSlider.AutoSize = false;
             this.SteeringRangeSlider.Location = new System.Drawing.Point(10, 120);
-            this.SteeringRangeSlider.Maximum = 4;
+            this.SteeringRangeSlider.Maximum = 8;
             this.SteeringRangeSlider.Minimum = 1;
             this.SteeringRangeSlider.Name = "SteeringRangeSlider";
             this.SteeringRangeSlider.Size = new System.Drawing.Size(200, 40);
             this.SteeringRangeSlider.TabIndex = 25;
-            this.SteeringRangeSlider.Value = 3;
+            this.SteeringRangeSlider.Value = 6;
             this.SteeringRangeSlider.Scroll += new System.EventHandler(this.SteeringRangeSlider_Scroll);
             // 
             // label12
