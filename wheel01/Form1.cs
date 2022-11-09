@@ -78,10 +78,7 @@ namespace wheel01
 
         private void DisplayUpdater_Tick(object sender, EventArgs e)
         {
-            EncoderPositionDisplayText.Text = Encoder.currentValue.ToString();
-            EncoderPositionDisplayBar.Value = Encoder.currentValue;
-
-            EncoderMultRotPositionDisplayText.Text = Encoder.CurrentMultiRotationValue().ToString();
+            EncoderMultRotPositionDisplayText.Text = Encoder.currentValue.ToString();
 
             RxLogOutput.Text = Logger.rxLog;
             TxLogOutput.Text = Logger.txLog;
@@ -123,7 +120,7 @@ namespace wheel01
             switch (command)
             {
                 case "E":
-                    Encoder.UpdateValue(int.Parse(value));
+                    Encoder.currentValue = int.Parse(value);
                     CalculateSteeringPosition();
                     break;
             }
@@ -139,7 +136,7 @@ namespace wheel01
         {
             double fullRange = Encoder.valueRange * steeringRotationRange;
             double mult = VJoyWrapper.valueRange / fullRange;
-            double beforeOffset = Encoder.CurrentMultiRotationValue() * mult;
+            double beforeOffset = Encoder.currentValue * mult;
             double afterOffset = beforeOffset + VJoyWrapper.midValue;
 
             if (afterOffset > VJoyWrapper.maxValue)
