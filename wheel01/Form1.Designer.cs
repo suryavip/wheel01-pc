@@ -32,6 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.COMPortsComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.ConnectButton = new System.Windows.Forms.Button();
             this.EncoderMultRotPositionDisplayText = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.COMPortsRefreshButton = new System.Windows.Forms.Button();
@@ -44,10 +46,8 @@
             this.SteeringRangeSlider = new System.Windows.Forms.TrackBar();
             this.label12 = new System.Windows.Forms.Label();
             this.FlipSteeringButton = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.progressBar7 = new System.Windows.Forms.ProgressBar();
+            this.FFBValueDisplayText = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.progressBar8 = new System.Windows.Forms.ProgressBar();
             this.SteeringAxisDisplayText = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SteeringAxisDisplayBar = new System.Windows.Forms.ProgressBar();
@@ -67,6 +67,9 @@
             this.CopyLogToClipboardButton = new System.Windows.Forms.Button();
             this.LogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.FFBValueSender = new System.Windows.Forms.Timer(this.components);
+            this.ConnectedSerialPort = new System.Windows.Forms.Label();
+            this.FFBValueDisplayBar = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
@@ -94,12 +97,14 @@
             this.COMPortsComboBox.Location = new System.Drawing.Point(130, 23);
             this.COMPortsComboBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.COMPortsComboBox.Name = "COMPortsComboBox";
-            this.COMPortsComboBox.Size = new System.Drawing.Size(170, 23);
+            this.COMPortsComboBox.Size = new System.Drawing.Size(130, 23);
             this.COMPortsComboBox.TabIndex = 1;
-            this.COMPortsComboBox.SelectedIndexChanged += new System.EventHandler(this.COMPortsComboBox_SelectedIndexChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ConnectedSerialPort);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.ConnectButton);
             this.groupBox1.Controls.Add(this.EncoderMultRotPositionDisplayText);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.label1);
@@ -108,15 +113,37 @@
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(350, 100);
+            this.groupBox1.Size = new System.Drawing.Size(350, 140);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Device";
             // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(10, 60);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(200, 30);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Current port:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ConnectButton
+            // 
+            this.ConnectButton.BackgroundImage = global::wheel01.Properties.Resources.plug;
+            this.ConnectButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ConnectButton.Location = new System.Drawing.Point(310, 20);
+            this.ConnectButton.Name = "ConnectButton";
+            this.ConnectButton.Size = new System.Drawing.Size(30, 30);
+            this.ConnectButton.TabIndex = 22;
+            this.ConnectButton.UseVisualStyleBackColor = true;
+            this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
+            // 
             // EncoderMultRotPositionDisplayText
             // 
             this.EncoderMultRotPositionDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EncoderMultRotPositionDisplayText.Location = new System.Drawing.Point(220, 60);
+            this.EncoderMultRotPositionDisplayText.Location = new System.Drawing.Point(220, 100);
             this.EncoderMultRotPositionDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.EncoderMultRotPositionDisplayText.Name = "EncoderMultRotPositionDisplayText";
             this.EncoderMultRotPositionDisplayText.Size = new System.Drawing.Size(119, 30);
@@ -127,7 +154,7 @@
             // label17
             // 
             this.label17.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(10, 60);
+            this.label17.Location = new System.Drawing.Point(10, 100);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(200, 30);
@@ -139,7 +166,7 @@
             // 
             this.COMPortsRefreshButton.BackgroundImage = global::wheel01.Properties.Resources.arrows_rotate_11;
             this.COMPortsRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.COMPortsRefreshButton.Location = new System.Drawing.Point(310, 20);
+            this.COMPortsRefreshButton.Location = new System.Drawing.Point(270, 20);
             this.COMPortsRefreshButton.Name = "COMPortsRefreshButton";
             this.COMPortsRefreshButton.Size = new System.Drawing.Size(30, 30);
             this.COMPortsRefreshButton.TabIndex = 3;
@@ -154,7 +181,7 @@
             this.TxLogOutput.Name = "TxLogOutput";
             this.TxLogOutput.ReadOnly = true;
             this.TxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.TxLogOutput.Size = new System.Drawing.Size(160, 120);
+            this.TxLogOutput.Size = new System.Drawing.Size(160, 100);
             this.TxLogOutput.TabIndex = 7;
             this.TxLogOutput.Text = "";
             // 
@@ -188,20 +215,19 @@
             this.RxLogOutput.Name = "RxLogOutput";
             this.RxLogOutput.ReadOnly = true;
             this.RxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.RxLogOutput.Size = new System.Drawing.Size(160, 120);
+            this.RxLogOutput.Size = new System.Drawing.Size(160, 100);
             this.RxLogOutput.TabIndex = 4;
             this.RxLogOutput.Text = "";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.FFBValueDisplayBar);
             this.groupBox2.Controls.Add(this.SteeringRangeDisplayText);
             this.groupBox2.Controls.Add(this.SteeringRangeSlider);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.FlipSteeringButton);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.progressBar7);
+            this.groupBox2.Controls.Add(this.FFBValueDisplayText);
             this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.progressBar8);
             this.groupBox2.Controls.Add(this.SteeringAxisDisplayText);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.SteeringAxisDisplayBar);
@@ -258,25 +284,16 @@
             this.FlipSteeringButton.UseVisualStyleBackColor = true;
             this.FlipSteeringButton.Click += new System.EventHandler(this.FlipSteeringButton_Click);
             // 
-            // label14
+            // FFBValueDisplayText
             // 
-            this.label14.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(110, 170);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(100, 30);
-            this.label14.TabIndex = 21;
-            this.label14.Text = "-";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // progressBar7
-            // 
-            this.progressBar7.Location = new System.Drawing.Point(110, 200);
-            this.progressBar7.Maximum = 10000;
-            this.progressBar7.Name = "progressBar7";
-            this.progressBar7.Size = new System.Drawing.Size(100, 20);
-            this.progressBar7.Step = 1;
-            this.progressBar7.TabIndex = 20;
+            this.FFBValueDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FFBValueDisplayText.Location = new System.Drawing.Point(110, 170);
+            this.FFBValueDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FFBValueDisplayText.Name = "FFBValueDisplayText";
+            this.FFBValueDisplayText.Size = new System.Drawing.Size(100, 30);
+            this.FFBValueDisplayText.TabIndex = 21;
+            this.FFBValueDisplayText.Text = "-";
+            this.FFBValueDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label15
             // 
@@ -288,15 +305,6 @@
             this.label15.TabIndex = 19;
             this.label15.Text = "FFB Value:";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // progressBar8
-            // 
-            this.progressBar8.Location = new System.Drawing.Point(10, 200);
-            this.progressBar8.Maximum = 10000;
-            this.progressBar8.Name = "progressBar8";
-            this.progressBar8.Size = new System.Drawing.Size(100, 20);
-            this.progressBar8.Step = 1;
-            this.progressBar8.TabIndex = 18;
             // 
             // SteeringAxisDisplayText
             // 
@@ -425,7 +433,8 @@
             // 
             // SerialPortController
             // 
-            this.SerialPortController.ReceivedBytesThreshold = 16;
+            this.SerialPortController.BaudRate = 19200;
+            this.SerialPortController.ReceivedBytesThreshold = 8;
             this.SerialPortController.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPortController_DataReceived);
             // 
             // VJoyInitDelay
@@ -447,9 +456,9 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.RxLogOutput);
             this.groupBox3.Controls.Add(this.TxLogOutput);
-            this.groupBox3.Location = new System.Drawing.Point(10, 120);
+            this.groupBox3.Location = new System.Drawing.Point(10, 160);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(350, 330);
+            this.groupBox3.Size = new System.Drawing.Size(350, 290);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
@@ -458,7 +467,7 @@
             // 
             this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
             this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(310, 290);
+            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(310, 250);
             this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
             this.CopyLogToClipboardButton.Size = new System.Drawing.Size(30, 30);
             this.CopyLogToClipboardButton.TabIndex = 6;
@@ -470,11 +479,11 @@
             this.LogOutput.BackColor = System.Drawing.SystemColors.Window;
             this.LogOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.LogOutput.HideSelection = false;
-            this.LogOutput.Location = new System.Drawing.Point(10, 180);
+            this.LogOutput.Location = new System.Drawing.Point(10, 160);
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
             this.LogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogOutput.Size = new System.Drawing.Size(290, 140);
+            this.LogOutput.Size = new System.Drawing.Size(290, 120);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
             // 
@@ -495,6 +504,32 @@
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Pedals";
+            // 
+            // FFBValueSender
+            // 
+            this.FFBValueSender.Interval = 8;
+            this.FFBValueSender.Tick += new System.EventHandler(this.FFBValueSender_Tick);
+            // 
+            // ConnectedSerialPort
+            // 
+            this.ConnectedSerialPort.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConnectedSerialPort.Location = new System.Drawing.Point(220, 60);
+            this.ConnectedSerialPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ConnectedSerialPort.Name = "ConnectedSerialPort";
+            this.ConnectedSerialPort.Size = new System.Drawing.Size(119, 30);
+            this.ConnectedSerialPort.TabIndex = 24;
+            this.ConnectedSerialPort.Text = "-";
+            this.ConnectedSerialPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // FFBValueDisplayBar
+            // 
+            this.FFBValueDisplayBar.Location = new System.Drawing.Point(10, 200);
+            this.FFBValueDisplayBar.Maximum = 20000;
+            this.FFBValueDisplayBar.Name = "FFBValueDisplayBar";
+            this.FFBValueDisplayBar.Size = new System.Drawing.Size(200, 20);
+            this.FFBValueDisplayBar.Step = 1;
+            this.FFBValueDisplayBar.TabIndex = 27;
+            this.FFBValueDisplayBar.Value = 10000;
             // 
             // Form1
             // 
@@ -543,10 +578,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label SteeringAxisDisplayText;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ProgressBar progressBar7;
+        private System.Windows.Forms.Label FFBValueDisplayText;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ProgressBar progressBar8;
         private System.IO.Ports.SerialPort SerialPortController;
         private System.Windows.Forms.Timer VJoyInitDelay;
         private System.Windows.Forms.Button FlipSteeringButton;
@@ -560,6 +593,11 @@
         private System.Windows.Forms.TrackBar SteeringRangeSlider;
         private System.Windows.Forms.Label EncoderMultRotPositionDisplayText;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Timer FFBValueSender;
+        private System.Windows.Forms.Button ConnectButton;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label ConnectedSerialPort;
+        private System.Windows.Forms.ProgressBar FFBValueDisplayBar;
     }
 }
 

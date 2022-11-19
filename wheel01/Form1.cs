@@ -15,7 +15,7 @@ namespace wheel01
     {
         double steeringRotationRange = 3;
         int steeringPosition = VJoyWrapper.midValue;
-        bool steeringFlipped = false;
+        bool steeringFlipped = true;
 
         public Form1()
         {
@@ -46,12 +46,13 @@ namespace wheel01
             Logger.App("Port list updated!");
         }
 
-        private void COMPortsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ConnectButton_Click(object sender, EventArgs e)
         {
             string selected = COMPortsComboBox.SelectedItem.ToString();
             Logger.App("Connecting to " + selected + "...");
             try
             {
+                FFBValueSender.Enabled = false;
                 SerialPortController.Close();
             }
             catch (Exception ex)
@@ -64,20 +65,21 @@ namespace wheel01
                 {
                     SerialPortController.PortName = selected;
                     SerialPortController.Open();
+                    FFBValueSender.Enabled = true;
                 }
                 catch (Exception ex)
                 {
                     Logger.App("Failed connecting to " + selected + ": " + ex.Message);
                 }
 
-                SerialPortController.Write("C:");
-                Logger.Tx("C:");
                 Logger.App("Connected to " + selected + "!");
             }
         }
 
         private void DisplayUpdater_Tick(object sender, EventArgs e)
         {
+            ConnectedSerialPort.Text = SerialPortController.IsOpen ? SerialPortController.PortName : "-";
+
             EncoderMultRotPositionDisplayText.Text = Encoder.currentValue.ToString();
 
             RxLogOutput.Text = Logger.rxLog;
@@ -87,6 +89,9 @@ namespace wheel01
             SteeringAxisDisplayBar.Value = steeringPosition;
 
             SteeringRangeDisplayText.Text = (steeringRotationRange * 360) + "°";
+
+            FFBValueDisplayText.Text = VJoyWrapper.ffbValue.ToString();
+            FFBValueDisplayBar.Value = VJoyWrapper.ffbValue + 10000;
 
             LogOutput.Text = Logger.appLog;
         }
@@ -100,7 +105,7 @@ namespace wheel01
         {
             try
             {
-                string read = SerialPortController.ReadLine();
+                string read = SerialPortController.ReadTo(";");
                 if (read == null || read.Length == 0) return;
                 Logger.Rx(read);
 
@@ -166,6 +171,15 @@ namespace wheel01
             steeringFlipped = !steeringFlipped;
             Logger.App("Flip steering wheel: " + steeringFlipped);
             CalculateSteeringPosition();
+        }
+
+        private void FFBValueSender_Tick(object sender, EventArgs e)
+        {
+            if (SerialPortController.IsOpen == false) return;
+
+            string tosent = "F:" + VJoyWrapper.ffbValue + ";";
+            SerialPortController.Write(tosent);
+            Logger.Tx(tosent);
         }
     }
 }
