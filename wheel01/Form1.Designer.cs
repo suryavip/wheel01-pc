@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.COMPortsComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ConnectedSerialPort = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.EncoderMultRotPositionDisplayText = new System.Windows.Forms.Label();
@@ -42,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.RxLogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.FFBValueDisplayBar = new System.Windows.Forms.ProgressBar();
             this.SteeringRangeDisplayText = new System.Windows.Forms.Label();
             this.SteeringRangeSlider = new System.Windows.Forms.TrackBar();
             this.label12 = new System.Windows.Forms.Label();
@@ -68,8 +70,6 @@
             this.LogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.FFBValueSender = new System.Windows.Forms.Timer(this.components);
-            this.ConnectedSerialPort = new System.Windows.Forms.Label();
-            this.FFBValueDisplayBar = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
@@ -117,6 +117,17 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Device";
+            // 
+            // ConnectedSerialPort
+            // 
+            this.ConnectedSerialPort.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConnectedSerialPort.Location = new System.Drawing.Point(220, 60);
+            this.ConnectedSerialPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ConnectedSerialPort.Name = "ConnectedSerialPort";
+            this.ConnectedSerialPort.Size = new System.Drawing.Size(119, 30);
+            this.ConnectedSerialPort.TabIndex = 24;
+            this.ConnectedSerialPort.Text = "-";
+            this.ConnectedSerialPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label8
             // 
@@ -238,6 +249,16 @@
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Steering";
+            // 
+            // FFBValueDisplayBar
+            // 
+            this.FFBValueDisplayBar.Location = new System.Drawing.Point(10, 200);
+            this.FFBValueDisplayBar.Maximum = 20000;
+            this.FFBValueDisplayBar.Name = "FFBValueDisplayBar";
+            this.FFBValueDisplayBar.Size = new System.Drawing.Size(200, 20);
+            this.FFBValueDisplayBar.Step = 1;
+            this.FFBValueDisplayBar.TabIndex = 27;
+            this.FFBValueDisplayBar.Value = 10000;
             // 
             // SteeringRangeDisplayText
             // 
@@ -434,7 +455,9 @@
             // SerialPortController
             // 
             this.SerialPortController.BaudRate = 19200;
+            this.SerialPortController.DtrEnable = true;
             this.SerialPortController.ReceivedBytesThreshold = 8;
+            this.SerialPortController.RtsEnable = true;
             this.SerialPortController.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPortController_DataReceived);
             // 
             // VJoyInitDelay
@@ -509,27 +532,6 @@
             // 
             this.FFBValueSender.Interval = 8;
             this.FFBValueSender.Tick += new System.EventHandler(this.FFBValueSender_Tick);
-            // 
-            // ConnectedSerialPort
-            // 
-            this.ConnectedSerialPort.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConnectedSerialPort.Location = new System.Drawing.Point(220, 60);
-            this.ConnectedSerialPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ConnectedSerialPort.Name = "ConnectedSerialPort";
-            this.ConnectedSerialPort.Size = new System.Drawing.Size(119, 30);
-            this.ConnectedSerialPort.TabIndex = 24;
-            this.ConnectedSerialPort.Text = "-";
-            this.ConnectedSerialPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // FFBValueDisplayBar
-            // 
-            this.FFBValueDisplayBar.Location = new System.Drawing.Point(10, 200);
-            this.FFBValueDisplayBar.Maximum = 20000;
-            this.FFBValueDisplayBar.Name = "FFBValueDisplayBar";
-            this.FFBValueDisplayBar.Size = new System.Drawing.Size(200, 20);
-            this.FFBValueDisplayBar.Step = 1;
-            this.FFBValueDisplayBar.TabIndex = 27;
-            this.FFBValueDisplayBar.Value = 10000;
             // 
             // Form1
             // 
