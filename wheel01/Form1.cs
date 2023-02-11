@@ -125,7 +125,7 @@ namespace wheel01
             switch (command)
             {
                 case "E":
-                    Encoder.currentValue = int.Parse(value);
+                    Encoder.beforeOffsetValue = int.Parse(value);
                     CalculateSteeringPosition();
                     break;
             }
@@ -180,6 +180,11 @@ namespace wheel01
             string tosent = "F:" + VJoyWrapper.ffbValue + ";";
             SerialPortController.Write(tosent);
             Logger.Tx(tosent);
+        }
+
+        private void ResetZeroBtn_Click(object sender, EventArgs e)
+        {
+            Encoder.SetAsZero();
         }
     }
 }

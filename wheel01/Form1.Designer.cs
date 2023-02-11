@@ -43,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.RxLogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ResetZeroBtn = new System.Windows.Forms.Button();
             this.FFBValueDisplayBar = new System.Windows.Forms.ProgressBar();
             this.SteeringRangeDisplayText = new System.Windows.Forms.Label();
             this.SteeringRangeSlider = new System.Windows.Forms.TrackBar();
@@ -232,6 +233,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.ResetZeroBtn);
             this.groupBox2.Controls.Add(this.FFBValueDisplayBar);
             this.groupBox2.Controls.Add(this.SteeringRangeDisplayText);
             this.groupBox2.Controls.Add(this.SteeringRangeSlider);
@@ -249,6 +251,17 @@
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Steering";
+            // 
+            // ResetZeroBtn
+            // 
+            this.ResetZeroBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ResetZeroBtn.Location = new System.Drawing.Point(140, 20);
+            this.ResetZeroBtn.Name = "ResetZeroBtn";
+            this.ResetZeroBtn.Size = new System.Drawing.Size(30, 30);
+            this.ResetZeroBtn.TabIndex = 28;
+            this.ResetZeroBtn.Text = "0";
+            this.ResetZeroBtn.UseVisualStyleBackColor = true;
+            this.ResetZeroBtn.Click += new System.EventHandler(this.ResetZeroBtn_Click);
             // 
             // FFBValueDisplayBar
             // 
@@ -275,7 +288,6 @@
             // 
             this.SteeringRangeSlider.AutoSize = false;
             this.SteeringRangeSlider.Location = new System.Drawing.Point(10, 120);
-            this.SteeringRangeSlider.Maximum = 8;
             this.SteeringRangeSlider.Minimum = 1;
             this.SteeringRangeSlider.Name = "SteeringRangeSlider";
             this.SteeringRangeSlider.Size = new System.Drawing.Size(200, 40);
@@ -330,7 +342,7 @@
             // SteeringAxisDisplayText
             // 
             this.SteeringAxisDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SteeringAxisDisplayText.Location = new System.Drawing.Point(110, 20);
+            this.SteeringAxisDisplayText.Location = new System.Drawing.Point(70, 20);
             this.SteeringAxisDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.SteeringAxisDisplayText.Name = "SteeringAxisDisplayText";
             this.SteeringAxisDisplayText.Size = new System.Drawing.Size(60, 30);
@@ -344,9 +356,9 @@
             this.label4.Location = new System.Drawing.Point(10, 20);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 30);
+            this.label4.Size = new System.Drawing.Size(60, 30);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Steering Axis:";
+            this.label4.Text = "Value:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SteeringAxisDisplayBar
@@ -600,6 +612,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label ConnectedSerialPort;
         private System.Windows.Forms.ProgressBar FFBValueDisplayBar;
+        private System.Windows.Forms.Button ResetZeroBtn;
     }
 }
 
