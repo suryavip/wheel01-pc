@@ -175,11 +175,20 @@ namespace wheel01
 
         private void FFBValueSender_Tick(object sender, EventArgs e)
         {
-            if (SerialPortController.IsOpen == false) return;
+            try
+            {
+                if (SerialPortController.IsOpen == false) return;
 
-            string tosent = "F:" + VJoyWrapper.ffbValue + ";";
-            SerialPortController.Write(tosent);
-            Logger.Tx(tosent);
+                string tosent = "F:" + VJoyWrapper.ffbValue + ";";
+            
+                SerialPortController.Write(tosent);
+                Logger.Tx(tosent);
+            }
+            catch (Exception ex)
+            {
+                Logger.App("Error on sending data: " + ex.Message);
+                FFBValueSender.Enabled = false;
+            }
         }
 
         private void ResetZeroBtn_Click(object sender, EventArgs e)
