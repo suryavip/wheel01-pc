@@ -48,6 +48,11 @@ namespace wheel01
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
+            Connect();
+        }
+
+        private void Connect()
+        {
             string selected = COMPortsComboBox.SelectedItem.ToString();
             Logger.App("Connecting to " + selected + "...");
             try
@@ -180,13 +185,14 @@ namespace wheel01
                 if (SerialPortController.IsOpen == false) return;
 
                 string tosent = "F:" + VJoyWrapper.ffbValue + ";";
-            
+
                 SerialPortController.Write(tosent);
                 Logger.Tx(tosent);
             }
             catch (Exception ex)
             {
                 Logger.App("Error on sending data: " + ex.Message);
+                Logger.App("Connection disrupted!");
                 FFBValueSender.Enabled = false;
             }
         }
