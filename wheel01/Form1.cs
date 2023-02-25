@@ -130,7 +130,7 @@ namespace wheel01
             switch (command)
             {
                 case "E":
-                    Encoder.beforeOffsetValue = int.Parse(value);
+                    Encoder.currentValue = int.Parse(value);
                     CalculateSteeringPosition();
                     break;
             }
@@ -184,7 +184,18 @@ namespace wheel01
             {
                 if (SerialPortController.IsOpen == false) return;
 
-                string tosent = "F:" + VJoyWrapper.ffbValue + ";";
+                int val = VJoyWrapper.ffbValue;
+
+                if (steeringPosition <= 10)
+                {
+                    val = -3000;
+                }
+                if (steeringPosition >= VJoyWrapper.maxValue - 10)
+                {
+                    val = 3000;
+                }
+
+                string tosent = "F:" + val + ";";
 
                 SerialPortController.Write(tosent);
                 Logger.Tx(tosent);
@@ -199,7 +210,21 @@ namespace wheel01
 
         private void ResetZeroBtn_Click(object sender, EventArgs e)
         {
-            Encoder.SetAsZero();
+            try
+            {
+                if (SerialPortController.IsOpen == false) return;
+
+                string tosent = "C:;";
+
+                SerialPortController.Write(tosent);
+                Logger.Tx(tosent);
+            }
+            catch (Exception ex)
+            {
+                Logger.App("Error on sending data: " + ex.Message);
+                Logger.App("Connection disrupted!");
+                FFBValueSender.Enabled = false;
+            }
         }
     }
 }

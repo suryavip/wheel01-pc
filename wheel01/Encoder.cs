@@ -12,15 +12,6 @@ namespace wheel01
         public const int minValue = 0;
         public const int valueRange = maxValue - minValue + 1;
 
-        public static int beforeOffsetValue = 0;
-
-        public static int currentValue => beforeOffsetValue - offsetToZero;
-
-        public static int offsetToZero = 0;
-
-        public static void SetAsZero()
-        {
-            offsetToZero = beforeOffsetValue;
-        }
+        public static int currentValue = 0;
     }
 }
