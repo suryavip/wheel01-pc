@@ -4,19 +4,20 @@ Format: `COMMAND:value;`
 
 Example: `E:274;`
 
-Current configuration is PC as master and arduino as slave.
-Arduino will never send anything unless requested by PC.
+Current configuration is PC as master and Pico as slave.
+Pico will never send anything unless requested by PC.
 
-PC will periodically send force feedback magnitude and Arduino will reply back with encoder position.
+PC will periodically send force feedback magnitude and Pico will reply back with encoder position.
 
-## From Arduino to PC
-
-| Command | Value Type | Value Range | Description |
-| --- | --- | --- | --- |
-| E | int | `-32768` ~ `32767` | Encoder position |
-
-## From PC to Arduino
+## From Pico to PC
 
 | Command | Value Type | Value Range | Description |
 | --- | --- | --- | --- |
-| F | int | `-1000` ~ `1000` | Force feedback magnitude |
+| E | int (32 bit) | `-2147483648` ~ `2147483647` | Encoder position. Already multiplied by over rotation and have offset applied. |
+
+## From PC to Pico
+
+| Command | Value Type | Value Range | Description |
+| --- | --- | --- | --- |
+| F | int | `-1000` ~ `1000` | Force feedback magnitude. |
+| C | none | - | Ask Pico to save current position as zero. |
