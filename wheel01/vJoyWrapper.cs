@@ -83,7 +83,7 @@ namespace wheel01
                     ffbValue = constantEffect.Magnitude;
                     break;
                 default:
-                    // Console.WriteLine(fFBPType);
+                    Logger.App(String.Format("Non CONSTREP FFB: {0} :{1}", fFBPType, deviceId));
                     break;
             }
         }

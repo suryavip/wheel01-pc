@@ -466,7 +466,7 @@
             // 
             // SerialPortController
             // 
-            this.SerialPortController.BaudRate = 19200;
+            this.SerialPortController.BaudRate = 115200;
             this.SerialPortController.DtrEnable = true;
             this.SerialPortController.ReceivedBytesThreshold = 8;
             this.SerialPortController.RtsEnable = true;
