@@ -19,5 +19,6 @@ PC will periodically send force feedback magnitude and Pico will reply back with
 
 | Command | Value Type | Value Range | Description |
 | --- | --- | --- | --- |
-| F | int | `-1000` ~ `1000` | Force feedback magnitude. |
+| F | int | `-10000` ~ `10000` | Force feedback magnitude. |
 | C | none | - | Ask Pico to save current position as zero. |
+| P | float | `0.00` ~ `1.00` | Scale voltage being sent to motor. This value will be saved on Pico. |
