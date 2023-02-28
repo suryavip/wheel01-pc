@@ -15,6 +15,9 @@ namespace wheel01
         public const int valueRange = maxValue - minValue + 1;
         public const int midValue = (valueRange / 2) - 1;
 
+        public const int maxFfbValue = 10000;
+        public const int minFfbValue = -10000;
+
         public static vJoy device;
 
         static FFBPType fFBPType;

@@ -96,7 +96,7 @@ namespace wheel01
             SteeringRangeDisplayText.Text = (steeringRotationRange * 360) + "°";
 
             FFBValueDisplayText.Text = VJoyWrapper.ffbValue.ToString();
-            FFBValueDisplayBar.Value = VJoyWrapper.ffbValue + 10000;
+            FFBValueDisplayBar.Value = VJoyWrapper.ffbValue + VJoyWrapper.maxFfbValue;
 
             LogOutput.Text = Logger.appLog;
         }
@@ -186,13 +186,22 @@ namespace wheel01
 
                 int val = VJoyWrapper.ffbValue;
 
-                if (steeringPosition <= 10)
+                double bumpThreshold = 500;
+                if (steeringPosition < bumpThreshold)
                 {
-                    val = -3000;
+                    double progress = (bumpThreshold - steeringPosition);
+                    double percent = progress / bumpThreshold;
+                    double bumpForce = percent * VJoyWrapper.minFfbValue;
+                    val = (int)bumpForce;
                 }
-                if (steeringPosition >= VJoyWrapper.maxValue - 10)
+
+                double rightBumpThreshold = VJoyWrapper.maxValue - bumpThreshold;
+                if (steeringPosition > rightBumpThreshold)
                 {
-                    val = 3000;
+                    double progress = (rightBumpThreshold - steeringPosition) * -1;
+                    double percent = progress / bumpThreshold;
+                    double bumpForce = percent * VJoyWrapper.maxFfbValue;
+                    val = (int)bumpForce;
                 }
 
                 string tosent = "F:" + val + ";";
