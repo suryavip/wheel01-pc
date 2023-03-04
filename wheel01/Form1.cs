@@ -95,7 +95,7 @@ namespace wheel01
             SteeringAxisDisplayText.Text = steeringAxisValue.ToString();
             SteeringAxisDisplayBar.Value = steeringAxisValue;
 
-            SteeringRangeDisplayText.Text = (wheel.steeringRotationRange * 360) + "°";
+            SteeringRangeDisplayText.Text = (wheel.rotationRange * 360) + "°";
 
             FFBValueDisplayText.Text = VJoyWrapper.ffbValue.ToString();
             FFBValueDisplayBar.Value = VJoyWrapper.ffbValue + VJoyWrapper.maxFfbValue;
@@ -164,14 +164,14 @@ namespace wheel01
 
         private void SteeringRangeSlider_Scroll(object sender, EventArgs e)
         {
-            wheel.steeringRotationRange = (double)SteeringRangeSlider.Value / 2;
-            Logger.App("Set steering range: " + wheel.steeringRotationRange);
+            wheel.rotationRange = (double)SteeringRangeSlider.Value / 2;
+            Logger.App("Set steering range: " + wheel.rotationRange);
         }
 
         private void FlipSteeringButton_Click(object sender, EventArgs e)
         {
-            wheel.steeringFlipped = !wheel.steeringFlipped;
-            Logger.App("Flip steering wheel: " + wheel.steeringFlipped);
+            wheel.flipDirection = !wheel.flipDirection;
+            Logger.App("Flip steering wheel: " + wheel.flipDirection);
         }
 
         private void FFBValueSender_Tick(object sender, EventArgs e)

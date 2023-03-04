@@ -12,12 +12,12 @@ namespace wheel01
         public const int hwValueRange = maxHwValue - minHwValue + 1;
 
         public int currentHwValue = 0;
-        public bool steeringFlipped = true;
-        public double steeringRotationRange = 3;
+        public bool flipDirection = true;
+        public double rotationRange = 3;
 
         public int CalculateAxisValue()
         {
-            double fullRange = hwValueRange * steeringRotationRange;
+            double fullRange = hwValueRange * rotationRange;
             double mult = VJoyWrapper.axisValueRange / fullRange;
             double beforeOffset = currentHwValue * mult;
             double afterOffset = beforeOffset + VJoyWrapper.midAxisValue;
@@ -27,7 +27,7 @@ namespace wheel01
             if (afterOffset < VJoyWrapper.minAxisValue) afterOffset = VJoyWrapper.minAxisValue;
 
             // apply flip
-            if (steeringFlipped)
+            if (flipDirection)
             {
                 afterOffset /= -1;
                 afterOffset += VJoyWrapper.maxAxisValue;
