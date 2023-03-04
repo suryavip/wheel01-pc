@@ -17,6 +17,21 @@ namespace wheel01
         int steeringPosition = VJoyWrapper.midValue;
         bool steeringFlipped = true;
 
+        int acc = 0;
+        int brk = 0;
+        int clt = 0;
+
+        int accMin = 0;
+        int accMax = 4095;
+        int brkMin = 0;
+        int brkMax = 4095;
+        int cltMin = 0;
+        int cltMax = 4095;
+
+        int accAxis = 0;
+        int brkAxis = 0;
+        int cltAxis = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -98,6 +113,10 @@ namespace wheel01
             FFBValueDisplayText.Text = VJoyWrapper.ffbValue.ToString();
             FFBValueDisplayBar.Value = VJoyWrapper.ffbValue + VJoyWrapper.maxFfbValue;
 
+            AcceleratorAxisDisplayBar.Value = accAxis;
+            BrakeAxisDisplayBar.Value = brkAxis;
+            ClutchAxisDisplayBar.Value = cltAxis;
+
             LogOutput.Text = Logger.appLog;
         }
 
@@ -130,7 +149,11 @@ namespace wheel01
             switch (command)
             {
                 case "E":
-                    Encoder.currentValue = int.Parse(value);
+                    String[] splitted = value.Split(',');
+                    Encoder.currentValue = int.Parse(splitted[0]);
+                    acc = int.Parse(splitted[1]);
+                    brk = int.Parse(splitted[2]);
+                    clt = int.Parse(splitted[3]);
                     CalculateSteeringPosition();
                     break;
             }
@@ -169,6 +192,16 @@ namespace wheel01
             steeringPosition = (int)afterOffset;
 
             VJoyWrapper.SetAxis(steeringPosition, HID_USAGES.HID_USAGE_X);
+
+            double accPosition = acc - accMin;
+            if (accPosition < 0) accPosition = 0;
+            if (accPosition > accMax - accMin) accPosition = accMax - accMin;
+            accPosition /= accMax - accMin;
+            Logger.App("ACC: " + accPosition);
+            accPosition *= VJoyWrapper.maxValue;
+            accAxis = (int)accPosition;
+
+            VJoyWrapper.SetAxis(accAxis, HID_USAGES.HID_USAGE_Y);
         }
 
         private void FlipSteeringButton_Click(object sender, EventArgs e)
@@ -234,6 +267,16 @@ namespace wheel01
                 Logger.App("Connection disrupted!");
                 FFBValueSender.Enabled = false;
             }
+        }
+
+        private void AccSetMinBtn_Click(object sender, EventArgs e)
+        {
+            accMin = acc;
+        }
+
+        private void AccSetMaxBtn_Click(object sender, EventArgs e)
+        {
+            accMax = acc;
         }
     }
 }

@@ -57,11 +57,11 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.progressBar5 = new System.Windows.Forms.ProgressBar();
+            this.ClutchAxisDisplayBar = new System.Windows.Forms.ProgressBar();
             this.label7 = new System.Windows.Forms.Label();
-            this.progressBar4 = new System.Windows.Forms.ProgressBar();
+            this.BrakeAxisDisplayBar = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
-            this.progressBar3 = new System.Windows.Forms.ProgressBar();
+            this.AcceleratorAxisDisplayBar = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
             this.SerialPortController = new System.IO.Ports.SerialPort(this.components);
             this.VJoyInitDelay = new System.Windows.Forms.Timer(this.components);
@@ -71,6 +71,8 @@
             this.LogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.FFBValueSender = new System.Windows.Forms.Timer(this.components);
+            this.AccSetMaxBtn = new System.Windows.Forms.Button();
+            this.AccSetMinBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
@@ -404,14 +406,14 @@
             this.label9.Text = "-";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // progressBar5
+            // ClutchAxisDisplayBar
             // 
-            this.progressBar5.Location = new System.Drawing.Point(10, 170);
-            this.progressBar5.Maximum = 32767;
-            this.progressBar5.Name = "progressBar5";
-            this.progressBar5.Size = new System.Drawing.Size(200, 20);
-            this.progressBar5.Step = 1;
-            this.progressBar5.TabIndex = 13;
+            this.ClutchAxisDisplayBar.Location = new System.Drawing.Point(10, 170);
+            this.ClutchAxisDisplayBar.Maximum = 32767;
+            this.ClutchAxisDisplayBar.Name = "ClutchAxisDisplayBar";
+            this.ClutchAxisDisplayBar.Size = new System.Drawing.Size(200, 20);
+            this.ClutchAxisDisplayBar.Step = 1;
+            this.ClutchAxisDisplayBar.TabIndex = 13;
             // 
             // label7
             // 
@@ -424,14 +426,14 @@
             this.label7.Text = "Clutch:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // progressBar4
+            // BrakeAxisDisplayBar
             // 
-            this.progressBar4.Location = new System.Drawing.Point(10, 110);
-            this.progressBar4.Maximum = 32767;
-            this.progressBar4.Name = "progressBar4";
-            this.progressBar4.Size = new System.Drawing.Size(200, 20);
-            this.progressBar4.Step = 1;
-            this.progressBar4.TabIndex = 11;
+            this.BrakeAxisDisplayBar.Location = new System.Drawing.Point(10, 110);
+            this.BrakeAxisDisplayBar.Maximum = 32767;
+            this.BrakeAxisDisplayBar.Name = "BrakeAxisDisplayBar";
+            this.BrakeAxisDisplayBar.Size = new System.Drawing.Size(200, 20);
+            this.BrakeAxisDisplayBar.Step = 1;
+            this.BrakeAxisDisplayBar.TabIndex = 11;
             // 
             // label6
             // 
@@ -444,14 +446,14 @@
             this.label6.Text = "Brake:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // progressBar3
+            // AcceleratorAxisDisplayBar
             // 
-            this.progressBar3.Location = new System.Drawing.Point(10, 50);
-            this.progressBar3.Maximum = 32767;
-            this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(200, 20);
-            this.progressBar3.Step = 1;
-            this.progressBar3.TabIndex = 9;
+            this.AcceleratorAxisDisplayBar.Location = new System.Drawing.Point(10, 50);
+            this.AcceleratorAxisDisplayBar.Maximum = 32767;
+            this.AcceleratorAxisDisplayBar.Name = "AcceleratorAxisDisplayBar";
+            this.AcceleratorAxisDisplayBar.Size = new System.Drawing.Size(120, 20);
+            this.AcceleratorAxisDisplayBar.Step = 1;
+            this.AcceleratorAxisDisplayBar.TabIndex = 9;
             // 
             // label5
             // 
@@ -524,14 +526,16 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.AccSetMinBtn);
+            this.groupBox4.Controls.Add(this.AccSetMaxBtn);
             this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.progressBar3);
+            this.groupBox4.Controls.Add(this.AcceleratorAxisDisplayBar);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.progressBar4);
+            this.groupBox4.Controls.Add(this.BrakeAxisDisplayBar);
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.progressBar5);
+            this.groupBox4.Controls.Add(this.ClutchAxisDisplayBar);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Location = new System.Drawing.Point(370, 250);
             this.groupBox4.Name = "groupBox4";
@@ -544,6 +548,28 @@
             // 
             this.FFBValueSender.Interval = 8;
             this.FFBValueSender.Tick += new System.EventHandler(this.FFBValueSender_Tick);
+            // 
+            // AccSetMaxBtn
+            // 
+            this.AccSetMaxBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AccSetMaxBtn.Location = new System.Drawing.Point(180, 50);
+            this.AccSetMaxBtn.Name = "AccSetMaxBtn";
+            this.AccSetMaxBtn.Size = new System.Drawing.Size(30, 30);
+            this.AccSetMaxBtn.TabIndex = 29;
+            this.AccSetMaxBtn.Text = "<";
+            this.AccSetMaxBtn.UseVisualStyleBackColor = true;
+            this.AccSetMaxBtn.Click += new System.EventHandler(this.AccSetMaxBtn_Click);
+            // 
+            // AccSetMinBtn
+            // 
+            this.AccSetMinBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AccSetMinBtn.Location = new System.Drawing.Point(140, 50);
+            this.AccSetMinBtn.Name = "AccSetMinBtn";
+            this.AccSetMinBtn.Size = new System.Drawing.Size(30, 30);
+            this.AccSetMinBtn.TabIndex = 30;
+            this.AccSetMinBtn.Text = ">";
+            this.AccSetMinBtn.UseVisualStyleBackColor = true;
+            this.AccSetMinBtn.Click += new System.EventHandler(this.AccSetMinBtn_Click);
             // 
             // Form1
             // 
@@ -582,11 +608,11 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ProgressBar SteeringAxisDisplayBar;
-        private System.Windows.Forms.ProgressBar progressBar5;
+        private System.Windows.Forms.ProgressBar ClutchAxisDisplayBar;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ProgressBar progressBar4;
+        private System.Windows.Forms.ProgressBar BrakeAxisDisplayBar;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ProgressBar progressBar3;
+        private System.Windows.Forms.ProgressBar AcceleratorAxisDisplayBar;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
@@ -613,6 +639,8 @@
         private System.Windows.Forms.Label ConnectedSerialPort;
         private System.Windows.Forms.ProgressBar FFBValueDisplayBar;
         private System.Windows.Forms.Button ResetZeroBtn;
+        private System.Windows.Forms.Button AccSetMinBtn;
+        private System.Windows.Forms.Button AccSetMaxBtn;
     }
 }
 
