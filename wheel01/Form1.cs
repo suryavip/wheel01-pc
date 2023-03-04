@@ -25,11 +25,49 @@ namespace wheel01
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            LoadAllSettings();
+
             Logger.App("Detecting ports...");
             String[] ports = SerialPort.GetPortNames();
             COMPortsComboBox.DataSource = ports;
             Logger.App("Port list updated!");
             Logger.App("Please wait until vJoy device initialized!");
+        }
+
+        private void LoadAllSettings()
+        {
+            Logger.App("Load settings...");
+
+            wheel.flipDirection = Properties.Settings.Default.WheelFlipDirection;
+            wheel.rotationRange = Properties.Settings.Default.WheelRotationRange;
+
+            accelerator.startHwValue = Properties.Settings.Default.AccStartHwValue;
+            accelerator.endHwValue = Properties.Settings.Default.AccEndHwValue;
+
+            brake.startHwValue = Properties.Settings.Default.BrkStartHwValue;
+            brake.endHwValue = Properties.Settings.Default.BrkEndHwValue;
+
+            clutch.startHwValue = Properties.Settings.Default.CltStartHwValue;
+            clutch.endHwValue = Properties.Settings.Default.CltEndHwValue;
+        }
+
+        private void SaveAllSettings()
+        {
+            Logger.App("Saving settings...");
+
+            Properties.Settings.Default.WheelFlipDirection = wheel.flipDirection;
+            Properties.Settings.Default.WheelRotationRange = wheel.rotationRange;
+
+            Properties.Settings.Default.AccStartHwValue = accelerator.startHwValue;
+            Properties.Settings.Default.AccEndHwValue = accelerator.endHwValue;
+
+            Properties.Settings.Default.BrkStartHwValue = brake.startHwValue;
+            Properties.Settings.Default.BrkEndHwValue = brake.endHwValue;
+
+            Properties.Settings.Default.CltStartHwValue = clutch.startHwValue;
+            Properties.Settings.Default.CltEndHwValue = clutch.endHwValue;
+
+            Properties.Settings.Default.Save();
         }
 
         private void VJoyInitDelay_Tick(object sender, EventArgs e)
@@ -166,12 +204,14 @@ namespace wheel01
         {
             wheel.rotationRange = (double)SteeringRangeSlider.Value / 2;
             Logger.App("Set steering range: " + wheel.rotationRange);
+            SaveAllSettings();
         }
 
         private void FlipSteeringButton_Click(object sender, EventArgs e)
         {
             wheel.flipDirection = !wheel.flipDirection;
             Logger.App("Flip steering wheel: " + wheel.flipDirection);
+            SaveAllSettings();
         }
 
         private void FFBValueSender_Tick(object sender, EventArgs e)
@@ -236,31 +276,37 @@ namespace wheel01
         private void AccSetMinBtn_Click(object sender, EventArgs e)
         {
             accelerator.startHwValue = accelerator.currentHwValue;
+            SaveAllSettings();
         }
 
         private void AccSetMaxBtn_Click(object sender, EventArgs e)
         {
             accelerator.endHwValue = accelerator.currentHwValue;
+            SaveAllSettings();
         }
 
         private void BrkSetMinBtn_Click(object sender, EventArgs e)
         {
             brake.startHwValue = brake.currentHwValue;
+            SaveAllSettings();
         }
 
         private void BrkSetMaxBtn_Click(object sender, EventArgs e)
         {
             brake.endHwValue = brake.currentHwValue;
+            SaveAllSettings();
         }
 
         private void CltSetMinBtn_Click(object sender, EventArgs e)
         {
             clutch.startHwValue = clutch.currentHwValue;
+            SaveAllSettings();
         }
 
         private void CltSetMaxBtn_Click(object sender, EventArgs e)
         {
             clutch.endHwValue = clutch.currentHwValue;
+            SaveAllSettings();
         }
     }
 }
