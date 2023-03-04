@@ -36,10 +36,7 @@ namespace wheel01
         {
             VJoyInitDelay.Enabled = false;
             VJoyWrapper.Init();
-            VJoyWrapper.SetAxis(wheel.CalculateAxisValue(), HID_USAGES.HID_USAGE_X);
-            VJoyWrapper.SetAxis(accelerator.CalculateAxisValue(), HID_USAGES.HID_USAGE_Y);
-            VJoyWrapper.SetAxis(brake.CalculateAxisValue(), HID_USAGES.HID_USAGE_Z);
-            VJoyWrapper.SetAxis(clutch.CalculateAxisValue(), HID_USAGES.HID_USAGE_RX);
+            SendValueToVJoy();
         }
 
         private void COMPortsRefreshButton_Click(object sender, EventArgs e)
@@ -152,8 +149,17 @@ namespace wheel01
                     accelerator.currentHwValue = int.Parse(splitted[1]);
                     brake.currentHwValue = int.Parse(splitted[2]);
                     clutch.currentHwValue = int.Parse(splitted[3]);
+                    SendValueToVJoy();
                     break;
             }
+        }
+
+        private void SendValueToVJoy()
+        {
+            VJoyWrapper.SetAxis(wheel.CalculateAxisValue(), HID_USAGES.HID_USAGE_X);
+            VJoyWrapper.SetAxis(accelerator.CalculateAxisValue(), HID_USAGES.HID_USAGE_Y);
+            VJoyWrapper.SetAxis(brake.CalculateAxisValue(), HID_USAGES.HID_USAGE_Z);
+            VJoyWrapper.SetAxis(clutch.CalculateAxisValue(), HID_USAGES.HID_USAGE_RX);
         }
 
         private void SteeringRangeSlider_Scroll(object sender, EventArgs e)
