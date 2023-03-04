@@ -54,9 +54,9 @@
             this.SteeringAxisDisplayText = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SteeringAxisDisplayBar = new System.Windows.Forms.ProgressBar();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.ClutchAxisDisplayText = new System.Windows.Forms.Label();
+            this.BrakeAxisDisplayText = new System.Windows.Forms.Label();
+            this.AcceleratorAxisDisplayText = new System.Windows.Forms.Label();
             this.ClutchAxisDisplayBar = new System.Windows.Forms.ProgressBar();
             this.label7 = new System.Windows.Forms.Label();
             this.BrakeAxisDisplayBar = new System.Windows.Forms.ProgressBar();
@@ -70,9 +70,13 @@
             this.CopyLogToClipboardButton = new System.Windows.Forms.Button();
             this.LogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.FFBValueSender = new System.Windows.Forms.Timer(this.components);
-            this.AccSetMaxBtn = new System.Windows.Forms.Button();
             this.AccSetMinBtn = new System.Windows.Forms.Button();
+            this.AccSetMaxBtn = new System.Windows.Forms.Button();
+            this.FFBValueSender = new System.Windows.Forms.Timer(this.components);
+            this.BrkSetMinBtn = new System.Windows.Forms.Button();
+            this.BrkSetMaxBtn = new System.Windows.Forms.Button();
+            this.CltSetMinBtn = new System.Windows.Forms.Button();
+            this.CltSetMaxBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
@@ -373,45 +377,45 @@
             this.SteeringAxisDisplayBar.TabIndex = 0;
             this.SteeringAxisDisplayBar.Value = 16383;
             // 
-            // label11
+            // ClutchAxisDisplayText
             // 
-            this.label11.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(110, 140);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 30);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "-";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ClutchAxisDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClutchAxisDisplayText.Location = new System.Drawing.Point(110, 140);
+            this.ClutchAxisDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ClutchAxisDisplayText.Name = "ClutchAxisDisplayText";
+            this.ClutchAxisDisplayText.Size = new System.Drawing.Size(100, 30);
+            this.ClutchAxisDisplayText.TabIndex = 17;
+            this.ClutchAxisDisplayText.Text = "-";
+            this.ClutchAxisDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label10
+            // BrakeAxisDisplayText
             // 
-            this.label10.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(110, 80);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(100, 30);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "-";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BrakeAxisDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BrakeAxisDisplayText.Location = new System.Drawing.Point(110, 80);
+            this.BrakeAxisDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.BrakeAxisDisplayText.Name = "BrakeAxisDisplayText";
+            this.BrakeAxisDisplayText.Size = new System.Drawing.Size(100, 30);
+            this.BrakeAxisDisplayText.TabIndex = 16;
+            this.BrakeAxisDisplayText.Text = "-";
+            this.BrakeAxisDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label9
+            // AcceleratorAxisDisplayText
             // 
-            this.label9.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(110, 20);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(100, 30);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "-";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.AcceleratorAxisDisplayText.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AcceleratorAxisDisplayText.Location = new System.Drawing.Point(110, 20);
+            this.AcceleratorAxisDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.AcceleratorAxisDisplayText.Name = "AcceleratorAxisDisplayText";
+            this.AcceleratorAxisDisplayText.Size = new System.Drawing.Size(100, 30);
+            this.AcceleratorAxisDisplayText.TabIndex = 15;
+            this.AcceleratorAxisDisplayText.Text = "-";
+            this.AcceleratorAxisDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ClutchAxisDisplayBar
             // 
             this.ClutchAxisDisplayBar.Location = new System.Drawing.Point(10, 170);
             this.ClutchAxisDisplayBar.Maximum = 32767;
             this.ClutchAxisDisplayBar.Name = "ClutchAxisDisplayBar";
-            this.ClutchAxisDisplayBar.Size = new System.Drawing.Size(200, 20);
+            this.ClutchAxisDisplayBar.Size = new System.Drawing.Size(120, 20);
             this.ClutchAxisDisplayBar.Step = 1;
             this.ClutchAxisDisplayBar.TabIndex = 13;
             // 
@@ -431,7 +435,7 @@
             this.BrakeAxisDisplayBar.Location = new System.Drawing.Point(10, 110);
             this.BrakeAxisDisplayBar.Maximum = 32767;
             this.BrakeAxisDisplayBar.Name = "BrakeAxisDisplayBar";
-            this.BrakeAxisDisplayBar.Size = new System.Drawing.Size(200, 20);
+            this.BrakeAxisDisplayBar.Size = new System.Drawing.Size(120, 20);
             this.BrakeAxisDisplayBar.Step = 1;
             this.BrakeAxisDisplayBar.TabIndex = 11;
             // 
@@ -463,7 +467,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 30);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Throttle:";
+            this.label5.Text = "Accelerator:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SerialPortController
@@ -526,15 +530,19 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.CltSetMinBtn);
+            this.groupBox4.Controls.Add(this.CltSetMaxBtn);
+            this.groupBox4.Controls.Add(this.BrkSetMinBtn);
+            this.groupBox4.Controls.Add(this.BrkSetMaxBtn);
             this.groupBox4.Controls.Add(this.AccSetMinBtn);
             this.groupBox4.Controls.Add(this.AccSetMaxBtn);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.AcceleratorAxisDisplayBar);
-            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.AcceleratorAxisDisplayText);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.BrakeAxisDisplayBar);
-            this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.ClutchAxisDisplayText);
+            this.groupBox4.Controls.Add(this.BrakeAxisDisplayText);
             this.groupBox4.Controls.Add(this.ClutchAxisDisplayBar);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Location = new System.Drawing.Point(370, 250);
@@ -544,10 +552,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Pedals";
             // 
-            // FFBValueSender
+            // AccSetMinBtn
             // 
-            this.FFBValueSender.Interval = 8;
-            this.FFBValueSender.Tick += new System.EventHandler(this.FFBValueSender_Tick);
+            this.AccSetMinBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AccSetMinBtn.Location = new System.Drawing.Point(140, 50);
+            this.AccSetMinBtn.Name = "AccSetMinBtn";
+            this.AccSetMinBtn.Size = new System.Drawing.Size(30, 30);
+            this.AccSetMinBtn.TabIndex = 30;
+            this.AccSetMinBtn.Text = ">";
+            this.AccSetMinBtn.UseVisualStyleBackColor = true;
+            this.AccSetMinBtn.Click += new System.EventHandler(this.AccSetMinBtn_Click);
             // 
             // AccSetMaxBtn
             // 
@@ -560,16 +574,54 @@
             this.AccSetMaxBtn.UseVisualStyleBackColor = true;
             this.AccSetMaxBtn.Click += new System.EventHandler(this.AccSetMaxBtn_Click);
             // 
-            // AccSetMinBtn
+            // FFBValueSender
             // 
-            this.AccSetMinBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.AccSetMinBtn.Location = new System.Drawing.Point(140, 50);
-            this.AccSetMinBtn.Name = "AccSetMinBtn";
-            this.AccSetMinBtn.Size = new System.Drawing.Size(30, 30);
-            this.AccSetMinBtn.TabIndex = 30;
-            this.AccSetMinBtn.Text = ">";
-            this.AccSetMinBtn.UseVisualStyleBackColor = true;
-            this.AccSetMinBtn.Click += new System.EventHandler(this.AccSetMinBtn_Click);
+            this.FFBValueSender.Interval = 8;
+            this.FFBValueSender.Tick += new System.EventHandler(this.FFBValueSender_Tick);
+            // 
+            // BrkSetMinBtn
+            // 
+            this.BrkSetMinBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BrkSetMinBtn.Location = new System.Drawing.Point(140, 110);
+            this.BrkSetMinBtn.Name = "BrkSetMinBtn";
+            this.BrkSetMinBtn.Size = new System.Drawing.Size(30, 30);
+            this.BrkSetMinBtn.TabIndex = 32;
+            this.BrkSetMinBtn.Text = ">";
+            this.BrkSetMinBtn.UseVisualStyleBackColor = true;
+            this.BrkSetMinBtn.Click += new System.EventHandler(this.BrkSetMinBtn_Click);
+            // 
+            // BrkSetMaxBtn
+            // 
+            this.BrkSetMaxBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BrkSetMaxBtn.Location = new System.Drawing.Point(180, 110);
+            this.BrkSetMaxBtn.Name = "BrkSetMaxBtn";
+            this.BrkSetMaxBtn.Size = new System.Drawing.Size(30, 30);
+            this.BrkSetMaxBtn.TabIndex = 31;
+            this.BrkSetMaxBtn.Text = "<";
+            this.BrkSetMaxBtn.UseVisualStyleBackColor = true;
+            this.BrkSetMaxBtn.Click += new System.EventHandler(this.BrkSetMaxBtn_Click);
+            // 
+            // CltSetMinBtn
+            // 
+            this.CltSetMinBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CltSetMinBtn.Location = new System.Drawing.Point(140, 170);
+            this.CltSetMinBtn.Name = "CltSetMinBtn";
+            this.CltSetMinBtn.Size = new System.Drawing.Size(30, 30);
+            this.CltSetMinBtn.TabIndex = 34;
+            this.CltSetMinBtn.Text = ">";
+            this.CltSetMinBtn.UseVisualStyleBackColor = true;
+            this.CltSetMinBtn.Click += new System.EventHandler(this.CltSetMinBtn_Click);
+            // 
+            // CltSetMaxBtn
+            // 
+            this.CltSetMaxBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CltSetMaxBtn.Location = new System.Drawing.Point(180, 170);
+            this.CltSetMaxBtn.Name = "CltSetMaxBtn";
+            this.CltSetMaxBtn.Size = new System.Drawing.Size(30, 30);
+            this.CltSetMaxBtn.TabIndex = 33;
+            this.CltSetMaxBtn.Text = "<";
+            this.CltSetMaxBtn.UseVisualStyleBackColor = true;
+            this.CltSetMaxBtn.Click += new System.EventHandler(this.CltSetMaxBtn_Click);
             // 
             // Form1
             // 
@@ -614,9 +666,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ProgressBar AcceleratorAxisDisplayBar;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label ClutchAxisDisplayText;
+        private System.Windows.Forms.Label BrakeAxisDisplayText;
+        private System.Windows.Forms.Label AcceleratorAxisDisplayText;
         private System.Windows.Forms.Label SteeringAxisDisplayText;
         private System.Windows.Forms.Label FFBValueDisplayText;
         private System.Windows.Forms.Label label15;
@@ -641,6 +693,10 @@
         private System.Windows.Forms.Button ResetZeroBtn;
         private System.Windows.Forms.Button AccSetMinBtn;
         private System.Windows.Forms.Button AccSetMaxBtn;
+        private System.Windows.Forms.Button CltSetMinBtn;
+        private System.Windows.Forms.Button CltSetMaxBtn;
+        private System.Windows.Forms.Button BrkSetMinBtn;
+        private System.Windows.Forms.Button BrkSetMaxBtn;
     }
 }
 

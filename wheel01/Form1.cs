@@ -13,24 +13,10 @@ namespace wheel01
 {
     public partial class Form1 : Form
     {
-        double steeringRotationRange = 3;
-        int steeringPosition = VJoyWrapper.midValue;
-        bool steeringFlipped = true;
-
-        int acc = 0;
-        int brk = 0;
-        int clt = 0;
-
-        int accMin = 0;
-        int accMax = 4095;
-        int brkMin = 0;
-        int brkMax = 4095;
-        int cltMin = 0;
-        int cltMax = 4095;
-
-        int accAxis = 0;
-        int brkAxis = 0;
-        int cltAxis = 0;
+        readonly Wheel wheel = new Wheel();
+        readonly Pedal accelerator = new Pedal();
+        readonly Pedal brake = new Pedal();
+        readonly Pedal clutch = new Pedal();
 
         public Form1()
         {
@@ -50,7 +36,10 @@ namespace wheel01
         {
             VJoyInitDelay.Enabled = false;
             VJoyWrapper.Init();
-            VJoyWrapper.SetAxis(steeringPosition, HID_USAGES.HID_USAGE_X);
+            VJoyWrapper.SetAxis(wheel.CalculateAxisValue(), HID_USAGES.HID_USAGE_X);
+            VJoyWrapper.SetAxis(accelerator.CalculateAxisValue(), HID_USAGES.HID_USAGE_Y);
+            VJoyWrapper.SetAxis(brake.CalculateAxisValue(), HID_USAGES.HID_USAGE_Z);
+            VJoyWrapper.SetAxis(clutch.CalculateAxisValue(), HID_USAGES.HID_USAGE_RX);
         }
 
         private void COMPortsRefreshButton_Click(object sender, EventArgs e)
@@ -100,22 +89,31 @@ namespace wheel01
         {
             ConnectedSerialPort.Text = SerialPortController.IsOpen ? SerialPortController.PortName : "-";
 
-            EncoderMultRotPositionDisplayText.Text = Encoder.currentValue.ToString();
+            EncoderMultRotPositionDisplayText.Text = wheel.currentHwValue.ToString();
 
             RxLogOutput.Text = Logger.rxLog;
             TxLogOutput.Text = Logger.txLog;
 
-            SteeringAxisDisplayText.Text = steeringPosition.ToString();
-            SteeringAxisDisplayBar.Value = steeringPosition;
+            int steeringAxisValue = wheel.CalculateAxisValue();
+            SteeringAxisDisplayText.Text = steeringAxisValue.ToString();
+            SteeringAxisDisplayBar.Value = steeringAxisValue;
 
-            SteeringRangeDisplayText.Text = (steeringRotationRange * 360) + "°";
+            SteeringRangeDisplayText.Text = (wheel.steeringRotationRange * 360) + "°";
 
             FFBValueDisplayText.Text = VJoyWrapper.ffbValue.ToString();
             FFBValueDisplayBar.Value = VJoyWrapper.ffbValue + VJoyWrapper.maxFfbValue;
 
-            AcceleratorAxisDisplayBar.Value = accAxis;
-            BrakeAxisDisplayBar.Value = brkAxis;
-            ClutchAxisDisplayBar.Value = cltAxis;
+            int accAxisValue = accelerator.CalculateAxisValue();
+            AcceleratorAxisDisplayText.Text = accAxisValue.ToString();
+            AcceleratorAxisDisplayBar.Value = accAxisValue;
+
+            int brkAxisValue = brake.CalculateAxisValue();
+            BrakeAxisDisplayText.Text = brkAxisValue.ToString();
+            BrakeAxisDisplayBar.Value = brkAxisValue;
+
+            int cltAxisValue = clutch.CalculateAxisValue();
+            ClutchAxisDisplayText.Text = cltAxisValue.ToString();
+            ClutchAxisDisplayBar.Value = cltAxisValue;
 
             LogOutput.Text = Logger.appLog;
         }
@@ -150,65 +148,24 @@ namespace wheel01
             {
                 case "E":
                     String[] splitted = value.Split(',');
-                    Encoder.currentValue = int.Parse(splitted[0]);
-                    acc = int.Parse(splitted[1]);
-                    brk = int.Parse(splitted[2]);
-                    clt = int.Parse(splitted[3]);
-                    CalculateSteeringPosition();
+                    wheel.currentHwValue = int.Parse(splitted[0]);
+                    accelerator.currentHwValue = int.Parse(splitted[1]);
+                    brake.currentHwValue = int.Parse(splitted[2]);
+                    clutch.currentHwValue = int.Parse(splitted[3]);
                     break;
             }
         }
 
         private void SteeringRangeSlider_Scroll(object sender, EventArgs e)
         {
-            steeringRotationRange = (double)SteeringRangeSlider.Value / 2;
-            Logger.App("Set steering range: " + steeringRotationRange);
-            CalculateSteeringPosition();
-        }
-
-        private void CalculateSteeringPosition()
-        {
-            double fullRange = Encoder.valueRange * steeringRotationRange;
-            double mult = VJoyWrapper.valueRange / fullRange;
-            double beforeOffset = Encoder.currentValue * mult;
-            double afterOffset = beforeOffset + VJoyWrapper.midValue;
-
-            if (afterOffset > VJoyWrapper.maxValue)
-            {
-                afterOffset = VJoyWrapper.maxValue;
-            }
-
-            if (afterOffset < VJoyWrapper.minValue)
-            {
-                afterOffset = VJoyWrapper.minValue;
-            }
-
-            if (steeringFlipped)
-            {
-                afterOffset /= -1;
-                afterOffset += VJoyWrapper.maxValue;
-            }
-
-            steeringPosition = (int)afterOffset;
-
-            VJoyWrapper.SetAxis(steeringPosition, HID_USAGES.HID_USAGE_X);
-
-            double accPosition = acc - accMin;
-            if (accPosition < 0) accPosition = 0;
-            if (accPosition > accMax - accMin) accPosition = accMax - accMin;
-            accPosition /= accMax - accMin;
-            Logger.App("ACC: " + accPosition);
-            accPosition *= VJoyWrapper.maxValue;
-            accAxis = (int)accPosition;
-
-            VJoyWrapper.SetAxis(accAxis, HID_USAGES.HID_USAGE_Y);
+            wheel.steeringRotationRange = (double)SteeringRangeSlider.Value / 2;
+            Logger.App("Set steering range: " + wheel.steeringRotationRange);
         }
 
         private void FlipSteeringButton_Click(object sender, EventArgs e)
         {
-            steeringFlipped = !steeringFlipped;
-            Logger.App("Flip steering wheel: " + steeringFlipped);
-            CalculateSteeringPosition();
+            wheel.steeringFlipped = !wheel.steeringFlipped;
+            Logger.App("Flip steering wheel: " + wheel.steeringFlipped);
         }
 
         private void FFBValueSender_Tick(object sender, EventArgs e)
@@ -219,6 +176,7 @@ namespace wheel01
 
                 int val = VJoyWrapper.ffbValue;
 
+                int steeringPosition = wheel.CalculateAxisValue();
                 double bumpThreshold = 500;
                 if (steeringPosition < bumpThreshold)
                 {
@@ -228,7 +186,7 @@ namespace wheel01
                     val = (int)bumpForce;
                 }
 
-                double rightBumpThreshold = VJoyWrapper.maxValue - bumpThreshold;
+                double rightBumpThreshold = VJoyWrapper.maxAxisValue - bumpThreshold;
                 if (steeringPosition > rightBumpThreshold)
                 {
                     double progress = (rightBumpThreshold - steeringPosition) * -1;
@@ -271,12 +229,32 @@ namespace wheel01
 
         private void AccSetMinBtn_Click(object sender, EventArgs e)
         {
-            accMin = acc;
+            accelerator.startHwValue = accelerator.currentHwValue;
         }
 
         private void AccSetMaxBtn_Click(object sender, EventArgs e)
         {
-            accMax = acc;
+            accelerator.endHwValue = accelerator.currentHwValue;
+        }
+
+        private void BrkSetMinBtn_Click(object sender, EventArgs e)
+        {
+            brake.startHwValue = brake.currentHwValue;
+        }
+
+        private void BrkSetMaxBtn_Click(object sender, EventArgs e)
+        {
+            brake.endHwValue = brake.currentHwValue;
+        }
+
+        private void CltSetMinBtn_Click(object sender, EventArgs e)
+        {
+            clutch.startHwValue = clutch.currentHwValue;
+        }
+
+        private void CltSetMaxBtn_Click(object sender, EventArgs e)
+        {
+            clutch.endHwValue = clutch.currentHwValue;
         }
     }
 }

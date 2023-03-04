@@ -10,10 +10,10 @@ namespace wheel01
     {
         public const uint deviceId = 1;
 
-        public const int maxValue = 32767;
-        public const int minValue = 0;
-        public const int valueRange = maxValue - minValue + 1;
-        public const int midValue = (valueRange / 2) - 1;
+        public const int maxAxisValue = 32767;
+        public const int minAxisValue = 0;
+        public const int axisValueRange = maxAxisValue - minAxisValue + 1;
+        public const int midAxisValue = (axisValueRange / 2) - 1;
 
         public const int maxFfbValue = 10000;
         public const int minFfbValue = -10000;
