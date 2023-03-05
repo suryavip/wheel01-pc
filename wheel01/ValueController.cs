@@ -11,6 +11,7 @@ namespace wheel01
         public const int minHwValue = 0;
         public const int hwValueRange = maxHwValue - minHwValue + 1;
 
+        public int hwValueOffset = 0;
         public int currentHwValue = 0;
         public bool flipDirection = true;
         public double rotationRange = 3;
@@ -19,21 +20,23 @@ namespace wheel01
         {
             double fullRange = hwValueRange * rotationRange;
             double mult = VJoyWrapper.axisValueRange / fullRange;
-            double beforeOffset = currentHwValue * mult;
-            double afterOffset = beforeOffset + VJoyWrapper.midAxisValue;
+            int hwValueAfterOffset = currentHwValue - hwValueOffset;
+
+            double multipliedToVJoyScale = hwValueAfterOffset * mult;
+            double centeredOnVJoyScale = multipliedToVJoyScale + VJoyWrapper.midAxisValue;
 
             // clamping
-            if (afterOffset > VJoyWrapper.maxAxisValue) afterOffset = VJoyWrapper.maxAxisValue;
-            if (afterOffset < VJoyWrapper.minAxisValue) afterOffset = VJoyWrapper.minAxisValue;
+            if (centeredOnVJoyScale > VJoyWrapper.maxAxisValue) centeredOnVJoyScale = VJoyWrapper.maxAxisValue;
+            if (centeredOnVJoyScale < VJoyWrapper.minAxisValue) centeredOnVJoyScale = VJoyWrapper.minAxisValue;
 
             // apply flip
             if (flipDirection)
             {
-                afterOffset /= -1;
-                afterOffset += VJoyWrapper.maxAxisValue;
+                centeredOnVJoyScale /= -1;
+                centeredOnVJoyScale += VJoyWrapper.maxAxisValue;
             }
 
-            return (int)afterOffset;
+            return (int)centeredOnVJoyScale;
         }
     }
 

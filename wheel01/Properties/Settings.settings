@@ -26,5 +26,8 @@
     <Setting Name="CltEndHwValue" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">4095</Value>
     </Setting>
+    <Setting Name="WheelHwValueOffset" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

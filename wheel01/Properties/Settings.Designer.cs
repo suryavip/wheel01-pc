@@ -118,5 +118,17 @@ namespace wheel01.Properties {
                 this["CltEndHwValue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int WheelHwValueOffset {
+            get {
+                return ((int)(this["WheelHwValueOffset"]));
+            }
+            set {
+                this["WheelHwValueOffset"] = value;
+            }
+        }
     }
 }

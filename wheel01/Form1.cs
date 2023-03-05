@@ -38,6 +38,7 @@ namespace wheel01
         {
             Logger.App("Load settings...");
 
+            wheel.hwValueOffset = Properties.Settings.Default.WheelHwValueOffset;
             wheel.flipDirection = Properties.Settings.Default.WheelFlipDirection;
             wheel.rotationRange = Properties.Settings.Default.WheelRotationRange;
 
@@ -55,6 +56,7 @@ namespace wheel01
         {
             Logger.App("Saving settings...");
 
+            Properties.Settings.Default.WheelHwValueOffset = wheel.hwValueOffset;
             Properties.Settings.Default.WheelFlipDirection = wheel.flipDirection;
             Properties.Settings.Default.WheelRotationRange = wheel.rotationRange;
 
@@ -256,21 +258,9 @@ namespace wheel01
 
         private void ResetZeroBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (SerialPortController.IsOpen == false) return;
-
-                string tosent = "C:;";
-
-                SerialPortController.Write(tosent);
-                Logger.Tx(tosent);
-            }
-            catch (Exception ex)
-            {
-                Logger.App("Error on sending data: " + ex.Message);
-                Logger.App("Connection disrupted!");
-                FFBValueSender.Enabled = false;
-            }
+            wheel.hwValueOffset = wheel.currentHwValue;
+            Logger.App("Steering wheel offset: " + wheel.hwValueOffset);
+            SaveAllSettings();
         }
 
         private void AccSetMinBtn_Click(object sender, EventArgs e)
