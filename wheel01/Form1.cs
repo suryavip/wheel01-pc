@@ -56,8 +56,6 @@ namespace wheel01
 
         private void SaveAllSettings()
         {
-            Logger.App("Saving settings...");
-
             Properties.Settings.Default.WheelHwValueOffset = wheel.hwValueOffset;
             Properties.Settings.Default.WheelFlipDirection = wheel.flipDirection;
             Properties.Settings.Default.WheelRotationRange = wheel.rotationRange;
@@ -268,36 +266,42 @@ namespace wheel01
         private void AccSetMinBtn_Click(object sender, EventArgs e)
         {
             accelerator.startHwValue = accelerator.currentHwValue;
+            Logger.App("Acc start value: " + accelerator.startHwValue);
             SaveAllSettings();
         }
 
         private void AccSetMaxBtn_Click(object sender, EventArgs e)
         {
             accelerator.endHwValue = accelerator.currentHwValue;
+            Logger.App("Acc end value: " + accelerator.endHwValue);
             SaveAllSettings();
         }
 
         private void BrkSetMinBtn_Click(object sender, EventArgs e)
         {
             brake.startHwValue = brake.currentHwValue;
+            Logger.App("Brk start value: " + brake.startHwValue);
             SaveAllSettings();
         }
 
         private void BrkSetMaxBtn_Click(object sender, EventArgs e)
         {
             brake.endHwValue = brake.currentHwValue;
+            Logger.App("Brk end value: " + brake.endHwValue);
             SaveAllSettings();
         }
 
         private void CltSetMinBtn_Click(object sender, EventArgs e)
         {
             clutch.startHwValue = clutch.currentHwValue;
+            Logger.App("Clt start value: " + clutch.startHwValue);
             SaveAllSettings();
         }
 
         private void CltSetMaxBtn_Click(object sender, EventArgs e)
         {
             clutch.endHwValue = clutch.currentHwValue;
+            Logger.App("Clt end value: " + clutch.endHwValue);
             SaveAllSettings();
         }
     }
