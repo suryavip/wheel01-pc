@@ -27,6 +27,8 @@ namespace wheel01
         {
             LoadAllSettings();
 
+            SteeringRangeSlider.Value = (int)(wheel.rotationRange * 2);
+
             Logger.App("Detecting ports...");
             String[] ports = SerialPort.GetPortNames();
             COMPortsComboBox.DataSource = ports;
