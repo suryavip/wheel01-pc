@@ -29,6 +29,15 @@ namespace wheel01
 
             SteeringRangeSlider.Value = (int)(wheel.rotationRange * 2);
 
+            AccMinSlider.Value = accelerator.startHwValue;
+            AccMaxSlider.Value = accelerator.endHwValue;
+
+            BrkMinSlider.Value = brake.startHwValue;
+            BrkMaxSlider.Value = brake.endHwValue;
+
+            CltMinSlider.Value = clutch.startHwValue;
+            CltMaxSlider.Value = clutch.endHwValue;
+
             Logger.App("Detecting ports...");
             String[] ports = SerialPort.GetPortNames();
             COMPortsComboBox.DataSource = ports;
@@ -124,10 +133,6 @@ namespace wheel01
 
         private void DisplayUpdater_Tick(object sender, EventArgs e)
         {
-            ConnectedSerialPort.Text = SerialPortController.IsOpen ? SerialPortController.PortName : "-";
-
-            EncoderMultRotPositionDisplayText.Text = wheel.currentHwValue.ToString();
-
             RxLogOutput.Text = Logger.rxLog;
             TxLogOutput.Text = Logger.txLog;
 
@@ -263,45 +268,39 @@ namespace wheel01
             SaveAllSettings();
         }
 
-        private void AccSetMinBtn_Click(object sender, EventArgs e)
+        private void AccMinSlider_Scroll(object sender, EventArgs e)
         {
-            accelerator.startHwValue = accelerator.currentHwValue;
-            Logger.App("Acc start value: " + accelerator.startHwValue);
+            accelerator.startHwValue = AccMinSlider.Value;
             SaveAllSettings();
         }
 
-        private void AccSetMaxBtn_Click(object sender, EventArgs e)
+        private void AccMaxSlider_Scroll(object sender, EventArgs e)
         {
-            accelerator.endHwValue = accelerator.currentHwValue;
-            Logger.App("Acc end value: " + accelerator.endHwValue);
+            accelerator.endHwValue = AccMaxSlider.Value;
             SaveAllSettings();
         }
 
-        private void BrkSetMinBtn_Click(object sender, EventArgs e)
+        private void BrkMinSlider_Scroll(object sender, EventArgs e)
         {
-            brake.startHwValue = brake.currentHwValue;
-            Logger.App("Brk start value: " + brake.startHwValue);
+            brake.startHwValue = BrkMinSlider.Value;
             SaveAllSettings();
         }
 
-        private void BrkSetMaxBtn_Click(object sender, EventArgs e)
+        private void BrkMaxSlider_Scroll(object sender, EventArgs e)
         {
-            brake.endHwValue = brake.currentHwValue;
-            Logger.App("Brk end value: " + brake.endHwValue);
+            brake.endHwValue = BrkMaxSlider.Value;
             SaveAllSettings();
         }
 
-        private void CltSetMinBtn_Click(object sender, EventArgs e)
+        private void CltMinSlider_Scroll(object sender, EventArgs e)
         {
-            clutch.startHwValue = clutch.currentHwValue;
-            Logger.App("Clt start value: " + clutch.startHwValue);
+            clutch.startHwValue = CltMinSlider.Value;
             SaveAllSettings();
         }
 
-        private void CltSetMaxBtn_Click(object sender, EventArgs e)
+        private void CltMaxSlider_Scroll(object sender, EventArgs e)
         {
-            clutch.endHwValue = clutch.currentHwValue;
-            Logger.App("Clt end value: " + clutch.endHwValue);
+            clutch.endHwValue = CltMaxSlider.Value;
             SaveAllSettings();
         }
     }
