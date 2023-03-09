@@ -236,7 +236,7 @@ namespace wheel01
                     double progress = (bumpThreshold - steeringPosition);
                     double percent = progress / bumpThreshold;
                     double bumpForce = percent * VJoyWrapper.minFfbValue;
-                    val = (int)bumpForce;
+                    val += (int)bumpForce;
                 }
 
                 double rightBumpThreshold = VJoyWrapper.maxAxisValue - bumpThreshold;
@@ -245,8 +245,11 @@ namespace wheel01
                     double progress = (rightBumpThreshold - steeringPosition) * -1;
                     double percent = progress / bumpThreshold;
                     double bumpForce = percent * VJoyWrapper.maxFfbValue;
-                    val = (int)bumpForce;
+                    val += (int)bumpForce;
                 }
+
+                if (val > VJoyWrapper.maxFfbValue) val = VJoyWrapper.maxFfbValue;
+                if (val < VJoyWrapper.minFfbValue) val = VJoyWrapper.minFfbValue;
 
                 string tosent = "F:" + val + ";";
 
