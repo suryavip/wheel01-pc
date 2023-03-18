@@ -21,7 +21,15 @@ namespace wheel01
         public static vJoy device;
 
         static FFBPType fFBPType;
-        static vJoy.FFB_EFF_CONSTANT constantEffect;
+
+        static vJoy.FFB_EFF_REPORT effectReport;
+        static vJoy.FFB_EFF_ENVLP envelopeReport;
+        static vJoy.FFB_EFF_COND conditionReport;
+        static vJoy.FFB_EFF_PERIOD periodicReport;
+        static vJoy.FFB_EFF_CONSTANT constantReport;
+        static vJoy.FFB_EFF_RAMP rampReport;
+
+
         public static int ffbValue = 0;
 
         public static void Init()
@@ -81,14 +89,36 @@ namespace wheel01
 
             switch (fFBPType)
             {
-                case FFBPType.PT_CONSTREP:
-                    device.Ffb_h_Eff_Constant(data, ref constantEffect);
-                    ffbValue = constantEffect.Magnitude;
+                case FFBPType.PT_EFFREP:
+                    device.Ffb_h_Eff_Report(data, ref effectReport);
                     break;
+
+                case FFBPType.PT_ENVREP:
+                    device.Ffb_h_Eff_Envlp(data, ref envelopeReport);
+                    break;
+
+                case FFBPType.PT_CONDREP:
+                    device.Ffb_h_Eff_Cond(data, ref conditionReport);
+                    break;
+
+                case FFBPType.PT_PRIDREP:
+                    device.Ffb_h_Eff_Period(data, ref periodicReport);
+                    break;
+
+                case FFBPType.PT_CONSTREP:
+                    device.Ffb_h_Eff_Constant(data, ref constantReport);
+                    break;
+
+                case FFBPType.PT_RAMPREP:
+                    device.Ffb_h_Eff_Ramp(data, ref rampReport);
+                    break;
+
                 default:
-                    Logger.App(String.Format("Non CONSTREP FFB: {0} :{1}", fFBPType, deviceId));
+                    Logger.App(String.Format("Unhandled Eff: {0} :{1}", fFBPType, deviceId));
                     break;
             }
+
+            ffbValue = constantReport.Magnitude;
         }
     }
 }
