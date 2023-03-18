@@ -62,9 +62,9 @@
             this.LogOutput = new System.Windows.Forms.RichTextBox();
             this.FFBValueSender = new System.Windows.Forms.Timer(this.components);
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.AccMaxSlider = new System.Windows.Forms.TrackBar();
             this.AccMinSlider = new System.Windows.Forms.TrackBar();
             this.label10 = new System.Windows.Forms.Label();
-            this.AccMaxSlider = new System.Windows.Forms.TrackBar();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.BrkMaxSlider = new System.Windows.Forms.TrackBar();
             this.BrkMinSlider = new System.Windows.Forms.TrackBar();
@@ -73,19 +73,21 @@
             this.CltMaxSlider = new System.Windows.Forms.TrackBar();
             this.CltMinSlider = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
+            this.FFBValueSenderFrequency = new System.Windows.Forms.TrackBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AccMinSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AccMaxSlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AccMinSlider)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BrkMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BrkMinSlider)).BeginInit();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderFrequency)).BeginInit();
             this.SuspendLayout();
             // 
             // COMPortsComboBox
@@ -102,16 +104,17 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.FFBValueSenderFrequency);
             this.groupBox1.Controls.Add(this.ConnectButton);
             this.groupBox1.Controls.Add(this.COMPortsRefreshButton);
             this.groupBox1.Controls.Add(this.COMPortsComboBox);
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(230, 60);
+            this.groupBox1.Size = new System.Drawing.Size(230, 100);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Device";
+            this.groupBox1.Text = "Communication";
             // 
             // ConnectButton
             // 
@@ -143,7 +146,7 @@
             this.TxLogOutput.Name = "TxLogOutput";
             this.TxLogOutput.ReadOnly = true;
             this.TxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.TxLogOutput.Size = new System.Drawing.Size(100, 100);
+            this.TxLogOutput.Size = new System.Drawing.Size(100, 70);
             this.TxLogOutput.TabIndex = 7;
             this.TxLogOutput.Text = "";
             // 
@@ -177,7 +180,7 @@
             this.RxLogOutput.Name = "RxLogOutput";
             this.RxLogOutput.ReadOnly = true;
             this.RxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.RxLogOutput.Size = new System.Drawing.Size(100, 100);
+            this.RxLogOutput.Size = new System.Drawing.Size(100, 70);
             this.RxLogOutput.TabIndex = 4;
             this.RxLogOutput.Text = "";
             // 
@@ -397,9 +400,9 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.RxLogOutput);
             this.groupBox3.Controls.Add(this.TxLogOutput);
-            this.groupBox3.Location = new System.Drawing.Point(10, 80);
+            this.groupBox3.Location = new System.Drawing.Point(10, 120);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(230, 300);
+            this.groupBox3.Size = new System.Drawing.Size(230, 260);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
@@ -408,7 +411,7 @@
             // 
             this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
             this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(190, 260);
+            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(190, 220);
             this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
             this.CopyLogToClipboardButton.Size = new System.Drawing.Size(30, 30);
             this.CopyLogToClipboardButton.TabIndex = 6;
@@ -420,11 +423,11 @@
             this.LogOutput.BackColor = System.Drawing.SystemColors.Window;
             this.LogOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.LogOutput.HideSelection = false;
-            this.LogOutput.Location = new System.Drawing.Point(10, 160);
+            this.LogOutput.Location = new System.Drawing.Point(10, 130);
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
             this.LogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogOutput.Size = new System.Drawing.Size(170, 130);
+            this.LogOutput.Size = new System.Drawing.Size(170, 120);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
             // 
@@ -448,6 +451,19 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Accelerator";
             // 
+            // AccMaxSlider
+            // 
+            this.AccMaxSlider.AutoSize = false;
+            this.AccMaxSlider.LargeChange = 1;
+            this.AccMaxSlider.Location = new System.Drawing.Point(10, 130);
+            this.AccMaxSlider.Maximum = 4095;
+            this.AccMaxSlider.Name = "AccMaxSlider";
+            this.AccMaxSlider.Size = new System.Drawing.Size(140, 30);
+            this.AccMaxSlider.TabIndex = 27;
+            this.AccMaxSlider.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.AccMaxSlider.Value = 4095;
+            this.AccMaxSlider.Scroll += new System.EventHandler(this.AccMaxSlider_Scroll);
+            // 
             // AccMinSlider
             // 
             this.AccMinSlider.AutoSize = false;
@@ -470,19 +486,6 @@
             this.label10.TabIndex = 24;
             this.label10.Text = "Range:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // AccMaxSlider
-            // 
-            this.AccMaxSlider.AutoSize = false;
-            this.AccMaxSlider.LargeChange = 1;
-            this.AccMaxSlider.Location = new System.Drawing.Point(10, 130);
-            this.AccMaxSlider.Maximum = 4095;
-            this.AccMaxSlider.Name = "AccMaxSlider";
-            this.AccMaxSlider.Size = new System.Drawing.Size(140, 30);
-            this.AccMaxSlider.TabIndex = 27;
-            this.AccMaxSlider.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.AccMaxSlider.Value = 4095;
-            this.AccMaxSlider.Scroll += new System.EventHandler(this.AccMaxSlider_Scroll);
             // 
             // groupBox6
             // 
@@ -586,6 +589,19 @@
             this.label13.Text = "Range:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // FFBValueSenderFrequency
+            // 
+            this.FFBValueSenderFrequency.AutoSize = false;
+            this.FFBValueSenderFrequency.LargeChange = 1;
+            this.FFBValueSenderFrequency.Location = new System.Drawing.Point(10, 60);
+            this.FFBValueSenderFrequency.Maximum = 16;
+            this.FFBValueSenderFrequency.Minimum = 4;
+            this.FFBValueSenderFrequency.Name = "FFBValueSenderFrequency";
+            this.FFBValueSenderFrequency.Size = new System.Drawing.Size(210, 30);
+            this.FFBValueSenderFrequency.TabIndex = 26;
+            this.FFBValueSenderFrequency.Value = 8;
+            this.FFBValueSenderFrequency.Scroll += new System.EventHandler(this.FFBValueSenderFrequency_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -608,14 +624,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.AccMinSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AccMaxSlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AccMinSlider)).EndInit();
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BrkMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BrkMinSlider)).EndInit();
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderFrequency)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -665,6 +682,7 @@
         private System.Windows.Forms.TrackBar CltMaxSlider;
         private System.Windows.Forms.TrackBar CltMinSlider;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TrackBar FFBValueSenderFrequency;
     }
 }
 

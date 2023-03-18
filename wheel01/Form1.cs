@@ -27,6 +27,8 @@ namespace wheel01
         {
             LoadAllSettings();
 
+            FFBValueSenderFrequency.Value = FFBValueSender.Interval;
+
             SteeringRangeSlider.Value = (int)(wheel.rotationRange * 2);
 
             AccMinSlider.Value = accelerator.startHwValue;
@@ -49,6 +51,8 @@ namespace wheel01
         {
             Logger.App("Load settings...");
 
+            FFBValueSender.Interval = Properties.Settings.Default.ComFFBSenderInterval;
+
             wheel.hwValueOffset = Properties.Settings.Default.WheelHwValueOffset;
             wheel.flipDirection = Properties.Settings.Default.WheelFlipDirection;
             wheel.rotationRange = Properties.Settings.Default.WheelRotationRange;
@@ -65,6 +69,8 @@ namespace wheel01
 
         private void SaveAllSettings()
         {
+            Properties.Settings.Default.ComFFBSenderInterval = FFBValueSender.Interval;
+
             Properties.Settings.Default.WheelHwValueOffset = wheel.hwValueOffset;
             Properties.Settings.Default.WheelFlipDirection = wheel.flipDirection;
             Properties.Settings.Default.WheelRotationRange = wheel.rotationRange;
@@ -304,6 +310,12 @@ namespace wheel01
         private void CltMaxSlider_Scroll(object sender, EventArgs e)
         {
             clutch.endHwValue = CltMaxSlider.Value;
+            SaveAllSettings();
+        }
+
+        private void FFBValueSenderFrequency_Scroll(object sender, EventArgs e)
+        {
+            FFBValueSender.Interval = FFBValueSenderFrequency.Value;
             SaveAllSettings();
         }
     }
