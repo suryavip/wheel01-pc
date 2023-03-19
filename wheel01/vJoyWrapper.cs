@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ScpPad2vJoy.vJ.FFB.Effect;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using vJoyInterfaceWrap;
@@ -19,16 +21,6 @@ namespace wheel01
         public const int minFfbValue = -10000;
 
         public static vJoy device;
-
-        static FFBPType fFBPType;
-
-        static vJoy.FFB_EFF_REPORT effectReport;
-        static vJoy.FFB_EFF_ENVLP envelopeReport;
-        static vJoy.FFB_EFF_COND conditionReport;
-        static vJoy.FFB_EFF_PERIOD periodicReport;
-        static vJoy.FFB_EFF_CONSTANT constantReport;
-        static vJoy.FFB_EFF_RAMP rampReport;
-
 
         public static int ffbValue = 0;
 
@@ -70,55 +62,12 @@ namespace wheel01
 
             device.ResetVJD(deviceId);
 
-            device.FfbRegisterGenCB(OnEffectObj, null);
+            device.FfbRegisterGenCB(VJoyFfbHandler.OnEffectObj, null);
         }
 
         public static bool SetAxis(int value, HID_USAGES axis)
         {
             return device.SetAxis(value, deviceId, axis);
-        }
-
-        /// <summary>
-        /// Will forward FFB value and save it to <c>ffbValue</c>
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="userData"></param>
-        static void OnEffectObj(IntPtr data, object userData)
-        {
-            device.Ffb_h_Type(data, ref fFBPType);
-
-            switch (fFBPType)
-            {
-                case FFBPType.PT_EFFREP:
-                    device.Ffb_h_Eff_Report(data, ref effectReport);
-                    break;
-
-                case FFBPType.PT_ENVREP:
-                    device.Ffb_h_Eff_Envlp(data, ref envelopeReport);
-                    break;
-
-                case FFBPType.PT_CONDREP:
-                    device.Ffb_h_Eff_Cond(data, ref conditionReport);
-                    break;
-
-                case FFBPType.PT_PRIDREP:
-                    device.Ffb_h_Eff_Period(data, ref periodicReport);
-                    break;
-
-                case FFBPType.PT_CONSTREP:
-                    device.Ffb_h_Eff_Constant(data, ref constantReport);
-                    break;
-
-                case FFBPType.PT_RAMPREP:
-                    device.Ffb_h_Eff_Ramp(data, ref rampReport);
-                    break;
-
-                default:
-                    Logger.App(String.Format("Unhandled Eff: {0} :{1}", fFBPType, deviceId));
-                    break;
-            }
-
-            ffbValue = constantReport.Magnitude;
         }
     }
 }

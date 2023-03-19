@@ -127,6 +127,7 @@ namespace wheel01
                     SerialPortController.PortName = selected;
                     SerialPortController.Open();
                     FFBValueSender.Enabled = true;
+                    VJoyFfbHandler.Start();
                 }
                 catch (Exception ex)
                 {
