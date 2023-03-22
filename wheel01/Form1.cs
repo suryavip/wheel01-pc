@@ -27,8 +27,6 @@ namespace wheel01
         {
             LoadAllSettings();
 
-            FFBValueSenderFrequency.Value = FFBValueSender.Interval;
-
             SteeringRangeSlider.Value = (int)(wheel.rotationRange * 2);
 
             AccMinSlider.Value = accelerator.startHwValue;
@@ -51,9 +49,8 @@ namespace wheel01
         {
             Logger.App("Load settings...");
 
-            FFBValueSender.Interval = Properties.Settings.Default.ComFFBSenderInterval;
-
             wheel.hwValueOffset = Properties.Settings.Default.WheelHwValueOffset;
+            wheel.hwOverRotationOffset = Properties.Settings.Default.WheelHwOverRotationOffset;
             wheel.flipDirection = Properties.Settings.Default.WheelFlipDirection;
             wheel.rotationRange = Properties.Settings.Default.WheelRotationRange;
 
@@ -69,9 +66,8 @@ namespace wheel01
 
         private void SaveAllSettings()
         {
-            Properties.Settings.Default.ComFFBSenderInterval = FFBValueSender.Interval;
-
             Properties.Settings.Default.WheelHwValueOffset = wheel.hwValueOffset;
+            Properties.Settings.Default.WheelHwOverRotationOffset = wheel.hwOverRotationOffset;
             Properties.Settings.Default.WheelFlipDirection = wheel.flipDirection;
             Properties.Settings.Default.WheelRotationRange = wheel.rotationRange;
 
@@ -148,8 +144,8 @@ namespace wheel01
 
             SteeringRangeDisplayText.Text = (wheel.rotationRange * 360) + "°";
 
-            FFBValueDisplayText.Text = VJoyWrapper.ffbValue.ToString();
-            FFBValueDisplayBar.Value = VJoyWrapper.ffbValue + VJoyWrapper.maxFfbValue;
+            FFBValueDisplayText.Text = VJoyWrapper.AvgFfbValue().ToString();
+            FFBValueDisplayBar.Value = VJoyWrapper.AvgFfbValue() + VJoyWrapper.maxFfbValue;
 
             int accAxisValue = accelerator.CalculateAxisValue();
             AcceleratorAxisDisplayText.Text = accAxisValue.ToString();
@@ -196,10 +192,14 @@ namespace wheel01
             {
                 case "E":
                     String[] splitted = value.Split(',');
+
                     wheel.currentHwValue = int.Parse(splitted[0]);
-                    accelerator.currentHwValue = int.Parse(splitted[1]);
-                    brake.currentHwValue = int.Parse(splitted[2]);
-                    clutch.currentHwValue = int.Parse(splitted[3]);
+                    wheel.currentHwOverRotationValue = int.Parse(splitted[1]);
+
+                    accelerator.currentHwValue = int.Parse(splitted[2]);
+                    brake.currentHwValue = int.Parse(splitted[3]);
+                    clutch.currentHwValue = int.Parse(splitted[4]);
+
                     SendValueToVJoy();
                     break;
             }
@@ -233,7 +233,7 @@ namespace wheel01
             {
                 if (SerialPortController.IsOpen == false) return;
 
-                int val = VJoyWrapper.ffbValue;
+                int val = VJoyWrapper.AvgFfbValue();
 
                 int steeringPosition = wheel.CalculateAxisValue();
                 double bumpThreshold = 500;
@@ -273,7 +273,9 @@ namespace wheel01
         private void ResetZeroBtn_Click(object sender, EventArgs e)
         {
             wheel.hwValueOffset = wheel.currentHwValue;
+            wheel.hwOverRotationOffset = wheel.currentHwOverRotationValue;
             Logger.App("Steering wheel offset: " + wheel.hwValueOffset);
+            Logger.App("Steering wheel OR offset: " + wheel.hwOverRotationOffset);
             SaveAllSettings();
         }
 
@@ -310,12 +312,6 @@ namespace wheel01
         private void CltMaxSlider_Scroll(object sender, EventArgs e)
         {
             clutch.endHwValue = CltMaxSlider.Value;
-            SaveAllSettings();
-        }
-
-        private void FFBValueSenderFrequency_Scroll(object sender, EventArgs e)
-        {
-            FFBValueSender.Interval = FFBValueSenderFrequency.Value;
             SaveAllSettings();
         }
     }

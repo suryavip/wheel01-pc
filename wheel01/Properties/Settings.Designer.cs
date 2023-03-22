@@ -133,13 +133,13 @@ namespace wheel01.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
-        public int ComFFBSenderInterval {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int WheelHwOverRotationOffset {
             get {
-                return ((int)(this["ComFFBSenderInterval"]));
+                return ((int)(this["WheelHwOverRotationOffset"]));
             }
             set {
-                this["ComFFBSenderInterval"] = value;
+                this["WheelHwOverRotationOffset"] = value;
             }
         }
     }

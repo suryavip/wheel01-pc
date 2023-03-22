@@ -29,8 +29,7 @@ namespace wheel01
         static vJoy.FFB_EFF_CONSTANT constantReport;
         static vJoy.FFB_EFF_RAMP rampReport;
 
-
-        public static int ffbValue = 0;
+        public static List<int> ffbValues = new List<int>();
 
         public static void Init()
         {
@@ -118,7 +117,18 @@ namespace wheel01
                     break;
             }
 
-            ffbValue = constantReport.Magnitude;
+            ffbValues.Add(constantReport.Magnitude);
+        }
+
+        public static int AvgFfbValue()
+        {
+            int ffbValue = 0;
+            if (ffbValues.Count > 0)
+            {
+                ffbValue += (int)ffbValues.Average();
+                ffbValues.Clear();
+            }
+            return ffbValue;
         }
     }
 }
