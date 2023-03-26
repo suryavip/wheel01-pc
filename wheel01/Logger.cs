@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -13,6 +14,10 @@ namespace wheel01
         public static String rxLog = "";
         public static String txLog = "";
 
+        public static String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\vipwheel\\log-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".txt";
+        static FileStream fileStream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite);
+        static StreamWriter writer = new StreamWriter(fileStream);
+
         public static void App(string log)
         {
             appLog = "- " + log + Environment.NewLine + appLog;
@@ -22,6 +27,8 @@ namespace wheel01
             }
 
             Console.WriteLine(log);
+
+            writer.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff") + ", " + log);
         }
 
         public static void Rx(string log)
