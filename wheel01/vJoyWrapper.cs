@@ -18,10 +18,15 @@ namespace wheel01
         public const int maxFfbValue = 10000;
         public const int minFfbValue = -10000;
 
+        public const int softLockThreshold = 500;
+
         public static vJoy device;
 
         static FFBPType fFBPType;
 
+        static FFBEType newEffectReport;
+        static FFB_CTRL controlReport;
+        static vJoy.FFB_EFF_OP operationReport;
         static vJoy.FFB_EFF_REPORT effectReport;
         static vJoy.FFB_EFF_ENVLP envelopeReport;
         static vJoy.FFB_EFF_COND conditionReport;
@@ -30,6 +35,7 @@ namespace wheel01
         static vJoy.FFB_EFF_RAMP rampReport;
 
         public static List<int> ffbValues = new List<int>();
+        public static int ffbValue = 0;
 
         public static void Init()
         {
@@ -64,8 +70,8 @@ namespace wheel01
                 return;
             }
 
-            Logger.App(String.Format("Acquired: vJoy device number {0}", deviceId));
-            Logger.App(String.Format("FFB is {0}", Convert.ToString(device.IsDeviceFfb(deviceId))));
+            Logger.App(string.Format("Acquired: vJoy device number {0}", deviceId));
+            Logger.App(string.Format("FFB is {0}", Convert.ToString(device.IsDeviceFfb(deviceId))));
 
             device.ResetVJD(deviceId);
 
@@ -86,49 +92,161 @@ namespace wheel01
         {
             device.Ffb_h_Type(data, ref fFBPType);
 
+            int effectBlockIndex = -2;
+            device.Ffb_h_EBI(data, ref effectBlockIndex);
+
             switch (fFBPType)
             {
-                case FFBPType.PT_EFFREP:
-                    device.Ffb_h_Eff_Report(data, ref effectReport);
+                case FFBPType.PT_CONSTREP:
+                    device.Ffb_h_Eff_Constant(data, ref constantReport);
+                    Logger.App(string.Format(
+                        "{0}, {1}, {2}",
+                        fFBPType,
+                        effectBlockIndex,
+                        constantReport.Magnitude
+                    ));
                     break;
 
-                case FFBPType.PT_ENVREP:
-                    device.Ffb_h_Eff_Envlp(data, ref envelopeReport);
+                case FFBPType.PT_NEWEFREP:
+                    device.Ffb_h_EffNew(data, ref newEffectReport);
+                    Logger.App(string.Format(
+                        "{0}, {1}",
+                        fFBPType,
+                        newEffectReport
+                    ));
+                    break;
+
+                case FFBPType.PT_CTRLREP:
+                    device.Ffb_h_DevCtrl(data, ref controlReport);
+                    Logger.App(string.Format(
+                        "{0}, {1}",
+                        fFBPType,
+                        controlReport
+                    ));
+                    break;
+
+                case FFBPType.PT_EFFREP:
+                    device.Ffb_h_Eff_Report(data, ref effectReport);
+                    Logger.App(string.Format(
+                        "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}",
+                        fFBPType,
+                        effectBlockIndex,
+                        effectReport.Gain,
+                        effectReport.TrigerRpt,
+                        effectReport.Direction,
+                        effectReport.Duration,
+                        effectReport.DirX,
+                        effectReport.DirY,
+                        effectReport.EffectType,
+                        effectReport.Polar,
+                        effectReport.SamplePrd,
+                        effectReport.TrigerBtn,
+                        effectReport.TrigerRpt
+                    ));
+                    break;
+
+                case FFBPType.PT_EFOPREP:
+                    device.Ffb_h_EffOp(data, ref operationReport);
+                    Logger.App(string.Format(
+                        "{0}, {1}, {2}, {3}",
+                        fFBPType,
+                        effectBlockIndex,
+                        operationReport.EffectOp,
+                        operationReport.LoopCount
+                    ));
                     break;
 
                 case FFBPType.PT_CONDREP:
                     device.Ffb_h_Eff_Cond(data, ref conditionReport);
-                    break;
-
-                case FFBPType.PT_PRIDREP:
-                    device.Ffb_h_Eff_Period(data, ref periodicReport);
-                    break;
-
-                case FFBPType.PT_CONSTREP:
-                    device.Ffb_h_Eff_Constant(data, ref constantReport);
-                    break;
-
-                case FFBPType.PT_RAMPREP:
-                    device.Ffb_h_Eff_Ramp(data, ref rampReport);
+                    Logger.App(string.Format(
+                        "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}",
+                        fFBPType,
+                        effectBlockIndex,
+                        conditionReport.CenterPointOffset,
+                        conditionReport.PosCoeff,
+                        conditionReport.NegCoeff,
+                        conditionReport.PosSatur,
+                        conditionReport.NegSatur,
+                        conditionReport.DeadBand,
+                        conditionReport.isY
+                    ));
                     break;
 
                 default:
-                    Logger.App(String.Format("Unhandled Eff: {0} :{1}", fFBPType, deviceId));
+                    Logger.App(string.Format("Eff: {0} :{1}", fFBPType, effectBlockIndex));
                     break;
             }
-
-            ffbValues.Add(constantReport.Magnitude);
         }
 
-        public static int AvgFfbValue()
+        public static int CalculateFFB(int steeringPosition)
         {
-            int ffbValue = 0;
-            if (ffbValues.Count > 0)
+            int ffbOutput = constantReport.Magnitude;
+
+            // Adding soft lock force
+            if (steeringPosition < softLockThreshold)
             {
-                ffbValue += (int)ffbValues.Average();
-                ffbValues.Clear();
+                double progress = (softLockThreshold - steeringPosition);
+                double percent = progress / softLockThreshold;
+                double bumpForce = percent * minFfbValue;
+                ffbOutput += (int)bumpForce;
             }
-            return ffbValue;
+
+            // Adding soft lock force
+            double rightBumpThreshold = maxAxisValue - softLockThreshold;
+            if (steeringPosition > rightBumpThreshold)
+            {
+                double progress = (rightBumpThreshold - steeringPosition) * -1;
+                double percent = progress / softLockThreshold;
+                double bumpForce = percent * maxFfbValue;
+                ffbOutput += (int)bumpForce;
+            }
+
+            // clamp ffbOutput
+            if (ffbOutput > maxFfbValue) ffbOutput = maxFfbValue;
+            if (ffbOutput < minFfbValue) ffbOutput = minFfbValue;
+
+            return ffbOutput;
+        }
+
+        private static int ConditionForceCalculator(float metric)
+        {
+            double deadBand = conditionReport.DeadBand;
+            double cpOffset = conditionReport.CenterPointOffset;
+            double negativeCoefficient = conditionReport.NegCoeff * -1;
+            double negativeSaturation = conditionReport.NegSatur * -1;
+            double positiveCoefficient = conditionReport.PosCoeff;
+            double positiveSaturation = conditionReport.PosSatur;
+
+            double tempForce = 0;
+            if (metric < (cpOffset - deadBand))
+            {
+                // double tempForce = (metric - (double)1.00*(cpOffset - deadBand)/10000) * negativeCoefficient;
+                tempForce = (1.00 * (cpOffset - deadBand) / 10000 - metric) * negativeCoefficient;
+                // tempForce = (tempForce < negativeSaturation ? negativeSaturation : tempForce); I dont know why negativeSaturation = 55536.00 after negativeSaturation = -effect.negativeSaturation;
+                // tempForce =   (tempForce < (-effect.negativeCoefficient) ? (-effect.negativeCoefficient) : tempForce);
+            }
+            else if (metric > (cpOffset + deadBand))
+            {
+                tempForce = (metric - 1.00 * (cpOffset + deadBand) / 10000) * positiveCoefficient;
+                tempForce = tempForce > positiveSaturation ? positiveSaturation : tempForce;
+            }
+
+            //switch (conditionReport.GetType())
+            //{
+            //    case USB_EFFECT_DAMPER:
+            //        tempForce = damperFilter.filterIn(tempForce);
+            //        break;
+            //    case USB_EFFECT_INERTIA:
+            //        tempForce = interiaFilter.filterIn(tempForce);
+            //        break;
+            //    case USB_EFFECT_FRICTION:
+            //        tempForce = frictionFilter.filterIn(tempForce);
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            return (int)tempForce;
         }
     }
 }

@@ -141,8 +141,8 @@ namespace wheel01
 
             SteeringRangeDisplayText.Text = (wheel.rotationRange * 360) + "°";
 
-            FFBValueDisplayText.Text = VJoyWrapper.AvgFfbValue().ToString();
-            FFBValueDisplayBar.Value = VJoyWrapper.AvgFfbValue() + VJoyWrapper.maxFfbValue;
+            FFBValueDisplayText.Text = VJoyWrapper.CalculateFFB(steeringAxisValue).ToString();
+            FFBValueDisplayBar.Value = VJoyWrapper.CalculateFFB(steeringAxisValue) + VJoyWrapper.maxFfbValue;
 
             int accAxisValue = accelerator.CalculateAxisValue();
             AcceleratorAxisDisplayText.Text = accAxisValue.ToString();
@@ -230,32 +230,10 @@ namespace wheel01
             {
                 if (SerialPortController.IsOpen == false) return;
 
-                int val = VJoyWrapper.AvgFfbValue();
-
                 int steeringPosition = wheel.CalculateAxisValue();
-                double bumpThreshold = 500;
-                if (steeringPosition < bumpThreshold)
-                {
-                    double progress = (bumpThreshold - steeringPosition);
-                    double percent = progress / bumpThreshold;
-                    double bumpForce = percent * VJoyWrapper.minFfbValue;
-                    val += (int)bumpForce;
-                }
-
-                double rightBumpThreshold = VJoyWrapper.maxAxisValue - bumpThreshold;
-                if (steeringPosition > rightBumpThreshold)
-                {
-                    double progress = (rightBumpThreshold - steeringPosition) * -1;
-                    double percent = progress / bumpThreshold;
-                    double bumpForce = percent * VJoyWrapper.maxFfbValue;
-                    val += (int)bumpForce;
-                }
-
-                if (val > VJoyWrapper.maxFfbValue) val = VJoyWrapper.maxFfbValue;
-                if (val < VJoyWrapper.minFfbValue) val = VJoyWrapper.minFfbValue;
+                int val = VJoyWrapper.CalculateFFB(steeringPosition);
 
                 string tosent = "F:" + val + ";";
-
                 SerialPortController.Write(tosent);
                 Logger.Tx(tosent);
             }
