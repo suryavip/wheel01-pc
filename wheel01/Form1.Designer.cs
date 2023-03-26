@@ -33,10 +33,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.COMPortsRefreshButton = new System.Windows.Forms.Button();
-            this.TxLogOutput = new System.Windows.Forms.RichTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.RxLogOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ResetZeroBtn = new System.Windows.Forms.Button();
             this.FFBValueDisplayBar = new System.Windows.Forms.ProgressBar();
@@ -134,52 +130,6 @@
             this.COMPortsRefreshButton.TabIndex = 3;
             this.COMPortsRefreshButton.UseVisualStyleBackColor = true;
             this.COMPortsRefreshButton.Click += new System.EventHandler(this.COMPortsRefreshButton_Click);
-            // 
-            // TxLogOutput
-            // 
-            this.TxLogOutput.BackColor = System.Drawing.SystemColors.Window;
-            this.TxLogOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxLogOutput.Location = new System.Drawing.Point(120, 50);
-            this.TxLogOutput.Name = "TxLogOutput";
-            this.TxLogOutput.ReadOnly = true;
-            this.TxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.TxLogOutput.Size = new System.Drawing.Size(100, 110);
-            this.TxLogOutput.TabIndex = 7;
-            this.TxLogOutput.Text = "";
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(120, 20);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 30);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "PC to Arduino:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 20);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 30);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Arduino to PC:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // RxLogOutput
-            // 
-            this.RxLogOutput.BackColor = System.Drawing.SystemColors.Window;
-            this.RxLogOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.RxLogOutput.Location = new System.Drawing.Point(10, 50);
-            this.RxLogOutput.Name = "RxLogOutput";
-            this.RxLogOutput.ReadOnly = true;
-            this.RxLogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.RxLogOutput.Size = new System.Drawing.Size(100, 110);
-            this.RxLogOutput.TabIndex = 4;
-            this.RxLogOutput.Text = "";
             // 
             // groupBox2
             // 
@@ -393,10 +343,6 @@
             // 
             this.groupBox3.Controls.Add(this.CopyLogToClipboardButton);
             this.groupBox3.Controls.Add(this.LogOutput);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.RxLogOutput);
-            this.groupBox3.Controls.Add(this.TxLogOutput);
             this.groupBox3.Location = new System.Drawing.Point(10, 80);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(230, 300);
@@ -420,11 +366,11 @@
             this.LogOutput.BackColor = System.Drawing.SystemColors.Window;
             this.LogOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.LogOutput.HideSelection = false;
-            this.LogOutput.Location = new System.Drawing.Point(10, 170);
+            this.LogOutput.Location = new System.Drawing.Point(10, 20);
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
             this.LogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogOutput.Size = new System.Drawing.Size(170, 120);
+            this.LogOutput.Size = new System.Drawing.Size(170, 270);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
             // 
@@ -624,10 +570,6 @@
         private System.Windows.Forms.ComboBox COMPortsComboBox;
         private System.Windows.Forms.Button COMPortsRefreshButton;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RichTextBox TxLogOutput;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox RxLogOutput;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ProgressBar SteeringAxisDisplayBar;
         private System.Windows.Forms.ProgressBar ClutchAxisDisplayBar;

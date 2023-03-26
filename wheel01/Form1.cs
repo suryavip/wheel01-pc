@@ -135,9 +135,6 @@ namespace wheel01
 
         private void DisplayUpdater_Tick(object sender, EventArgs e)
         {
-            RxLogOutput.Text = Logger.rxLog;
-            TxLogOutput.Text = Logger.txLog;
-
             int steeringAxisValue = wheel.CalculateAxisValue();
             SteeringAxisDisplayText.Text = steeringAxisValue.ToString();
             SteeringAxisDisplayBar.Value = steeringAxisValue;

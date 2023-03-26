@@ -26,20 +26,20 @@ namespace wheel01
 
         public static void Rx(string log)
         {
-            rxLog = log + Environment.NewLine + rxLog;
-            if (rxLog.Length > lengthLimit)
-            {
-                rxLog = rxLog.Substring(0, lengthLimit);
-            }
+            //rxLog = log + Environment.NewLine + rxLog;
+            //if (rxLog.Length > lengthLimit)
+            //{
+            //    rxLog = rxLog.Substring(0, lengthLimit);
+            //}
         }
 
         public static void Tx(string log)
         {
-            txLog = log + Environment.NewLine + txLog;
-            if (txLog.Length > lengthLimit)
-            {
-                txLog = txLog.Substring(0, lengthLimit);
-            }
+            //txLog = log + Environment.NewLine + txLog;
+            //if (txLog.Length > lengthLimit)
+            //{
+            //    txLog = txLog.Substring(0, lengthLimit);
+            //}
         }
     }
 }
