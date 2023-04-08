@@ -178,25 +178,28 @@ namespace wheel01
             }
         }
 
-        public static int CalculateFFB(int steeringPosition)
+        public static int CalculateFFB(int steeringPosition, double rotation)
         {
+            double normalizedThresholdDouble = softLockThreshold / (rotation / 5);
+            int normalizedThreshold = (int)normalizedThresholdDouble;
+
             int ffbOutput = constantReport.Magnitude;
 
             // Adding soft lock force
-            if (steeringPosition < softLockThreshold)
+            if (steeringPosition < normalizedThreshold)
             {
-                double progress = (softLockThreshold - steeringPosition);
-                double percent = progress / softLockThreshold;
+                double progress = (normalizedThreshold - steeringPosition);
+                double percent = progress / normalizedThreshold;
                 double bumpForce = percent * minFfbValue;
                 ffbOutput += (int)bumpForce;
             }
 
             // Adding soft lock force
-            double rightBumpThreshold = maxAxisValue - softLockThreshold;
+            double rightBumpThreshold = maxAxisValue - normalizedThreshold;
             if (steeringPosition > rightBumpThreshold)
             {
                 double progress = (rightBumpThreshold - steeringPosition) * -1;
-                double percent = progress / softLockThreshold;
+                double percent = progress / normalizedThreshold;
                 double bumpForce = percent * maxFfbValue;
                 ffbOutput += (int)bumpForce;
             }

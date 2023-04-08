@@ -18,6 +18,8 @@ namespace wheel01
         readonly Pedal brake = new Pedal();
         readonly Pedal clutch = new Pedal();
 
+        int ffbToSent = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -141,8 +143,8 @@ namespace wheel01
 
             SteeringRangeDisplayText.Text = (wheel.rotationRange * 360) + "°";
 
-            FFBValueDisplayText.Text = VJoyWrapper.CalculateFFB(steeringAxisValue).ToString();
-            FFBValueDisplayBar.Value = VJoyWrapper.CalculateFFB(steeringAxisValue) + VJoyWrapper.maxFfbValue;
+            FFBValueDisplayText.Text = ffbToSent.ToString();
+            FFBValueDisplayBar.Value = ffbToSent + VJoyWrapper.maxFfbValue;
 
             int accAxisValue = accelerator.CalculateAxisValue();
             AcceleratorAxisDisplayText.Text = accAxisValue.ToString();
@@ -231,9 +233,9 @@ namespace wheel01
                 if (SerialPortController.IsOpen == false) return;
 
                 int steeringPosition = wheel.CalculateAxisValue();
-                int val = VJoyWrapper.CalculateFFB(steeringPosition);
+                ffbToSent = VJoyWrapper.CalculateFFB(steeringPosition, wheel.rotationRange);
 
-                string tosent = "F:" + val + ";";
+                string tosent = "F:" + ffbToSent + ";";
                 SerialPortController.Write(tosent);
                 Logger.Tx(tosent);
             }
