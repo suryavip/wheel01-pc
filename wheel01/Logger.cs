@@ -11,12 +11,12 @@ namespace wheel01
         const int lengthLimit = 500;
 
         public static String appLog = "";
-        public static String rxLog = "";
-        public static String txLog = "";
+        //public static String rxLog = "";
+        //public static String txLog = "";
 
-        public static String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\vipwheel\\log-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".txt";
-        static FileStream fileStream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite);
-        static StreamWriter writer = new StreamWriter(fileStream);
+        //public static String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\vipwheel\\log-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".txt";
+        //static FileStream fileStream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite);
+        //static StreamWriter writer = new StreamWriter(fileStream);
 
         public static void App(string log)
         {
@@ -28,7 +28,7 @@ namespace wheel01
 
             Console.WriteLine(log);
 
-            writer.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff") + ", " + log);
+            //writer.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff") + ", " + log);
         }
 
         public static void Rx(string log)
