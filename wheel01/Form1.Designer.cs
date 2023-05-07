@@ -69,6 +69,10 @@
             this.CltMaxSlider = new System.Windows.Forms.TrackBar();
             this.CltMinSlider = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.veloReactiveSendBtn = new System.Windows.Forms.Button();
+            this.veloReactiveValue = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
@@ -82,6 +86,8 @@
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.veloReactiveValue)).BeginInit();
             this.SuspendLayout();
             // 
             // COMPortsComboBox
@@ -343,9 +349,9 @@
             // 
             this.groupBox3.Controls.Add(this.CopyLogToClipboardButton);
             this.groupBox3.Controls.Add(this.LogOutput);
-            this.groupBox3.Location = new System.Drawing.Point(10, 80);
+            this.groupBox3.Location = new System.Drawing.Point(10, 150);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(230, 300);
+            this.groupBox3.Size = new System.Drawing.Size(230, 230);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
@@ -354,7 +360,7 @@
             // 
             this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
             this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(190, 260);
+            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(190, 20);
             this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
             this.CopyLogToClipboardButton.Size = new System.Drawing.Size(30, 30);
             this.CopyLogToClipboardButton.TabIndex = 6;
@@ -370,7 +376,7 @@
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
             this.LogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogOutput.Size = new System.Drawing.Size(170, 270);
+            this.LogOutput.Size = new System.Drawing.Size(170, 200);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
             // 
@@ -532,11 +538,65 @@
             this.label13.Text = "Range:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.veloReactiveSendBtn);
+            this.groupBox4.Controls.Add(this.veloReactiveValue);
+            this.groupBox4.Controls.Add(this.label1);
+            this.groupBox4.Location = new System.Drawing.Point(10, 80);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(230, 60);
+            this.groupBox4.TabIndex = 32;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Configuration";
+            // 
+            // veloReactiveSendBtn
+            // 
+            this.veloReactiveSendBtn.BackgroundImage = global::wheel01.Properties.Resources.paper_plane_2;
+            this.veloReactiveSendBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.veloReactiveSendBtn.Location = new System.Drawing.Point(190, 20);
+            this.veloReactiveSendBtn.Name = "veloReactiveSendBtn";
+            this.veloReactiveSendBtn.Size = new System.Drawing.Size(30, 30);
+            this.veloReactiveSendBtn.TabIndex = 26;
+            this.veloReactiveSendBtn.UseVisualStyleBackColor = true;
+            this.veloReactiveSendBtn.Click += new System.EventHandler(this.veloReactiveSendBtn_Click);
+            // 
+            // veloReactiveValue
+            // 
+            this.veloReactiveValue.Location = new System.Drawing.Point(130, 20);
+            this.veloReactiveValue.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.veloReactiveValue.Minimum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            -2147483648});
+            this.veloReactiveValue.Name = "veloReactiveValue";
+            this.veloReactiveValue.Size = new System.Drawing.Size(50, 23);
+            this.veloReactiveValue.TabIndex = 25;
+            this.veloReactiveValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(10, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(110, 30);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Velocity Reactive:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(590, 390);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -562,6 +622,8 @@
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.veloReactiveValue)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -607,6 +669,10 @@
         private System.Windows.Forms.TrackBar CltMaxSlider;
         private System.Windows.Forms.TrackBar CltMinSlider;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button veloReactiveSendBtn;
+        private System.Windows.Forms.NumericUpDown veloReactiveValue;
     }
 }
 

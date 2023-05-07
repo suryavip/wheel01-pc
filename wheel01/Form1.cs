@@ -291,5 +291,22 @@ namespace wheel01
             clutch.endHwValue = CltMaxSlider.Value;
             SaveAllSettings();
         }
+
+        private void veloReactiveSendBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SerialPortController.IsOpen == false) return;
+
+                string tosent = "V:" + veloReactiveValue.Value + ";";
+                SerialPortController.Write(tosent);
+                Logger.App("Sending " + tosent);
+                Logger.Tx(tosent);
+            }
+            catch (Exception ex)
+            {
+                Logger.App("Error on sending velocity reactive value: " + ex.Message);
+            }
+        }
     }
 }
