@@ -7,7 +7,7 @@ namespace wheel01
 {
     internal class Pedal
     {
-        public const int maxHwValue = 4095;
+        public const int maxHwValue = 32767;
         public const int minHwValue = 0;
         public const int hwValueRange = maxHwValue - minHwValue + 1;
 

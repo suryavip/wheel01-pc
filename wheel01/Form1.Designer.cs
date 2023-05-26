@@ -405,7 +405,7 @@
             this.AccMaxSlider.AutoSize = false;
             this.AccMaxSlider.LargeChange = 1;
             this.AccMaxSlider.Location = new System.Drawing.Point(10, 130);
-            this.AccMaxSlider.Maximum = 4095;
+            this.AccMaxSlider.Maximum = 32767;
             this.AccMaxSlider.Name = "AccMaxSlider";
             this.AccMaxSlider.Size = new System.Drawing.Size(140, 30);
             this.AccMaxSlider.TabIndex = 27;
@@ -418,7 +418,7 @@
             this.AccMinSlider.AutoSize = false;
             this.AccMinSlider.LargeChange = 1;
             this.AccMinSlider.Location = new System.Drawing.Point(10, 100);
-            this.AccMinSlider.Maximum = 4095;
+            this.AccMinSlider.Maximum = 32767;
             this.AccMinSlider.Name = "AccMinSlider";
             this.AccMinSlider.Size = new System.Drawing.Size(140, 30);
             this.AccMinSlider.TabIndex = 25;
@@ -456,7 +456,7 @@
             this.BrkMaxSlider.AutoSize = false;
             this.BrkMaxSlider.LargeChange = 1;
             this.BrkMaxSlider.Location = new System.Drawing.Point(10, 130);
-            this.BrkMaxSlider.Maximum = 4095;
+            this.BrkMaxSlider.Maximum = 32767;
             this.BrkMaxSlider.Name = "BrkMaxSlider";
             this.BrkMaxSlider.Size = new System.Drawing.Size(140, 30);
             this.BrkMaxSlider.TabIndex = 27;
@@ -469,7 +469,7 @@
             this.BrkMinSlider.AutoSize = false;
             this.BrkMinSlider.LargeChange = 1;
             this.BrkMinSlider.Location = new System.Drawing.Point(10, 100);
-            this.BrkMinSlider.Maximum = 4095;
+            this.BrkMinSlider.Maximum = 32767;
             this.BrkMinSlider.Name = "BrkMinSlider";
             this.BrkMinSlider.Size = new System.Drawing.Size(140, 30);
             this.BrkMinSlider.TabIndex = 25;
@@ -507,7 +507,7 @@
             this.CltMaxSlider.AutoSize = false;
             this.CltMaxSlider.LargeChange = 1;
             this.CltMaxSlider.Location = new System.Drawing.Point(10, 130);
-            this.CltMaxSlider.Maximum = 4095;
+            this.CltMaxSlider.Maximum = 32767;
             this.CltMaxSlider.Name = "CltMaxSlider";
             this.CltMaxSlider.Size = new System.Drawing.Size(140, 30);
             this.CltMaxSlider.TabIndex = 27;
@@ -520,7 +520,7 @@
             this.CltMinSlider.AutoSize = false;
             this.CltMinSlider.LargeChange = 1;
             this.CltMinSlider.Location = new System.Drawing.Point(10, 100);
-            this.CltMinSlider.Maximum = 4095;
+            this.CltMinSlider.Maximum = 32767;
             this.CltMinSlider.Name = "CltMinSlider";
             this.CltMinSlider.Size = new System.Drawing.Size(140, 30);
             this.CltMinSlider.TabIndex = 25;
