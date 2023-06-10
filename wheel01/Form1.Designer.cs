@@ -330,7 +330,7 @@
             // 
             this.SerialPortController.BaudRate = 115200;
             this.SerialPortController.DtrEnable = true;
-            this.SerialPortController.ReceivedBytesThreshold = 8;
+            this.SerialPortController.ReceivedBytesThreshold = 16;
             this.SerialPortController.RtsEnable = true;
             this.SerialPortController.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPortController_DataReceived);
             // 
@@ -382,7 +382,7 @@
             // 
             // FFBValueSender
             // 
-            this.FFBValueSender.Interval = 8;
+            this.FFBValueSender.Interval = 6;
             this.FFBValueSender.Tick += new System.EventHandler(this.FFBValueSender_Tick);
             // 
             // groupBox5
