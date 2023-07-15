@@ -69,10 +69,10 @@
             this.CltMaxSlider = new System.Windows.Forms.TrackBar();
             this.CltMinSlider = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.veloReactiveSendBtn = new System.Windows.Forms.Button();
-            this.veloReactiveValue = new System.Windows.Forms.NumericUpDown();
+            this.FFBValueSenderInterval = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
@@ -86,8 +86,7 @@
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.veloReactiveValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // COMPortsComboBox
@@ -104,13 +103,17 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.FFBValueSenderInterval);
             this.groupBox1.Controls.Add(this.ConnectButton);
             this.groupBox1.Controls.Add(this.COMPortsRefreshButton);
             this.groupBox1.Controls.Add(this.COMPortsComboBox);
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(230, 60);
+            this.groupBox1.Size = new System.Drawing.Size(230, 130);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Communication";
@@ -538,65 +541,58 @@
             this.label13.Text = "Range:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // groupBox4
+            // FFBValueSenderInterval
             // 
-            this.groupBox4.Controls.Add(this.veloReactiveSendBtn);
-            this.groupBox4.Controls.Add(this.veloReactiveValue);
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Location = new System.Drawing.Point(10, 80);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(230, 60);
-            this.groupBox4.TabIndex = 32;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Configuration";
-            // 
-            // veloReactiveSendBtn
-            // 
-            this.veloReactiveSendBtn.BackgroundImage = global::wheel01.Properties.Resources.paper_plane_2;
-            this.veloReactiveSendBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.veloReactiveSendBtn.Location = new System.Drawing.Point(190, 20);
-            this.veloReactiveSendBtn.Name = "veloReactiveSendBtn";
-            this.veloReactiveSendBtn.Size = new System.Drawing.Size(30, 30);
-            this.veloReactiveSendBtn.TabIndex = 26;
-            this.veloReactiveSendBtn.UseVisualStyleBackColor = true;
-            this.veloReactiveSendBtn.Click += new System.EventHandler(this.veloReactiveSendBtn_Click);
-            // 
-            // veloReactiveValue
-            // 
-            this.veloReactiveValue.Location = new System.Drawing.Point(130, 20);
-            this.veloReactiveValue.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.veloReactiveValue.Minimum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            -2147483648});
-            this.veloReactiveValue.Name = "veloReactiveValue";
-            this.veloReactiveValue.Size = new System.Drawing.Size(50, 23);
-            this.veloReactiveValue.TabIndex = 25;
-            this.veloReactiveValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.FFBValueSenderInterval.AutoSize = false;
+            this.FFBValueSenderInterval.LargeChange = 2;
+            this.FFBValueSenderInterval.Location = new System.Drawing.Point(10, 90);
+            this.FFBValueSenderInterval.Maximum = 8;
+            this.FFBValueSenderInterval.Minimum = 4;
+            this.FFBValueSenderInterval.Name = "FFBValueSenderInterval";
+            this.FFBValueSenderInterval.Size = new System.Drawing.Size(210, 30);
+            this.FFBValueSenderInterval.TabIndex = 23;
+            this.FFBValueSenderInterval.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.FFBValueSenderInterval.Value = 6;
+            this.FFBValueSenderInterval.Scroll += new System.EventHandler(this.FFBValueSenderInterval_Scroll);
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 20);
+            this.label1.Location = new System.Drawing.Point(10, 60);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 30);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Velocity Reactive:";
+            this.label1.Size = new System.Drawing.Size(40, 30);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "4ms";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(180, 60);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 30);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "8ms";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(90, 60);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 30);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "6ms";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(590, 390);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -623,8 +619,7 @@
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.veloReactiveValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderInterval)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -670,10 +665,10 @@
         private System.Windows.Forms.TrackBar CltMaxSlider;
         private System.Windows.Forms.TrackBar CltMinSlider;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button veloReactiveSendBtn;
-        private System.Windows.Forms.NumericUpDown veloReactiveValue;
+        private System.Windows.Forms.TrackBar FFBValueSenderInterval;
     }
 }
 

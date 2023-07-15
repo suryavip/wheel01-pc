@@ -99,81 +99,81 @@ namespace wheel01
             {
                 case FFBPType.PT_CONSTREP:
                     device.Ffb_h_Eff_Constant(data, ref constantReport);
-                    Logger.App(string.Format(
-                        "{0}, {1}, {2}",
-                        fFBPType,
-                        effectBlockIndex,
-                        constantReport.Magnitude
-                    ));
+                    //Logger.App(string.Format(
+                    //    "{0}, {1}, {2}",
+                    //    fFBPType,
+                    //    effectBlockIndex,
+                    //    constantReport.Magnitude
+                    //));
                     break;
 
                 case FFBPType.PT_NEWEFREP:
                     device.Ffb_h_EffNew(data, ref newEffectReport);
-                    Logger.App(string.Format(
-                        "{0}, {1}",
-                        fFBPType,
-                        newEffectReport
-                    ));
+                    //Logger.App(string.Format(
+                    //    "{0}, {1}",
+                    //    fFBPType,
+                    //    newEffectReport
+                    //));
                     break;
 
                 case FFBPType.PT_CTRLREP:
                     device.Ffb_h_DevCtrl(data, ref controlReport);
-                    Logger.App(string.Format(
-                        "{0}, {1}",
-                        fFBPType,
-                        controlReport
-                    ));
+                    //Logger.App(string.Format(
+                    //    "{0}, {1}",
+                    //    fFBPType,
+                    //    controlReport
+                    //));
                     break;
 
                 case FFBPType.PT_EFFREP:
                     device.Ffb_h_Eff_Report(data, ref effectReport);
-                    Logger.App(string.Format(
-                        "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}",
-                        fFBPType,
-                        effectBlockIndex,
-                        effectReport.Gain,
-                        effectReport.TrigerRpt,
-                        effectReport.Direction,
-                        effectReport.Duration,
-                        effectReport.DirX,
-                        effectReport.DirY,
-                        effectReport.EffectType,
-                        effectReport.Polar,
-                        effectReport.SamplePrd,
-                        effectReport.TrigerBtn,
-                        effectReport.TrigerRpt
-                    ));
+                    //Logger.App(string.Format(
+                    //    "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}",
+                    //    fFBPType,
+                    //    effectBlockIndex,
+                    //    effectReport.Gain,
+                    //    effectReport.TrigerRpt,
+                    //    effectReport.Direction,
+                    //    effectReport.Duration,
+                    //    effectReport.DirX,
+                    //    effectReport.DirY,
+                    //    effectReport.EffectType,
+                    //    effectReport.Polar,
+                    //    effectReport.SamplePrd,
+                    //    effectReport.TrigerBtn,
+                    //    effectReport.TrigerRpt
+                    //));
                     break;
 
                 case FFBPType.PT_EFOPREP:
                     device.Ffb_h_EffOp(data, ref operationReport);
-                    Logger.App(string.Format(
-                        "{0}, {1}, {2}, {3}",
-                        fFBPType,
-                        effectBlockIndex,
-                        operationReport.EffectOp,
-                        operationReport.LoopCount
-                    ));
+                    //Logger.App(string.Format(
+                    //    "{0}, {1}, {2}, {3}",
+                    //    fFBPType,
+                    //    effectBlockIndex,
+                    //    operationReport.EffectOp,
+                    //    operationReport.LoopCount
+                    //));
                     break;
 
                 case FFBPType.PT_CONDREP:
                     device.Ffb_h_Eff_Cond(data, ref conditionReport);
-                    Logger.App(string.Format(
-                        "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}",
-                        fFBPType,
-                        effectBlockIndex,
-                        conditionReport.CenterPointOffset,
-                        conditionReport.PosCoeff,
-                        conditionReport.NegCoeff,
-                        conditionReport.PosSatur,
-                        conditionReport.NegSatur,
-                        conditionReport.DeadBand,
-                        conditionReport.isY
-                    ));
+                    //Logger.App(string.Format(
+                    //    "{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}",
+                    //    fFBPType,
+                    //    effectBlockIndex,
+                    //    conditionReport.CenterPointOffset,
+                    //    conditionReport.PosCoeff,
+                    //    conditionReport.NegCoeff,
+                    //    conditionReport.PosSatur,
+                    //    conditionReport.NegSatur,
+                    //    conditionReport.DeadBand,
+                    //    conditionReport.isY
+                    //));
                     break;
 
                 default:
-                    Logger.App(string.Format("Eff: {0} :{1}", fFBPType, effectBlockIndex));
+                    //Logger.App(string.Format("Eff: {0} :{1}", fFBPType, effectBlockIndex));
                     break;
             }
         }

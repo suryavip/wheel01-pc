@@ -142,5 +142,17 @@ namespace wheel01.Properties {
                 this["WheelHwOverRotationOffset"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public int FFBValueSenderInterval {
+            get {
+                return ((int)(this["FFBValueSenderInterval"]));
+            }
+            set {
+                this["FFBValueSenderInterval"] = value;
+            }
+        }
     }
 }

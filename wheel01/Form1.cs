@@ -64,6 +64,9 @@ namespace wheel01
 
             clutch.startHwValue = Properties.Settings.Default.CltStartHwValue;
             clutch.endHwValue = Properties.Settings.Default.CltEndHwValue;
+
+            FFBValueSenderInterval.Value = Properties.Settings.Default.FFBValueSenderInterval;
+            FFBValueSender.Interval = Properties.Settings.Default.FFBValueSenderInterval;
         }
 
         private void SaveAllSettings()
@@ -81,6 +84,8 @@ namespace wheel01
 
             Properties.Settings.Default.CltStartHwValue = clutch.startHwValue;
             Properties.Settings.Default.CltEndHwValue = clutch.endHwValue;
+
+            Properties.Settings.Default.FFBValueSenderInterval = FFBValueSender.Interval;
 
             Properties.Settings.Default.Save();
         }
@@ -292,21 +297,10 @@ namespace wheel01
             SaveAllSettings();
         }
 
-        private void veloReactiveSendBtn_Click(object sender, EventArgs e)
+        private void FFBValueSenderInterval_Scroll(object sender, EventArgs e)
         {
-            try
-            {
-                if (SerialPortController.IsOpen == false) return;
-
-                string tosent = "V:" + veloReactiveValue.Value + ";";
-                SerialPortController.Write(tosent);
-                Logger.App("Sending " + tosent);
-                Logger.Tx(tosent);
-            }
-            catch (Exception ex)
-            {
-                Logger.App("Error on sending velocity reactive value: " + ex.Message);
-            }
+            FFBValueSender.Interval = FFBValueSenderInterval.Value;
+            SaveAllSettings();
         }
     }
 }
