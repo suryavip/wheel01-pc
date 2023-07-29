@@ -67,6 +67,8 @@ namespace wheel01
 
             FFBValueSenderInterval.Value = Properties.Settings.Default.FFBValueSenderInterval;
             FFBValueSender.Interval = Properties.Settings.Default.FFBValueSenderInterval;
+
+            MinOutVoltageSlider.Value = Properties.Settings.Default.LastMinimumOutputVoltage;
         }
 
         private void SaveAllSettings()
@@ -86,6 +88,8 @@ namespace wheel01
             Properties.Settings.Default.CltEndHwValue = clutch.endHwValue;
 
             Properties.Settings.Default.FFBValueSenderInterval = FFBValueSender.Interval;
+
+            Properties.Settings.Default.LastMinimumOutputVoltage = MinOutVoltageSlider.Value;
 
             Properties.Settings.Default.Save();
         }
@@ -300,6 +304,26 @@ namespace wheel01
         private void FFBValueSenderInterval_Scroll(object sender, EventArgs e)
         {
             FFBValueSender.Interval = FFBValueSenderInterval.Value;
+            SaveAllSettings();
+        }
+
+        private void MinOutVoltageSlider_Scroll(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SerialPortController.IsOpen == false) return;
+
+                double slider = MinOutVoltageSlider.Value;
+                double realVoltage = slider / 10;
+
+                string tosent = "M:" + realVoltage.ToString("F").Replace(",", ".") + ";";
+                SerialPortController.Write(tosent);
+                Logger.Tx(tosent);
+            }
+            catch (Exception ex)
+            {
+                Logger.App("Error on sending data: " + ex.Message);
+            }
             SaveAllSettings();
         }
     }

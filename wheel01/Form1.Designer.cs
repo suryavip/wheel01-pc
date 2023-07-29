@@ -31,6 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.COMPortsComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.MinOutVoltageSlider = new System.Windows.Forms.TrackBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.FFBValueSenderInterval = new System.Windows.Forms.TrackBar();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.COMPortsRefreshButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -69,11 +78,9 @@
             this.CltMaxSlider = new System.Windows.Forms.TrackBar();
             this.CltMinSlider = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
-            this.FFBValueSenderInterval = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MinOutVoltageSlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderInterval)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -86,7 +93,6 @@
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // COMPortsComboBox
@@ -98,11 +104,16 @@
             this.COMPortsComboBox.Location = new System.Drawing.Point(10, 20);
             this.COMPortsComboBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.COMPortsComboBox.Name = "COMPortsComboBox";
-            this.COMPortsComboBox.Size = new System.Drawing.Size(140, 23);
+            this.COMPortsComboBox.Size = new System.Drawing.Size(80, 23);
             this.COMPortsComboBox.TabIndex = 1;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.MinOutVoltageSlider);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
@@ -113,16 +124,119 @@
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(230, 130);
+            this.groupBox1.Size = new System.Drawing.Size(170, 210);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Communication";
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(10, 130);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(150, 20);
+            this.label7.TabIndex = 39;
+            this.label7.Text = "Minimum Output Voltage";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(60, 150);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 20);
+            this.label6.TabIndex = 38;
+            this.label6.Text = ".5V";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(120, 150);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 20);
+            this.label5.TabIndex = 37;
+            this.label5.Text = "1V";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(10, 150);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 20);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "0V";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // MinOutVoltageSlider
+            // 
+            this.MinOutVoltageSlider.AutoSize = false;
+            this.MinOutVoltageSlider.LargeChange = 2;
+            this.MinOutVoltageSlider.Location = new System.Drawing.Point(10, 170);
+            this.MinOutVoltageSlider.Name = "MinOutVoltageSlider";
+            this.MinOutVoltageSlider.Size = new System.Drawing.Size(150, 30);
+            this.MinOutVoltageSlider.TabIndex = 35;
+            this.MinOutVoltageSlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.MinOutVoltageSlider.Value = 8;
+            this.MinOutVoltageSlider.Scroll += new System.EventHandler(this.MinOutVoltageSlider_Scroll);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(60, 60);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 20);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "6ms";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(120, 60);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 20);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "8ms";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(10, 60);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 20);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "4ms";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FFBValueSenderInterval
+            // 
+            this.FFBValueSenderInterval.AutoSize = false;
+            this.FFBValueSenderInterval.LargeChange = 2;
+            this.FFBValueSenderInterval.Location = new System.Drawing.Point(10, 80);
+            this.FFBValueSenderInterval.Maximum = 8;
+            this.FFBValueSenderInterval.Minimum = 4;
+            this.FFBValueSenderInterval.Name = "FFBValueSenderInterval";
+            this.FFBValueSenderInterval.Size = new System.Drawing.Size(150, 30);
+            this.FFBValueSenderInterval.TabIndex = 23;
+            this.FFBValueSenderInterval.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.FFBValueSenderInterval.Value = 6;
+            this.FFBValueSenderInterval.Scroll += new System.EventHandler(this.FFBValueSenderInterval_Scroll);
             // 
             // ConnectButton
             // 
             this.ConnectButton.BackgroundImage = global::wheel01.Properties.Resources.plug;
             this.ConnectButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ConnectButton.Location = new System.Drawing.Point(190, 20);
+            this.ConnectButton.Location = new System.Drawing.Point(130, 20);
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(30, 30);
             this.ConnectButton.TabIndex = 22;
@@ -133,7 +247,7 @@
             // 
             this.COMPortsRefreshButton.BackgroundImage = global::wheel01.Properties.Resources.arrows_rotate_11;
             this.COMPortsRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.COMPortsRefreshButton.Location = new System.Drawing.Point(160, 20);
+            this.COMPortsRefreshButton.Location = new System.Drawing.Point(100, 20);
             this.COMPortsRefreshButton.Name = "COMPortsRefreshButton";
             this.COMPortsRefreshButton.Size = new System.Drawing.Size(30, 30);
             this.COMPortsRefreshButton.TabIndex = 3;
@@ -152,7 +266,7 @@
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.SteeringAxisDisplayText);
             this.groupBox2.Controls.Add(this.SteeringAxisDisplayBar);
-            this.groupBox2.Location = new System.Drawing.Point(250, 10);
+            this.groupBox2.Location = new System.Drawing.Point(190, 10);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(160, 190);
@@ -352,9 +466,9 @@
             // 
             this.groupBox3.Controls.Add(this.CopyLogToClipboardButton);
             this.groupBox3.Controls.Add(this.LogOutput);
-            this.groupBox3.Location = new System.Drawing.Point(10, 150);
+            this.groupBox3.Location = new System.Drawing.Point(10, 230);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(230, 230);
+            this.groupBox3.Size = new System.Drawing.Size(170, 150);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
@@ -363,7 +477,7 @@
             // 
             this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
             this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(190, 20);
+            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(130, 20);
             this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
             this.CopyLogToClipboardButton.Size = new System.Drawing.Size(30, 30);
             this.CopyLogToClipboardButton.TabIndex = 6;
@@ -379,7 +493,7 @@
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
             this.LogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogOutput.Size = new System.Drawing.Size(170, 200);
+            this.LogOutput.Size = new System.Drawing.Size(120, 120);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
             // 
@@ -395,7 +509,7 @@
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.AcceleratorAxisDisplayBar);
             this.groupBox5.Controls.Add(this.AcceleratorAxisDisplayText);
-            this.groupBox5.Location = new System.Drawing.Point(420, 10);
+            this.groupBox5.Location = new System.Drawing.Point(360, 10);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(160, 190);
@@ -446,7 +560,7 @@
             this.groupBox6.Controls.Add(this.label11);
             this.groupBox6.Controls.Add(this.BrakeAxisDisplayText);
             this.groupBox6.Controls.Add(this.BrakeAxisDisplayBar);
-            this.groupBox6.Location = new System.Drawing.Point(250, 210);
+            this.groupBox6.Location = new System.Drawing.Point(190, 210);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(160, 170);
@@ -497,7 +611,7 @@
             this.groupBox7.Controls.Add(this.label13);
             this.groupBox7.Controls.Add(this.ClutchAxisDisplayBar);
             this.groupBox7.Controls.Add(this.ClutchAxisDisplayText);
-            this.groupBox7.Location = new System.Drawing.Point(420, 210);
+            this.groupBox7.Location = new System.Drawing.Point(360, 210);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(160, 170);
@@ -541,58 +655,11 @@
             this.label13.Text = "Range:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // FFBValueSenderInterval
-            // 
-            this.FFBValueSenderInterval.AutoSize = false;
-            this.FFBValueSenderInterval.LargeChange = 2;
-            this.FFBValueSenderInterval.Location = new System.Drawing.Point(10, 90);
-            this.FFBValueSenderInterval.Maximum = 8;
-            this.FFBValueSenderInterval.Minimum = 4;
-            this.FFBValueSenderInterval.Name = "FFBValueSenderInterval";
-            this.FFBValueSenderInterval.Size = new System.Drawing.Size(210, 30);
-            this.FFBValueSenderInterval.TabIndex = 23;
-            this.FFBValueSenderInterval.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.FFBValueSenderInterval.Value = 6;
-            this.FFBValueSenderInterval.Scroll += new System.EventHandler(this.FFBValueSenderInterval_Scroll);
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 60);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 30);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "4ms";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(180, 60);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 30);
-            this.label2.TabIndex = 33;
-            this.label2.Text = "8ms";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(90, 60);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 30);
-            this.label3.TabIndex = 34;
-            this.label3.Text = "6ms";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 390);
+            this.ClientSize = new System.Drawing.Size(530, 390);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -607,6 +674,8 @@
             this.Text = "Wheel 01";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MinOutVoltageSlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderInterval)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -619,7 +688,6 @@
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderInterval)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -669,6 +737,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TrackBar FFBValueSenderInterval;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar MinOutVoltageSlider;
     }
 }
 

@@ -154,5 +154,17 @@ namespace wheel01.Properties {
                 this["FFBValueSenderInterval"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public int LastMinimumOutputVoltage {
+            get {
+                return ((int)(this["LastMinimumOutputVoltage"]));
+            }
+            set {
+                this["LastMinimumOutputVoltage"] = value;
+            }
+        }
     }
 }

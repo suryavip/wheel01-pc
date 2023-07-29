@@ -35,5 +35,8 @@
     <Setting Name="FFBValueSenderInterval" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">6</Value>
     </Setting>
+    <Setting Name="LastMinimumOutputVoltage" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
