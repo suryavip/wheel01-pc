@@ -36,6 +36,7 @@ namespace wheel01
 
         public static List<int> ffbValues = new List<int>();
         public static int ffbValue = 0;
+        public static double ffbMult = 1;
 
         public static void Init()
         {
@@ -180,35 +181,36 @@ namespace wheel01
 
         public static int CalculateFFB(int steeringPosition, double rotation)
         {
-            double normalizedThresholdDouble = softLockThreshold / (rotation / 5);
-            int normalizedThreshold = (int)normalizedThresholdDouble;
+            double ffbOutput = constantReport.Magnitude;
 
-            int ffbOutput = constantReport.Magnitude;
+            // apply multiplier
+            ffbOutput *= ffbMult;
 
             // Adding soft lock force
+            double normalizedThreshold = softLockThreshold / (rotation / 5);
+
             if (steeringPosition < normalizedThreshold)
             {
                 double progress = (normalizedThreshold - steeringPosition);
                 double percent = progress / normalizedThreshold;
                 double bumpForce = percent * minFfbValue;
-                ffbOutput += (int)bumpForce;
+                ffbOutput += bumpForce;
             }
 
-            // Adding soft lock force
             double rightBumpThreshold = maxAxisValue - normalizedThreshold;
             if (steeringPosition > rightBumpThreshold)
             {
                 double progress = (rightBumpThreshold - steeringPosition) * -1;
                 double percent = progress / normalizedThreshold;
                 double bumpForce = percent * maxFfbValue;
-                ffbOutput += (int)bumpForce;
+                ffbOutput += bumpForce;
             }
 
             // clamp ffbOutput
             if (ffbOutput > maxFfbValue) ffbOutput = maxFfbValue;
             if (ffbOutput < minFfbValue) ffbOutput = minFfbValue;
 
-            return ffbOutput;
+            return (int)ffbOutput;
         }
 
         private static int ConditionForceCalculator(float metric)

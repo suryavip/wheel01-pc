@@ -166,5 +166,17 @@ namespace wheel01.Properties {
                 this["LastMinimumOutputVoltage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int FFBMultiplier {
+            get {
+                return ((int)(this["FFBMultiplier"]));
+            }
+            set {
+                this["FFBMultiplier"] = value;
+            }
+        }
     }
 }

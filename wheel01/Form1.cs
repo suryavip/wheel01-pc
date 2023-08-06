@@ -69,6 +69,11 @@ namespace wheel01
             FFBValueSender.Interval = Properties.Settings.Default.FFBValueSenderInterval;
 
             MinOutVoltageSlider.Value = Properties.Settings.Default.LastMinimumOutputVoltage;
+
+            FfbMultSlider.Value = Properties.Settings.Default.FFBMultiplier;
+            double slider = FfbMultSlider.Value;
+            double realMult = slider / 10;
+            VJoyWrapper.ffbMult = realMult;
         }
 
         private void SaveAllSettings()
@@ -90,6 +95,8 @@ namespace wheel01
             Properties.Settings.Default.FFBValueSenderInterval = FFBValueSender.Interval;
 
             Properties.Settings.Default.LastMinimumOutputVoltage = MinOutVoltageSlider.Value;
+
+            Properties.Settings.Default.FFBMultiplier = FfbMultSlider.Value;
 
             Properties.Settings.Default.Save();
         }
@@ -133,6 +140,7 @@ namespace wheel01
                 {
                     SerialPortController.PortName = selected;
                     SerialPortController.Open();
+                    SendMinOutVoltage();
                     FFBValueSender.Enabled = true;
                 }
                 catch (Exception ex)
@@ -309,6 +317,12 @@ namespace wheel01
 
         private void MinOutVoltageSlider_Scroll(object sender, EventArgs e)
         {
+            SendMinOutVoltage();
+            SaveAllSettings();
+        }
+
+        private void SendMinOutVoltage()
+        {
             try
             {
                 if (SerialPortController.IsOpen == false) return;
@@ -324,6 +338,14 @@ namespace wheel01
             {
                 Logger.App("Error on sending data: " + ex.Message);
             }
+        }
+
+        private void FfbMultSlider_Scroll(object sender, EventArgs e)
+        {
+            double slider = FfbMultSlider.Value;
+            double realVoltage = slider / 10;
+
+            VJoyWrapper.ffbMult = realVoltage;
             SaveAllSettings();
         }
     }
