@@ -31,15 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.COMPortsComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.FfbMultSlider = new System.Windows.Forms.TrackBar();
+            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.MinOutVoltageSlider = new System.Windows.Forms.TrackBar();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.FFBValueSenderInterval = new System.Windows.Forms.TrackBar();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.COMPortsRefreshButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -65,7 +66,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.CopyLogToClipboardButton = new System.Windows.Forms.Button();
             this.LogOutput = new System.Windows.Forms.RichTextBox();
-            this.FFBValueSender = new System.Windows.Forms.Timer(this.components);
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.AccMaxSlider = new System.Windows.Forms.TrackBar();
             this.AccMinSlider = new System.Windows.Forms.TrackBar();
@@ -78,14 +78,9 @@
             this.CltMaxSlider = new System.Windows.Forms.TrackBar();
             this.CltMinSlider = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.FfbMultSlider = new System.Windows.Forms.TrackBar();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FfbMultSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinOutVoltageSlider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderInterval)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -98,7 +93,6 @@
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FfbMultSlider)).BeginInit();
             this.SuspendLayout();
             // 
             // COMPortsComboBox
@@ -125,25 +119,78 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.MinOutVoltageSlider);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.FFBValueSenderInterval);
             this.groupBox1.Controls.Add(this.ConnectButton);
             this.groupBox1.Controls.Add(this.COMPortsRefreshButton);
             this.groupBox1.Controls.Add(this.COMPortsComboBox);
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(190, 270);
+            this.groupBox1.Size = new System.Drawing.Size(190, 220);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Communication";
             // 
+            // label16
+            // 
+            this.label16.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(70, 160);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(50, 20);
+            this.label16.TabIndex = 44;
+            this.label16.Text = "1x";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(140, 160);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(40, 20);
+            this.label14.TabIndex = 43;
+            this.label14.Text = "2x";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(10, 160);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(40, 20);
+            this.label9.TabIndex = 42;
+            this.label9.Text = "0x";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FfbMultSlider
+            // 
+            this.FfbMultSlider.AutoSize = false;
+            this.FfbMultSlider.LargeChange = 2;
+            this.FfbMultSlider.Location = new System.Drawing.Point(10, 180);
+            this.FfbMultSlider.Maximum = 20;
+            this.FfbMultSlider.Name = "FfbMultSlider";
+            this.FfbMultSlider.Size = new System.Drawing.Size(170, 30);
+            this.FfbMultSlider.TabIndex = 41;
+            this.FfbMultSlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.FfbMultSlider.Value = 10;
+            this.FfbMultSlider.Scroll += new System.EventHandler(this.FfbMultSlider_Scroll);
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(10, 140);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(150, 20);
+            this.label8.TabIndex = 40;
+            this.label8.Text = "FFB Multiplier:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(10, 110);
+            this.label7.Location = new System.Drawing.Point(10, 60);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(150, 20);
@@ -154,7 +201,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(70, 130);
+            this.label6.Location = new System.Drawing.Point(70, 80);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 20);
@@ -165,7 +212,7 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(140, 130);
+            this.label5.Location = new System.Drawing.Point(140, 80);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 20);
@@ -176,7 +223,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(10, 130);
+            this.label4.Location = new System.Drawing.Point(10, 80);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 20);
@@ -188,7 +235,7 @@
             // 
             this.MinOutVoltageSlider.AutoSize = false;
             this.MinOutVoltageSlider.LargeChange = 2;
-            this.MinOutVoltageSlider.Location = new System.Drawing.Point(10, 150);
+            this.MinOutVoltageSlider.Location = new System.Drawing.Point(10, 100);
             this.MinOutVoltageSlider.Maximum = 20;
             this.MinOutVoltageSlider.Name = "MinOutVoltageSlider";
             this.MinOutVoltageSlider.Size = new System.Drawing.Size(170, 30);
@@ -196,53 +243,6 @@
             this.MinOutVoltageSlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.MinOutVoltageSlider.Value = 8;
             this.MinOutVoltageSlider.Scroll += new System.EventHandler(this.MinOutVoltageSlider_Scroll);
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(70, 50);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 20);
-            this.label3.TabIndex = 34;
-            this.label3.Text = "6ms";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(140, 50);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 20);
-            this.label2.TabIndex = 33;
-            this.label2.Text = "8ms";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 50);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 20);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "4ms";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // FFBValueSenderInterval
-            // 
-            this.FFBValueSenderInterval.AutoSize = false;
-            this.FFBValueSenderInterval.LargeChange = 2;
-            this.FFBValueSenderInterval.Location = new System.Drawing.Point(10, 70);
-            this.FFBValueSenderInterval.Maximum = 8;
-            this.FFBValueSenderInterval.Minimum = 4;
-            this.FFBValueSenderInterval.Name = "FFBValueSenderInterval";
-            this.FFBValueSenderInterval.Size = new System.Drawing.Size(170, 30);
-            this.FFBValueSenderInterval.TabIndex = 23;
-            this.FFBValueSenderInterval.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.FFBValueSenderInterval.Value = 6;
-            this.FFBValueSenderInterval.Scroll += new System.EventHandler(this.FFBValueSenderInterval_Scroll);
             // 
             // ConnectButton
             // 
@@ -478,9 +478,9 @@
             // 
             this.groupBox3.Controls.Add(this.CopyLogToClipboardButton);
             this.groupBox3.Controls.Add(this.LogOutput);
-            this.groupBox3.Location = new System.Drawing.Point(10, 290);
+            this.groupBox3.Location = new System.Drawing.Point(10, 240);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(190, 90);
+            this.groupBox3.Size = new System.Drawing.Size(190, 140);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
@@ -489,7 +489,7 @@
             // 
             this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
             this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(130, 20);
+            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(150, 20);
             this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
             this.CopyLogToClipboardButton.Size = new System.Drawing.Size(30, 30);
             this.CopyLogToClipboardButton.TabIndex = 6;
@@ -505,14 +505,9 @@
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
             this.LogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogOutput.Size = new System.Drawing.Size(120, 60);
+            this.LogOutput.Size = new System.Drawing.Size(140, 110);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
-            // 
-            // FFBValueSender
-            // 
-            this.FFBValueSender.Interval = 6;
-            this.FFBValueSender.Tick += new System.EventHandler(this.FFBValueSender_Tick);
             // 
             // groupBox5
             // 
@@ -667,63 +662,6 @@
             this.label13.Text = "Range:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(10, 190);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(150, 20);
-            this.label8.TabIndex = 40;
-            this.label8.Text = "FFB Multiplier:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // FfbMultSlider
-            // 
-            this.FfbMultSlider.AutoSize = false;
-            this.FfbMultSlider.LargeChange = 2;
-            this.FfbMultSlider.Location = new System.Drawing.Point(10, 230);
-            this.FfbMultSlider.Maximum = 20;
-            this.FfbMultSlider.Name = "FfbMultSlider";
-            this.FfbMultSlider.Size = new System.Drawing.Size(170, 30);
-            this.FfbMultSlider.TabIndex = 41;
-            this.FfbMultSlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.FfbMultSlider.Value = 10;
-            this.FfbMultSlider.Scroll += new System.EventHandler(this.FfbMultSlider_Scroll);
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(10, 210);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 20);
-            this.label9.TabIndex = 42;
-            this.label9.Text = "0x";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label14
-            // 
-            this.label14.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(140, 210);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(40, 20);
-            this.label14.TabIndex = 43;
-            this.label14.Text = "2x";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label16
-            // 
-            this.label16.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(70, 210);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(50, 20);
-            this.label16.TabIndex = 44;
-            this.label16.Text = "1x";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -743,8 +681,8 @@
             this.Text = "Wheel 01";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.FfbMultSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinOutVoltageSlider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FFBValueSenderInterval)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -757,7 +695,6 @@
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FfbMultSlider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -787,7 +724,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label SteeringRangeDisplayText;
         private System.Windows.Forms.TrackBar SteeringRangeSlider;
-        private System.Windows.Forms.Timer FFBValueSender;
         private System.Windows.Forms.Button ConnectButton;
         private System.Windows.Forms.ProgressBar FFBValueDisplayBar;
         private System.Windows.Forms.Button ResetZeroBtn;
@@ -803,10 +739,6 @@
         private System.Windows.Forms.TrackBar CltMaxSlider;
         private System.Windows.Forms.TrackBar CltMinSlider;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar FFBValueSenderInterval;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;

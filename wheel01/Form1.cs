@@ -65,9 +65,6 @@ namespace wheel01
             clutch.startHwValue = Properties.Settings.Default.CltStartHwValue;
             clutch.endHwValue = Properties.Settings.Default.CltEndHwValue;
 
-            FFBValueSenderInterval.Value = Properties.Settings.Default.FFBValueSenderInterval;
-            FFBValueSender.Interval = Properties.Settings.Default.FFBValueSenderInterval;
-
             MinOutVoltageSlider.Value = Properties.Settings.Default.LastMinimumOutputVoltage;
 
             FfbMultSlider.Value = Properties.Settings.Default.FFBMultiplier;
@@ -91,8 +88,6 @@ namespace wheel01
 
             Properties.Settings.Default.CltStartHwValue = clutch.startHwValue;
             Properties.Settings.Default.CltEndHwValue = clutch.endHwValue;
-
-            Properties.Settings.Default.FFBValueSenderInterval = FFBValueSender.Interval;
 
             Properties.Settings.Default.LastMinimumOutputVoltage = MinOutVoltageSlider.Value;
 
@@ -127,7 +122,6 @@ namespace wheel01
             Logger.App("Connecting to " + selected + "...");
             try
             {
-                FFBValueSender.Enabled = false;
                 SerialPortController.Close();
             }
             catch (Exception ex)
@@ -141,7 +135,7 @@ namespace wheel01
                     SerialPortController.PortName = selected;
                     SerialPortController.Open();
                     SendMinOutVoltage();
-                    FFBValueSender.Enabled = true;
+                    SendFFBValue();
                 }
                 catch (Exception ex)
                 {
@@ -217,6 +211,8 @@ namespace wheel01
                     clutch.currentHwValue = int.Parse(splitted[4]);
 
                     SendValueToVJoy();
+
+                    SendFFBValue();
                     break;
             }
         }
@@ -243,7 +239,7 @@ namespace wheel01
             SaveAllSettings();
         }
 
-        private void FFBValueSender_Tick(object sender, EventArgs e)
+        private void SendFFBValue()
         {
             try
             {
@@ -260,7 +256,6 @@ namespace wheel01
             {
                 Logger.App("Error on sending data: " + ex.Message);
                 Logger.App("Connection disrupted!");
-                FFBValueSender.Enabled = false;
             }
         }
 
@@ -306,12 +301,6 @@ namespace wheel01
         private void CltMaxSlider_Scroll(object sender, EventArgs e)
         {
             clutch.endHwValue = CltMaxSlider.Value;
-            SaveAllSettings();
-        }
-
-        private void FFBValueSenderInterval_Scroll(object sender, EventArgs e)
-        {
-            FFBValueSender.Interval = FFBValueSenderInterval.Value;
             SaveAllSettings();
         }
 
