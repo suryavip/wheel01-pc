@@ -34,10 +34,6 @@ namespace wheel01
         static vJoy.FFB_EFF_CONSTANT constantReport;
         static vJoy.FFB_EFF_RAMP rampReport;
 
-        public static List<int> ffbValues = new List<int>();
-        public static int ffbValue = 0;
-        public static double ffbMult = 1;
-
         public static void Init()
         {
             Logger.App("Initializing vJoy device...");
@@ -179,38 +175,10 @@ namespace wheel01
             }
         }
 
-        public static int CalculateFFB(int steeringPosition, double rotation)
+        public static double CalculateFFB()
         {
             double ffbOutput = constantReport.Magnitude;
-
-            // apply multiplier
-            ffbOutput *= ffbMult;
-
-            // Adding soft lock force
-            double normalizedThreshold = softLockThreshold / (rotation / 5);
-
-            if (steeringPosition < normalizedThreshold)
-            {
-                double progress = (normalizedThreshold - steeringPosition);
-                double percent = progress / normalizedThreshold;
-                double bumpForce = percent * minFfbValue;
-                ffbOutput += bumpForce;
-            }
-
-            double rightBumpThreshold = maxAxisValue - normalizedThreshold;
-            if (steeringPosition > rightBumpThreshold)
-            {
-                double progress = (rightBumpThreshold - steeringPosition) * -1;
-                double percent = progress / normalizedThreshold;
-                double bumpForce = percent * maxFfbValue;
-                ffbOutput += bumpForce;
-            }
-
-            // clamp ffbOutput
-            if (ffbOutput > maxFfbValue) ffbOutput = maxFfbValue;
-            if (ffbOutput < minFfbValue) ffbOutput = minFfbValue;
-
-            return (int)ffbOutput;
+            return ffbOutput;
         }
 
         private static int ConditionForceCalculator(float metric)
