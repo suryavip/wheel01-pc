@@ -304,22 +304,21 @@ namespace wheel01
 
             // transform curve
             double transformer;
-            if (ffbSignal > 0)
+            if (ffbSignal >= 0)
             {
                 transformer = Math.Pow(ffbSignal / VJoyWrapper.maxFfbValue, ffbLinearity);
+                ffbSignal = transformer * VJoyWrapper.maxFfbValue;
             }
             else
             {
                 transformer = Math.Pow(ffbSignal / VJoyWrapper.minFfbValue, ffbLinearity);
+                ffbSignal = transformer * VJoyWrapper.minFfbValue;
             }
-            if (transformer > 1) transformer = 1;
-            if (transformer < 0) transformer = 0;
-            ffbSignal *= transformer;
 
             // clamp ffbOutput
             if (ffbSignal > VJoyWrapper.maxFfbValue) ffbSignal = VJoyWrapper.maxFfbValue;
             if (ffbSignal < VJoyWrapper.minFfbValue) ffbSignal = VJoyWrapper.minFfbValue;
-            
+
             // convert to voltage
             double inVoltage = (ffbSignal / VJoyWrapper.maxFfbValue) * (fullVoltage - minFfbVoltage);
             if (inVoltage < 0) inVoltage -= minFfbVoltage;
