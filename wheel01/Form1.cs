@@ -19,7 +19,8 @@ namespace wheel01
         readonly Pedal clutch = new Pedal();
 
         double ffbMult = 1;
-        double fullVoltage = 7.0;
+        double ffbLinearity = 1;
+        readonly double fullVoltage = 7.0;
         double minFfbVoltage = 1;
         double lastFfbVoltageSent = 0;
         bool fidgetMode = false;
@@ -45,7 +46,7 @@ namespace wheel01
             CltMaxSlider.Value = clutch.endHwValue;
 
             Logger.App("Detecting ports...");
-            String[] ports = SerialPort.GetPortNames();
+            string[] ports = SerialPort.GetPortNames();
             COMPortsComboBox.DataSource = ports;
             Logger.App("Port list updated!");
             Logger.App("Please wait until vJoy device initialized!");
@@ -78,6 +79,11 @@ namespace wheel01
             double slider = FfbMultSlider.Value;
             double realMult = slider / 10;
             ffbMult = realMult;
+
+            LinearitySlider.Value = Properties.Settings.Default.FFBLinearity;
+            double ffbLinearitySlider = LinearitySlider.Value;
+            double realFfbLinearity = ffbLinearitySlider / 100;
+            ffbLinearity = realFfbLinearity;
         }
 
         private void SaveAllSettings()
@@ -99,6 +105,8 @@ namespace wheel01
             Properties.Settings.Default.LastMinimumOutputVoltage = MinOutVoltageSlider.Value;
 
             Properties.Settings.Default.FFBMultiplier = FfbMultSlider.Value;
+
+            Properties.Settings.Default.FFBLinearity = LinearitySlider.Value;
 
             Properties.Settings.Default.Save();
         }
@@ -174,6 +182,8 @@ namespace wheel01
             int cltAxisValue = clutch.CalculateAxisValue();
             ClutchAxisDisplayText.Text = cltAxisValue.ToString();
             ClutchAxisDisplayBar.Value = cltAxisValue;
+
+            FFBLinearityDisplayText.Text = ffbLinearity.ToString();
 
             LogOutput.Text = Logger.appLog;
         }
@@ -292,10 +302,24 @@ namespace wheel01
                 ffbSignal += bumpForce;
             }
 
+            // transform curve
+            double transformer;
+            if (ffbSignal > 0)
+            {
+                transformer = Math.Pow(ffbSignal / VJoyWrapper.maxFfbValue, ffbLinearity);
+            }
+            else
+            {
+                transformer = Math.Pow(ffbSignal / VJoyWrapper.minFfbValue, ffbLinearity);
+            }
+            if (transformer > 1) transformer = 1;
+            if (transformer < 0) transformer = 0;
+            ffbSignal *= transformer;
+
             // clamp ffbOutput
             if (ffbSignal > VJoyWrapper.maxFfbValue) ffbSignal = VJoyWrapper.maxFfbValue;
             if (ffbSignal < VJoyWrapper.minFfbValue) ffbSignal = VJoyWrapper.minFfbValue;
-
+            
             // convert to voltage
             double inVoltage = (ffbSignal / VJoyWrapper.maxFfbValue) * (fullVoltage - minFfbVoltage);
             if (inVoltage < 0) inVoltage -= minFfbVoltage;
@@ -370,6 +394,13 @@ namespace wheel01
         {
             FidgetCheckBox.Enabled = false;
             fidgetMode = true;
+        }
+
+        private void LinearitySlider_Scroll(object sender, EventArgs e)
+        {
+            double slider = LinearitySlider.Value;
+            ffbLinearity = slider / 100;
+            SaveAllSettings();
         }
     }
 }

@@ -36,9 +36,12 @@
       <Value Profile="(Default)">6</Value>
     </Setting>
     <Setting Name="LastMinimumOutputVoltage" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">8</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="FFBMultiplier" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="FFBLinearity" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
   </Settings>

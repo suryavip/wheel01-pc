@@ -28,11 +28,8 @@ namespace wheel01
         static FFB_CTRL controlReport;
         static vJoy.FFB_EFF_OP operationReport;
         static vJoy.FFB_EFF_REPORT effectReport;
-        static vJoy.FFB_EFF_ENVLP envelopeReport;
         static vJoy.FFB_EFF_COND conditionReport;
-        static vJoy.FFB_EFF_PERIOD periodicReport;
         static vJoy.FFB_EFF_CONSTANT constantReport;
-        static vJoy.FFB_EFF_RAMP rampReport;
 
         public static void Init()
         {
@@ -179,47 +176,6 @@ namespace wheel01
         {
             double ffbOutput = constantReport.Magnitude;
             return ffbOutput;
-        }
-
-        private static int ConditionForceCalculator(float metric)
-        {
-            double deadBand = conditionReport.DeadBand;
-            double cpOffset = conditionReport.CenterPointOffset;
-            double negativeCoefficient = conditionReport.NegCoeff * -1;
-            double negativeSaturation = conditionReport.NegSatur * -1;
-            double positiveCoefficient = conditionReport.PosCoeff;
-            double positiveSaturation = conditionReport.PosSatur;
-
-            double tempForce = 0;
-            if (metric < (cpOffset - deadBand))
-            {
-                // double tempForce = (metric - (double)1.00*(cpOffset - deadBand)/10000) * negativeCoefficient;
-                tempForce = (1.00 * (cpOffset - deadBand) / 10000 - metric) * negativeCoefficient;
-                // tempForce = (tempForce < negativeSaturation ? negativeSaturation : tempForce); I dont know why negativeSaturation = 55536.00 after negativeSaturation = -effect.negativeSaturation;
-                // tempForce =   (tempForce < (-effect.negativeCoefficient) ? (-effect.negativeCoefficient) : tempForce);
-            }
-            else if (metric > (cpOffset + deadBand))
-            {
-                tempForce = (metric - 1.00 * (cpOffset + deadBand) / 10000) * positiveCoefficient;
-                tempForce = tempForce > positiveSaturation ? positiveSaturation : tempForce;
-            }
-
-            //switch (conditionReport.GetType())
-            //{
-            //    case USB_EFFECT_DAMPER:
-            //        tempForce = damperFilter.filterIn(tempForce);
-            //        break;
-            //    case USB_EFFECT_INERTIA:
-            //        tempForce = interiaFilter.filterIn(tempForce);
-            //        break;
-            //    case USB_EFFECT_FRICTION:
-            //        tempForce = frictionFilter.filterIn(tempForce);
-            //        break;
-            //    default:
-            //        break;
-            //}
-
-            return (int)tempForce;
         }
     }
 }
