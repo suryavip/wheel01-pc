@@ -80,9 +80,9 @@
             this.CltMinSlider = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.LinearitySlider = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
             this.FFBLinearityDisplayText = new System.Windows.Forms.Label();
+            this.FfbLinearitySlider = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FfbMultSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinOutVoltageSlider)).BeginInit();
@@ -99,7 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LinearitySlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FfbLinearitySlider)).BeginInit();
             this.SuspendLayout();
             // 
             // COMPortsComboBox
@@ -496,7 +496,6 @@
             this.FidgetCheckBox.TabIndex = 7;
             this.FidgetCheckBox.Text = "Fidget mode";
             this.FidgetCheckBox.UseVisualStyleBackColor = true;
-            this.FidgetCheckBox.CheckedChanged += new System.EventHandler(this.FidgetCheckBox_CheckedChanged);
             // 
             // CopyLogToClipboardButton
             // 
@@ -679,7 +678,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.FFBLinearityDisplayText);
-            this.groupBox4.Controls.Add(this.LinearitySlider);
+            this.groupBox4.Controls.Add(this.FfbLinearitySlider);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.label15);
@@ -701,19 +700,30 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "FFB";
             // 
-            // LinearitySlider
+            // FFBLinearityDisplayText
             // 
-            this.LinearitySlider.AutoSize = false;
-            this.LinearitySlider.LargeChange = 1;
-            this.LinearitySlider.Location = new System.Drawing.Point(8, 144);
-            this.LinearitySlider.Maximum = 100;
-            this.LinearitySlider.Minimum = 1;
-            this.LinearitySlider.Name = "LinearitySlider";
-            this.LinearitySlider.Size = new System.Drawing.Size(192, 32);
-            this.LinearitySlider.TabIndex = 46;
-            this.LinearitySlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.LinearitySlider.Value = 10;
-            this.LinearitySlider.Scroll += new System.EventHandler(this.LinearitySlider_Scroll);
+            this.FFBLinearityDisplayText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FFBLinearityDisplayText.Location = new System.Drawing.Point(104, 120);
+            this.FFBLinearityDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FFBLinearityDisplayText.Name = "FFBLinearityDisplayText";
+            this.FFBLinearityDisplayText.Size = new System.Drawing.Size(96, 24);
+            this.FFBLinearityDisplayText.TabIndex = 47;
+            this.FFBLinearityDisplayText.Text = "-";
+            this.FFBLinearityDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // FfbLinearitySlider
+            // 
+            this.FfbLinearitySlider.AutoSize = false;
+            this.FfbLinearitySlider.LargeChange = 1;
+            this.FfbLinearitySlider.Location = new System.Drawing.Point(8, 144);
+            this.FfbLinearitySlider.Maximum = 100;
+            this.FfbLinearitySlider.Minimum = 1;
+            this.FfbLinearitySlider.Name = "FfbLinearitySlider";
+            this.FfbLinearitySlider.Size = new System.Drawing.Size(192, 32);
+            this.FfbLinearitySlider.TabIndex = 46;
+            this.FfbLinearitySlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.FfbLinearitySlider.Value = 10;
+            this.FfbLinearitySlider.Scroll += new System.EventHandler(this.FfbLinearitySlider_Scroll);
             // 
             // label1
             // 
@@ -725,17 +735,6 @@
             this.label1.TabIndex = 45;
             this.label1.Text = "Linearity:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // FFBLinearityDisplayText
-            // 
-            this.FFBLinearityDisplayText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FFBLinearityDisplayText.Location = new System.Drawing.Point(104, 120);
-            this.FFBLinearityDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.FFBLinearityDisplayText.Name = "FFBLinearityDisplayText";
-            this.FFBLinearityDisplayText.Size = new System.Drawing.Size(96, 24);
-            this.FFBLinearityDisplayText.TabIndex = 47;
-            this.FFBLinearityDisplayText.Text = "-";
-            this.FFBLinearityDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
             // 
@@ -775,7 +774,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).EndInit();
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.LinearitySlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FfbLinearitySlider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -833,7 +832,7 @@
         private System.Windows.Forms.CheckBox FidgetCheckBox;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar LinearitySlider;
+        private System.Windows.Forms.TrackBar FfbLinearitySlider;
         private System.Windows.Forms.Label FFBLinearityDisplayText;
     }
 }

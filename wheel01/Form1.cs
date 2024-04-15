@@ -20,10 +20,9 @@ namespace wheel01
 
         double ffbMult = 1;
         double ffbLinearity = 1;
-        readonly double fullVoltage = 7.0;
+        readonly double maxFfbVoltage = 7.0;
         double minFfbVoltage = 1;
         double lastFfbVoltageSent = 0;
-        bool fidgetMode = false;
 
         public Form1()
         {
@@ -80,10 +79,11 @@ namespace wheel01
             double realMult = slider / 10;
             ffbMult = realMult;
 
-            LinearitySlider.Value = Properties.Settings.Default.FFBLinearity;
-            double ffbLinearitySlider = LinearitySlider.Value;
+            FfbLinearitySlider.Value = Properties.Settings.Default.FFBLinearity;
+            double ffbLinearitySlider = FfbLinearitySlider.Value;
             double realFfbLinearity = ffbLinearitySlider / 100;
             ffbLinearity = realFfbLinearity;
+            FFBLinearityDisplayText.Text = ffbLinearity.ToString();
         }
 
         private void SaveAllSettings()
@@ -106,7 +106,7 @@ namespace wheel01
 
             Properties.Settings.Default.FFBMultiplier = FfbMultSlider.Value;
 
-            Properties.Settings.Default.FFBLinearity = LinearitySlider.Value;
+            Properties.Settings.Default.FFBLinearity = FfbLinearitySlider.Value;
 
             Properties.Settings.Default.Save();
         }
@@ -182,8 +182,6 @@ namespace wheel01
             int cltAxisValue = clutch.CalculateAxisValue();
             ClutchAxisDisplayText.Text = cltAxisValue.ToString();
             ClutchAxisDisplayBar.Value = cltAxisValue;
-
-            FFBLinearityDisplayText.Text = ffbLinearity.ToString();
 
             LogOutput.Text = Logger.appLog;
         }
@@ -266,64 +264,56 @@ namespace wheel01
 
         private double CalculateFfbVoltage()
         {
-            if (fidgetMode)
+            double signalInDouble; // hold ffb signal between -1 to 1, where 0 is no ffb to any direction
+
+            if (FidgetCheckBox.Checked)
             {
                 double pedalSum = clutch.CalculateAxisValue() - accelerator.CalculateAxisValue();
-                double inVoltageFidget = (pedalSum / Pedal.maxHwValue) * (fullVoltage - minFfbVoltage);
-                if (inVoltageFidget < 0) inVoltageFidget -= minFfbVoltage;
-                if (inVoltageFidget > 0) inVoltageFidget += minFfbVoltage;
-                if (pedalSum == 0) inVoltageFidget = 0;
-                return inVoltageFidget;
+                signalInDouble = pedalSum / Pedal.maxHwValue;
             }
-
-            int steeringPosition = wheel.CalculateAxisValue();
-            double ffbSignal = VJoyWrapper.CalculateFFB();
-
-            // apply multiplier
-            ffbSignal *= ffbMult;
+            else
+            {
+                double signalFromGame = VJoyWrapper.CalculateFFB();
+                signalFromGame *= ffbMult; // apply multiplier for signal from game
+                signalInDouble = signalFromGame / VJoyWrapper.maxFfbValue;
+            }
 
             // Adding soft lock force
+            int steeringPosition = wheel.CalculateAxisValue();
             double normalizedThreshold = VJoyWrapper.softLockThreshold / (wheel.rotationRange / 5);
-
+            
             if (steeringPosition < normalizedThreshold)
             {
-                double progress = (normalizedThreshold - steeringPosition);
+                double progress = normalizedThreshold - steeringPosition;
                 double percent = progress / normalizedThreshold;
-                double bumpForce = percent * VJoyWrapper.minFfbValue;
-                ffbSignal += bumpForce;
+                signalInDouble -= percent * 1.1;
             }
-
             double rightBumpThreshold = VJoyWrapper.maxAxisValue - normalizedThreshold;
             if (steeringPosition > rightBumpThreshold)
             {
                 double progress = (rightBumpThreshold - steeringPosition) * -1;
                 double percent = progress / normalizedThreshold;
-                double bumpForce = percent * VJoyWrapper.maxFfbValue;
-                ffbSignal += bumpForce;
+                signalInDouble += percent * 1.1;
             }
+
+            // clamp ffbOutput for soft lock pass
+            if (signalInDouble > 1) signalInDouble = 1;
+            if (signalInDouble < -1) signalInDouble = -1;
 
             // transform curve
-            double transformer;
-            if (ffbSignal >= 0)
-            {
-                transformer = Math.Pow(ffbSignal / VJoyWrapper.maxFfbValue, ffbLinearity);
-                ffbSignal = transformer * VJoyWrapper.maxFfbValue;
-            }
-            else
-            {
-                transformer = Math.Pow(ffbSignal / VJoyWrapper.minFfbValue, ffbLinearity);
-                ffbSignal = transformer * VJoyWrapper.minFfbValue;
-            }
+            double transformer = Math.Pow(Math.Abs(signalInDouble), ffbLinearity);
+            if (signalInDouble < 0) signalInDouble = transformer * -1;
+            else signalInDouble = transformer;
 
-            // clamp ffbOutput
-            if (ffbSignal > VJoyWrapper.maxFfbValue) ffbSignal = VJoyWrapper.maxFfbValue;
-            if (ffbSignal < VJoyWrapper.minFfbValue) ffbSignal = VJoyWrapper.minFfbValue;
+            // clamp ffbOutput again
+            if (signalInDouble > 1) signalInDouble = 1;
+            if (signalInDouble < -1) signalInDouble = -1;
 
             // convert to voltage
-            double inVoltage = (ffbSignal / VJoyWrapper.maxFfbValue) * (fullVoltage - minFfbVoltage);
+            double inVoltage = signalInDouble * (maxFfbVoltage - minFfbVoltage);
             if (inVoltage < 0) inVoltage -= minFfbVoltage;
             if (inVoltage > 0) inVoltage += minFfbVoltage;
-            if (ffbSignal == 0) inVoltage = 0;
+            if (signalInDouble == 0) inVoltage = 0;
 
             return inVoltage;
         }
@@ -389,16 +379,11 @@ namespace wheel01
             SaveAllSettings();
         }
 
-        private void FidgetCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void FfbLinearitySlider_Scroll(object sender, EventArgs e)
         {
-            FidgetCheckBox.Enabled = false;
-            fidgetMode = true;
-        }
-
-        private void LinearitySlider_Scroll(object sender, EventArgs e)
-        {
-            double slider = LinearitySlider.Value;
+            double slider = FfbLinearitySlider.Value;
             ffbLinearity = slider / 100;
+            FFBLinearityDisplayText.Text = ffbLinearity.ToString();
             SaveAllSettings();
         }
     }
