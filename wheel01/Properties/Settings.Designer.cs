@@ -157,18 +157,6 @@ namespace wheel01.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastMinimumOutputVoltage {
-            get {
-                return ((int)(this["LastMinimumOutputVoltage"]));
-            }
-            set {
-                this["LastMinimumOutputVoltage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int FFBMultiplier {
             get {

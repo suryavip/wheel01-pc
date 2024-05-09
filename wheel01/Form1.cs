@@ -21,7 +21,6 @@ namespace wheel01
         double ffbMult = 1;
         double ffbLinearity = 1;
         readonly double maxFfbVoltage = 7.0;
-        double minFfbVoltage = 1;
         double lastFfbVoltageSent = 0;
 
         public Form1()
@@ -69,11 +68,6 @@ namespace wheel01
             clutch.startHwValue = Properties.Settings.Default.CltStartHwValue;
             clutch.endHwValue = Properties.Settings.Default.CltEndHwValue;
 
-            MinOutVoltageSlider.Value = Properties.Settings.Default.LastMinimumOutputVoltage;
-            double minFfbVoltageSlider = MinOutVoltageSlider.Value;
-            double realVoltage = minFfbVoltageSlider / 10;
-            minFfbVoltage = realVoltage;
-
             FfbMultSlider.Value = Properties.Settings.Default.FFBMultiplier;
             double slider = FfbMultSlider.Value;
             double realMult = slider / 10;
@@ -101,8 +95,6 @@ namespace wheel01
 
             Properties.Settings.Default.CltStartHwValue = clutch.startHwValue;
             Properties.Settings.Default.CltEndHwValue = clutch.endHwValue;
-
-            Properties.Settings.Default.LastMinimumOutputVoltage = MinOutVoltageSlider.Value;
 
             Properties.Settings.Default.FFBMultiplier = FfbMultSlider.Value;
 
@@ -310,10 +302,7 @@ namespace wheel01
             if (signalInDouble < -1) signalInDouble = -1;
 
             // convert to voltage
-            double inVoltage = signalInDouble * (maxFfbVoltage - minFfbVoltage);
-            if (inVoltage < 0) inVoltage -= minFfbVoltage;
-            if (inVoltage > 0) inVoltage += minFfbVoltage;
-            if (signalInDouble == 0) inVoltage = 0;
+            double inVoltage = signalInDouble * maxFfbVoltage;
 
             return inVoltage;
         }
@@ -360,13 +349,6 @@ namespace wheel01
         private void CltMaxSlider_Scroll(object sender, EventArgs e)
         {
             clutch.endHwValue = CltMaxSlider.Value;
-            SaveAllSettings();
-        }
-
-        private void MinOutVoltageSlider_Scroll(object sender, EventArgs e)
-        {
-            double slider = MinOutVoltageSlider.Value;
-            minFfbVoltage = slider / 10;
             SaveAllSettings();
         }
 

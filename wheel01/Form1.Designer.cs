@@ -38,11 +38,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.FfbMultSlider = new System.Windows.Forms.TrackBar();
             this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.MinOutVoltageSlider = new System.Windows.Forms.TrackBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ResetZeroBtn = new System.Windows.Forms.Button();
             this.SteeringRangeDisplayText = new System.Windows.Forms.Label();
@@ -85,7 +80,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FfbMultSlider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MinOutVoltageSlider)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -210,62 +204,6 @@
             this.label8.Text = "Game FFB Multiplier:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(8, 192);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(192, 24);
-            this.label7.TabIndex = 39;
-            this.label7.Text = "Min. Abs. V.out:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(80, 216);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(48, 24);
-            this.label6.TabIndex = 38;
-            this.label6.Text = "1V";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(152, 216);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 24);
-            this.label5.TabIndex = 37;
-            this.label5.Text = "2V";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(8, 216);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 24);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "0V";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // MinOutVoltageSlider
-            // 
-            this.MinOutVoltageSlider.AutoSize = false;
-            this.MinOutVoltageSlider.LargeChange = 2;
-            this.MinOutVoltageSlider.Location = new System.Drawing.Point(8, 240);
-            this.MinOutVoltageSlider.Maximum = 20;
-            this.MinOutVoltageSlider.Name = "MinOutVoltageSlider";
-            this.MinOutVoltageSlider.Size = new System.Drawing.Size(192, 32);
-            this.MinOutVoltageSlider.TabIndex = 35;
-            this.MinOutVoltageSlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.MinOutVoltageSlider.Scroll += new System.EventHandler(this.MinOutVoltageSlider_Scroll);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.ResetZeroBtn);
@@ -366,7 +304,7 @@
             // 
             // FFBValueDisplayBar
             // 
-            this.FFBValueDisplayBar.Location = new System.Drawing.Point(8, 312);
+            this.FFBValueDisplayBar.Location = new System.Drawing.Point(8, 216);
             this.FFBValueDisplayBar.Maximum = 20000;
             this.FFBValueDisplayBar.Name = "FFBValueDisplayBar";
             this.FFBValueDisplayBar.Size = new System.Drawing.Size(192, 16);
@@ -377,7 +315,7 @@
             // FFBValueDisplayText
             // 
             this.FFBValueDisplayText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FFBValueDisplayText.Location = new System.Drawing.Point(104, 288);
+            this.FFBValueDisplayText.Location = new System.Drawing.Point(104, 192);
             this.FFBValueDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FFBValueDisplayText.Name = "FFBValueDisplayText";
             this.FFBValueDisplayText.Size = new System.Drawing.Size(96, 24);
@@ -388,7 +326,7 @@
             // label15
             // 
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(8, 288);
+            this.label15.Location = new System.Drawing.Point(8, 192);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(96, 24);
@@ -460,8 +398,10 @@
             // 
             this.SerialPortController.BaudRate = 115200;
             this.SerialPortController.DtrEnable = true;
-            this.SerialPortController.ReceivedBytesThreshold = 16;
+            this.SerialPortController.ReadBufferSize = 1024;
+            this.SerialPortController.ReceivedBytesThreshold = 4;
             this.SerialPortController.RtsEnable = true;
+            this.SerialPortController.WriteBufferSize = 1024;
             this.SerialPortController.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPortController_DataReceived);
             // 
             // VJoyInitDelay
@@ -682,16 +622,11 @@
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Controls.Add(this.MinOutVoltageSlider);
             this.groupBox4.Controls.Add(this.label14);
-            this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.FFBValueDisplayBar);
             this.groupBox4.Controls.Add(this.FFBValueDisplayText);
             this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.FfbMultSlider);
-            this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Location = new System.Drawing.Point(224, 8);
             this.groupBox4.Name = "groupBox4";
@@ -759,7 +694,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FfbMultSlider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MinOutVoltageSlider)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SteeringRangeSlider)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -819,11 +753,6 @@
         private System.Windows.Forms.TrackBar CltMaxSlider;
         private System.Windows.Forms.TrackBar CltMinSlider;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TrackBar MinOutVoltageSlider;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label9;
