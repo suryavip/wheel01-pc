@@ -402,7 +402,6 @@
             this.SerialPortController.ReceivedBytesThreshold = 4;
             this.SerialPortController.RtsEnable = true;
             this.SerialPortController.WriteBufferSize = 1024;
-            this.SerialPortController.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPortController_DataReceived);
             // 
             // VJoyInitDelay
             // 
