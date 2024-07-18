@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using vJoyInterfaceWrap;
-using SerialPortLib;
 
 namespace wheel01
 {
@@ -18,7 +17,7 @@ namespace wheel01
         readonly Pedal accelerator = new Pedal();
         readonly Pedal brake = new Pedal();
         readonly Pedal clutch = new Pedal();
-        readonly SerialPortInput serialPort = new SerialPortInput();
+        readonly SerialCom serialCom = new SerialCom();
 
         double ffbMult = 1;
         double ffbLinearity = 1;
@@ -50,28 +49,6 @@ namespace wheel01
             COMPortsComboBox.DataSource = ports;
             Logger.App("Port list updated!");
             Logger.App("Please wait until vJoy device initialized!");
-
-            serialPort.ConnectionStatusChanged += delegate (object sender2, ConnectionStatusChangedEventArgs args)
-            {
-                Logger.App(string.Format("Connected = {0}", args.Connected));
-            };
-
-            serialPort.MessageReceived += delegate (object sender2, MessageReceivedEventArgs args)
-            {
-                string read = BitConverter.ToString(args.Data);
-                Logger.App(string.Format("Received message: {0}", read));
-                /*try
-                {
-                    string read = SerialPortController.ReadTo(";");
-                    if (read == null || read.Length == 0) return;
-                    Logger.Rx(read);
-                    OnCommandReceived(read);
-                }
-                catch (Exception ex)
-                {
-                    Logger.App("Error on receiving data: " + ex.Message);
-                }*/
-            };
         }
 
         private void LoadAllSettings()
@@ -144,25 +121,12 @@ namespace wheel01
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            Connect();
-        }
-
-        private void Connect()
-        {
             string selected = COMPortsComboBox.SelectedItem.ToString();
-            Logger.App("Connecting to " + selected + "...");
-            try
-            {
-                serialPort.SetPort(selected, 115200);
-                serialPort.Connect();
+            serialCom.Connect(selected, () => {
                 SendFFBValue();
-            }
-            catch (Exception ex)
-            {
-                Logger.App("Failed connecting to " + selected + ": " + ex.Message);
-            }
-
-            Logger.App("Connected to " + selected + "!");
+            }, (read) => {
+                OnCommandReceived(read);
+            });
         }
 
         private void DisplayUpdater_Tick(object sender, EventArgs e)
@@ -236,34 +200,19 @@ namespace wheel01
 
         private void SendFFBValue()
         {
-            try
+            lastFfbVoltageSent = CalculateFfbVoltage();
+            string tosent = string.Format("{0:F2};", lastFfbVoltageSent).Replace(",", ".");
+            serialCom.Send(tosent, () =>
             {
-                if (serialPort.IsConnected == false)
-                {
-                    Logger.App("COM is not open!");
-                    return;
-                }
-
-                lastFfbVoltageSent = CalculateFfbVoltage();
-                string tosent = string.Format("{0:F2};", lastFfbVoltageSent).Replace(",", ".");
-                var message = System.Text.Encoding.UTF8.GetBytes(tosent);
-                serialPort.SendMessage(message);
-                Logger.Tx(tosent);
-            }
-            catch (Exception ex)
-            {
-                Logger.App("Error on sending data: " + ex.Message);
-                Logger.App("Connection disrupted!");
-
                 OnCommandReceived(string.Format(
                     "{0},{1},{2},{3},{4}",
-                    wheel.hwValueOffset,
-                    wheel.hwOverRotationOffset,
+                    wheel.currentHwValue,
+                    wheel.currentHwOverRotationValue,
                     accelerator.startHwValue,
                     brake.startHwValue,
                     clutch.startHwValue
                 ));
-            }
+            });
         }
 
         private double CalculateFfbVoltage()

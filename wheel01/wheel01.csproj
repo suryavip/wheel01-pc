@@ -94,9 +94,6 @@
     <Reference Include="NLog.Extensions.Logging, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.Extensions.Logging.5.3.11\lib\net461\NLog.Extensions.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="SerialPortLib, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SerialPortLib.1.1.2\lib\net472\SerialPortLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -147,6 +144,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="SerialCom.cs" />
     <Compile Include="Wheel.cs" />
     <Compile Include="Pedal.cs" />
     <Compile Include="Logger.cs" />
