@@ -56,7 +56,6 @@ namespace wheel01
                     return;
                 }
 
-                if (DateTime.Now.Second < 2) throw new InvalidOperationException();
                 serialPort.Write(tosent);
                 Logger.Tx(tosent);
             }
