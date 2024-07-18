@@ -31,6 +31,8 @@ namespace wheel01
         static vJoy.FFB_EFF_COND conditionReport;
         static vJoy.FFB_EFF_CONSTANT constantReport;
 
+        static DateTime lastEffect = DateTime.Now;
+
         public static void Init()
         {
             Logger.App("Initializing vJoy device...");
@@ -170,10 +172,16 @@ namespace wheel01
                     //Logger.App(string.Format("Eff: {0} :{1}", fFBPType, effectBlockIndex));
                     break;
             }
+
+            lastEffect = DateTime.Now;
         }
 
         public static double CalculateFFB()
         {
+            var currentTime = DateTime.Now;
+            var time = (currentTime - lastEffect).Duration().TotalMilliseconds;
+            if (time > 500) return 0; // to make sure discard old effect that hasn't been cleared by game
+
             double ffbOutput = constantReport.Magnitude;
             return ffbOutput;
         }
