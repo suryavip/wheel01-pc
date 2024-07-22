@@ -11,6 +11,7 @@ namespace wheel01
     internal class SerialCom
     {
         private SerialPort serialPort;
+        private bool caughtError;
         private Action<string> _onDataReceived;
         private Action _onConnect;
         private string _portName;
@@ -27,10 +28,13 @@ namespace wheel01
 
                 serialPort = new SerialPort();
                 serialPort.PortName = portName;
-                serialPort.BaudRate = 115200;
                 serialPort.StopBits = StopBits.One;
                 serialPort.Parity = Parity.None;
                 serialPort.DataBits = 8;
+                serialPort.ReadTimeout = 300;
+                serialPort.WriteTimeout = 300;
+                serialPort.WriteBufferSize = 8;
+                serialPort.ReadBufferSize = 32;
                 serialPort.RtsEnable = true;
                 serialPort.DtrEnable = true;
                 serialPort.DataReceived += DataReceived;
@@ -48,27 +52,29 @@ namespace wheel01
 
         public void Send(string tosent, Action onError)
         {
+            if (caughtError)
+            {
+                Logger.App("Serial Send is blocked due to error on last try!");
+                caughtError = false;
+                serialPort.Dispose();
+                return;
+            }
+
+            if (serialPort.IsOpen == false)
+            {
+                return;
+            }
+
             try
             {
-                if (serialPort.IsOpen == false)
-                {
-                    Logger.App("COM is not open!");
-                    return;
-                }
-
                 serialPort.Write(tosent);
                 Logger.Tx(tosent);
             }
             catch (Exception ex)
             {
                 Logger.App(string.Format("Error on sending data: {0}", ex.Message));
-                Logger.App("Connection disrupted!");
-
+                caughtError = true;
                 onError();
-
-                serialPort.Close();
-                serialPort.Dispose();
-                Connect(_portName, _onConnect, _onDataReceived);
             }
         }
 
