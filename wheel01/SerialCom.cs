@@ -33,8 +33,9 @@ namespace wheel01
                 serialPort.DataBits = 8;
                 serialPort.ReadTimeout = 300;
                 serialPort.WriteTimeout = 300;
-                serialPort.WriteBufferSize = 8;
-                serialPort.ReadBufferSize = 32;
+                serialPort.WriteBufferSize = 256;
+                serialPort.ReadBufferSize = 256;
+                serialPort.ReceivedBytesThreshold = 4;
                 serialPort.RtsEnable = true;
                 serialPort.DtrEnable = true;
                 serialPort.DataReceived += DataReceived;
