@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using vJoyInterfaceWrap;
 using System.IO.Ports;
-using System.Diagnostics;
 
 namespace wheel01
 {
