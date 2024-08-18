@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace wheel01
+﻿namespace wheel01
 {
     internal class Pedal
     {

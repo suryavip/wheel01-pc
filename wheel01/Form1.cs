@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using vJoyInterfaceWrap;
 
 namespace wheel01
 {
@@ -17,6 +10,7 @@ namespace wheel01
         readonly Pedal accelerator = new Pedal();
         readonly Pedal brake = new Pedal();
         readonly Pedal clutch = new Pedal();
+        readonly SerialCom serialCom = new SerialCom();
 
         double ffbMult = 1;
         double ffbLinearity = 1;
@@ -120,36 +114,12 @@ namespace wheel01
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            Connect();
-        }
-
-        private void Connect()
-        {
             string selected = COMPortsComboBox.SelectedItem.ToString();
-            Logger.App("Connecting to " + selected + "...");
-            try
-            {
-                SerialPortController.Close();
-            }
-            catch (Exception ex)
-            {
-                Logger.App("Error closing previous connection: " + ex.Message);
-            }
-            finally
-            {
-                try
-                {
-                    SerialPortController.PortName = selected;
-                    SerialPortController.Open();
-                    SendFFBValue();
-                }
-                catch (Exception ex)
-                {
-                    Logger.App("Failed connecting to " + selected + ": " + ex.Message);
-                }
-
-                Logger.App("Connected to " + selected + "!");
-            }
+            serialCom.Connect(selected, () => {
+                SendFFBValue();
+            }, (read) => {
+                OnCommandReceived(read);
+            });
         }
 
         private void DisplayUpdater_Tick(object sender, EventArgs e)
@@ -183,21 +153,6 @@ namespace wheel01
             Clipboard.SetText(Logger.appLog);
         }
 
-        private void SerialPortController_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            try
-            {
-                string read = SerialPortController.ReadTo(";");
-                if (read == null || read.Length == 0) return;
-                Logger.Rx(read);
-                OnCommandReceived(read);
-            }
-            catch (Exception ex)
-            {
-                Logger.App("Error on receiving data: " + ex.Message);
-            }
-        }
-
         private void OnCommandReceived(string value)
         {
             string[] splitted = value.Split(',');
@@ -216,10 +171,11 @@ namespace wheel01
 
         private void SendValueToVJoy()
         {
-            VJoyWrapper.SetAxis(wheel.CalculateAxisValue(), HID_USAGES.HID_USAGE_X);
-            VJoyWrapper.SetAxis(accelerator.CalculateAxisValue(), HID_USAGES.HID_USAGE_Y);
-            VJoyWrapper.SetAxis(brake.CalculateAxisValue(), HID_USAGES.HID_USAGE_Z);
-            VJoyWrapper.SetAxis(clutch.CalculateAxisValue(), HID_USAGES.HID_USAGE_RX);
+            VJoyWrapper.state.AxisX = wheel.CalculateAxisValue();
+            VJoyWrapper.state.AxisY = accelerator.CalculateAxisValue();
+            VJoyWrapper.state.AxisZ = brake.CalculateAxisValue();
+            VJoyWrapper.state.AxisXRot = clutch.CalculateAxisValue();
+            VJoyWrapper.UpdateState();
         }
 
         private void SteeringRangeSlider_Scroll(object sender, EventArgs e)
@@ -238,20 +194,19 @@ namespace wheel01
 
         private void SendFFBValue()
         {
-            try
+            lastFfbVoltageSent = CalculateFfbVoltage();
+            string tosent = string.Format("{0:F2};", lastFfbVoltageSent).Replace(",", ".");
+            serialCom.Send(tosent, () =>
             {
-                if (SerialPortController.IsOpen == false) return;
-
-                lastFfbVoltageSent = CalculateFfbVoltage();
-                string tosent = string.Format("{0:F2};", lastFfbVoltageSent).Replace(",", ".");
-                SerialPortController.Write(tosent);
-                Logger.Tx(tosent);
-            }
-            catch (Exception ex)
-            {
-                Logger.App("Error on sending data: " + ex.Message);
-                Logger.App("Connection disrupted!");
-            }
+                OnCommandReceived(string.Format(
+                    "{0},{1},{2},{3},{4}",
+                    wheel.currentHwValue,
+                    wheel.currentHwOverRotationValue,
+                    accelerator.startHwValue,
+                    brake.startHwValue,
+                    clutch.startHwValue
+                ));
+            });
         }
 
         private double CalculateFfbVoltage()

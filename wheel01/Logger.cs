@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace wheel01
 {
@@ -12,7 +8,7 @@ namespace wheel01
 
         public static String appLog = "";
         //public static String rxLog = "";
-        //public static String txLog = "";
+        public static String txLog = "";
 
         //public static String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\vipwheel\\log-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".txt";
         //static FileStream fileStream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite);
@@ -33,6 +29,7 @@ namespace wheel01
 
         public static void Rx(string log)
         {
+            Console.WriteLine(log);
             //rxLog = log + Environment.NewLine + rxLog;
             //if (rxLog.Length > lengthLimit)
             //{
@@ -42,6 +39,7 @@ namespace wheel01
 
         public static void Tx(string log)
         {
+            Console.WriteLine(log);
             //txLog = log + Environment.NewLine + txLog;
             //if (txLog.Length > lengthLimit)
             //{
