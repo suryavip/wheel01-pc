@@ -178,10 +178,11 @@ namespace wheel01
 
         private void SendValueToVJoy()
         {
-            VJoyWrapper.SetAxis(wheel.CalculateAxisValue(), HID_USAGES.HID_USAGE_X);
-            VJoyWrapper.SetAxis(accelerator.CalculateAxisValue(), HID_USAGES.HID_USAGE_Y);
-            VJoyWrapper.SetAxis(brake.CalculateAxisValue(), HID_USAGES.HID_USAGE_Z);
-            VJoyWrapper.SetAxis(clutch.CalculateAxisValue(), HID_USAGES.HID_USAGE_RX);
+            VJoyWrapper.state.AxisX = wheel.CalculateAxisValue();
+            VJoyWrapper.state.AxisY = accelerator.CalculateAxisValue();
+            VJoyWrapper.state.AxisZ = brake.CalculateAxisValue();
+            VJoyWrapper.state.AxisXRot = clutch.CalculateAxisValue();
+            VJoyWrapper.UpdateState();
         }
 
         private void SteeringRangeSlider_Scroll(object sender, EventArgs e)

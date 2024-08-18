@@ -22,6 +22,8 @@ namespace wheel01
 
         public static vJoy device;
 
+        public static vJoy.JoystickState state;
+
         static FFBPType fFBPType;
 
         static FFBEType newEffectReport;
@@ -74,9 +76,9 @@ namespace wheel01
             device.FfbRegisterGenCB(OnEffectObj, null);
         }
 
-        public static bool SetAxis(int value, HID_USAGES axis)
+        public static void UpdateState()
         {
-            return device.SetAxis(value, deviceId, axis);
+            device.UpdateVJD(deviceId, ref state);
         }
 
         /// <summary>
