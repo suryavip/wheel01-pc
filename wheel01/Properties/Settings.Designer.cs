@@ -178,5 +178,29 @@ namespace wheel01.Properties {
                 this["FFBLinearity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FFBFlipVout {
+            get {
+                return ((bool)(this["FFBFlipVout"]));
+            }
+            set {
+                this["FFBFlipVout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public double FFBMaxVout {
+            get {
+                return ((double)(this["FFBMaxVout"]));
+            }
+            set {
+                this["FFBMaxVout"] = value;
+            }
+        }
     }
 }

@@ -75,6 +75,11 @@
             this.CltMinSlider = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.FlipFfbButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.MaxVoutSlider = new System.Windows.Forms.TrackBar();
+            this.label5 = new System.Windows.Forms.Label();
             this.FFBLinearityDisplayText = new System.Windows.Forms.Label();
             this.FfbLinearitySlider = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
@@ -93,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxVoutSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FfbLinearitySlider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -304,7 +310,7 @@
             // 
             // FFBValueDisplayBar
             // 
-            this.FFBValueDisplayBar.Location = new System.Drawing.Point(8, 216);
+            this.FFBValueDisplayBar.Location = new System.Drawing.Point(8, 312);
             this.FFBValueDisplayBar.Maximum = 20000;
             this.FFBValueDisplayBar.Name = "FFBValueDisplayBar";
             this.FFBValueDisplayBar.Size = new System.Drawing.Size(192, 16);
@@ -315,7 +321,7 @@
             // FFBValueDisplayText
             // 
             this.FFBValueDisplayText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FFBValueDisplayText.Location = new System.Drawing.Point(104, 192);
+            this.FFBValueDisplayText.Location = new System.Drawing.Point(104, 288);
             this.FFBValueDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FFBValueDisplayText.Name = "FFBValueDisplayText";
             this.FFBValueDisplayText.Size = new System.Drawing.Size(96, 24);
@@ -326,7 +332,7 @@
             // label15
             // 
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(8, 192);
+            this.label15.Location = new System.Drawing.Point(8, 288);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(96, 24);
@@ -616,6 +622,11 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.FlipFfbButton);
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.MaxVoutSlider);
+            this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.FFBLinearityDisplayText);
             this.groupBox4.Controls.Add(this.FfbLinearitySlider);
             this.groupBox4.Controls.Add(this.label1);
@@ -633,6 +644,64 @@
             this.groupBox4.TabIndex = 32;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "FFB";
+            // 
+            // FlipFfbButton
+            // 
+            this.FlipFfbButton.BackgroundImage = global::wheel01.Properties.Resources.left_right;
+            this.FlipFfbButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.FlipFfbButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FlipFfbButton.Location = new System.Drawing.Point(176, 192);
+            this.FlipFfbButton.Name = "FlipFfbButton";
+            this.FlipFfbButton.Size = new System.Drawing.Size(24, 24);
+            this.FlipFfbButton.TabIndex = 52;
+            this.FlipFfbButton.UseVisualStyleBackColor = true;
+            this.FlipFfbButton.Click += new System.EventHandler(this.FlipFfbButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(152, 216);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 24);
+            this.label3.TabIndex = 51;
+            this.label3.Text = "9V";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(8, 216);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(48, 24);
+            this.label4.TabIndex = 50;
+            this.label4.Text = "0V";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // MaxVoutSlider
+            // 
+            this.MaxVoutSlider.AutoSize = false;
+            this.MaxVoutSlider.LargeChange = 1;
+            this.MaxVoutSlider.Location = new System.Drawing.Point(8, 240);
+            this.MaxVoutSlider.Maximum = 90;
+            this.MaxVoutSlider.Name = "MaxVoutSlider";
+            this.MaxVoutSlider.Size = new System.Drawing.Size(192, 32);
+            this.MaxVoutSlider.TabIndex = 49;
+            this.MaxVoutSlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.MaxVoutSlider.Value = 90;
+            this.MaxVoutSlider.Scroll += new System.EventHandler(this.MaxVoutSlider_Scroll);
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(8, 192);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(160, 24);
+            this.label5.TabIndex = 48;
+            this.label5.Text = "Max Vout:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FFBLinearityDisplayText
             // 
@@ -707,6 +776,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CltMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CltMinSlider)).EndInit();
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MaxVoutSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FfbLinearitySlider)).EndInit();
             this.ResumeLayout(false);
 
@@ -762,6 +832,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TrackBar FfbLinearitySlider;
         private System.Windows.Forms.Label FFBLinearityDisplayText;
+        private System.Windows.Forms.Button FlipFfbButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar MaxVoutSlider;
+        private System.Windows.Forms.Label label5;
     }
 }
 

@@ -14,7 +14,8 @@ namespace wheel01
 
         double ffbMult = 1;
         double ffbLinearity = 1;
-        readonly double maxFfbVoltage = 7.0;
+        double maxFfbVoltage = 9.0;
+        bool flipFfbVoltage = false;
         double lastFfbVoltageSent = 0;
 
         public Form1()
@@ -72,6 +73,11 @@ namespace wheel01
             double realFfbLinearity = ffbLinearitySlider / 100;
             ffbLinearity = realFfbLinearity;
             FFBLinearityDisplayText.Text = ffbLinearity.ToString();
+
+            flipFfbVoltage = Properties.Settings.Default.FFBFlipVout;
+
+            maxFfbVoltage = Properties.Settings.Default.FFBMaxVout;
+            MaxVoutSlider.Value = (int)(maxFfbVoltage * 10);
         }
 
         private void SaveAllSettings()
@@ -94,6 +100,10 @@ namespace wheel01
 
             Properties.Settings.Default.FFBLinearity = FfbLinearitySlider.Value;
 
+            Properties.Settings.Default.FFBFlipVout = flipFfbVoltage;
+
+            Properties.Settings.Default.FFBMaxVout = maxFfbVoltage;
+
             Properties.Settings.Default.Save();
         }
 
@@ -115,9 +125,11 @@ namespace wheel01
         private void ConnectButton_Click(object sender, EventArgs e)
         {
             string selected = COMPortsComboBox.SelectedItem.ToString();
-            serialCom.Connect(selected, () => {
+            serialCom.Connect(selected, () =>
+            {
                 SendFFBValue();
-            }, (read) => {
+            }, (read) =>
+            {
                 OnCommandReceived(read);
             });
         }
@@ -228,7 +240,7 @@ namespace wheel01
             // Adding soft lock force
             int steeringPosition = wheel.CalculateAxisValue();
             double normalizedThreshold = VJoyWrapper.softLockThreshold / (wheel.rotationRange / 5);
-            
+
             if (steeringPosition < normalizedThreshold)
             {
                 double progress = normalizedThreshold - steeringPosition;
@@ -258,6 +270,9 @@ namespace wheel01
 
             // convert to voltage
             double inVoltage = signalInDouble * maxFfbVoltage;
+
+            // flip voltage if needed
+            if (flipFfbVoltage) inVoltage *= -1;
 
             return inVoltage;
         }
@@ -321,6 +336,21 @@ namespace wheel01
             double slider = FfbLinearitySlider.Value;
             ffbLinearity = slider / 100;
             FFBLinearityDisplayText.Text = ffbLinearity.ToString();
+            SaveAllSettings();
+        }
+
+        private void FlipFfbButton_Click(object sender, EventArgs e)
+        {
+            flipFfbVoltage = !flipFfbVoltage;
+            Logger.App("Flip FFB Vout: " + flipFfbVoltage);
+            SaveAllSettings();
+        }
+
+        private void MaxVoutSlider_Scroll(object sender, EventArgs e)
+        {
+            double slider = MaxVoutSlider.Value;
+            maxFfbVoltage = slider / 10;
+            Logger.App("Max Vout: " + maxFfbVoltage);
             SaveAllSettings();
         }
     }
