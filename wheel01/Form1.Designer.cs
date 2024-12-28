@@ -67,6 +67,9 @@
             this.AccMinSlider = new System.Windows.Forms.TrackBar();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.BrkLinearityDisplayText = new System.Windows.Forms.Label();
+            this.BrkLinearitySlider = new System.Windows.Forms.TrackBar();
+            this.label6 = new System.Windows.Forms.Label();
             this.BrkMaxSlider = new System.Windows.Forms.TrackBar();
             this.BrkMinSlider = new System.Windows.Forms.TrackBar();
             this.label11 = new System.Windows.Forms.Label();
@@ -92,6 +95,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AccMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AccMinSlider)).BeginInit();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BrkLinearitySlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BrkMaxSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BrkMinSlider)).BeginInit();
             this.groupBox7.SuspendLayout();
@@ -223,7 +227,7 @@
             this.groupBox2.Location = new System.Drawing.Point(440, 8);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(208, 184);
+            this.groupBox2.Size = new System.Drawing.Size(208, 152);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Steering";
@@ -427,7 +431,7 @@
             this.groupBox3.Controls.Add(this.LogOutput);
             this.groupBox3.Location = new System.Drawing.Point(8, 72);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(208, 312);
+            this.groupBox3.Size = new System.Drawing.Size(208, 344);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
@@ -435,7 +439,7 @@
             // FidgetCheckBox
             // 
             this.FidgetCheckBox.AutoSize = true;
-            this.FidgetCheckBox.Location = new System.Drawing.Point(8, 280);
+            this.FidgetCheckBox.Location = new System.Drawing.Point(8, 312);
             this.FidgetCheckBox.Name = "FidgetCheckBox";
             this.FidgetCheckBox.Size = new System.Drawing.Size(102, 20);
             this.FidgetCheckBox.TabIndex = 7;
@@ -447,7 +451,7 @@
             this.CopyLogToClipboardButton.BackgroundImage = global::wheel01.Properties.Resources.copy;
             this.CopyLogToClipboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.CopyLogToClipboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(176, 280);
+            this.CopyLogToClipboardButton.Location = new System.Drawing.Point(176, 312);
             this.CopyLogToClipboardButton.Name = "CopyLogToClipboardButton";
             this.CopyLogToClipboardButton.Size = new System.Drawing.Size(24, 24);
             this.CopyLogToClipboardButton.TabIndex = 6;
@@ -463,7 +467,7 @@
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
             this.LogOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogOutput.Size = new System.Drawing.Size(190, 252);
+            this.LogOutput.Size = new System.Drawing.Size(190, 284);
             this.LogOutput.TabIndex = 5;
             this.LogOutput.Text = "";
             // 
@@ -520,18 +524,57 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.BrkLinearityDisplayText);
+            this.groupBox6.Controls.Add(this.BrkLinearitySlider);
+            this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.BrkMaxSlider);
             this.groupBox6.Controls.Add(this.BrkMinSlider);
             this.groupBox6.Controls.Add(this.label11);
             this.groupBox6.Controls.Add(this.BrakeAxisDisplayText);
             this.groupBox6.Controls.Add(this.BrakeAxisDisplayBar);
-            this.groupBox6.Location = new System.Drawing.Point(440, 200);
+            this.groupBox6.Location = new System.Drawing.Point(440, 168);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(208, 184);
+            this.groupBox6.Size = new System.Drawing.Size(208, 248);
             this.groupBox6.TabIndex = 30;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Brake";
+            // 
+            // BrkLinearityDisplayText
+            // 
+            this.BrkLinearityDisplayText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BrkLinearityDisplayText.Location = new System.Drawing.Point(104, 184);
+            this.BrkLinearityDisplayText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.BrkLinearityDisplayText.Name = "BrkLinearityDisplayText";
+            this.BrkLinearityDisplayText.Size = new System.Drawing.Size(96, 24);
+            this.BrkLinearityDisplayText.TabIndex = 50;
+            this.BrkLinearityDisplayText.Text = "-";
+            this.BrkLinearityDisplayText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // BrkLinearitySlider
+            // 
+            this.BrkLinearitySlider.AutoSize = false;
+            this.BrkLinearitySlider.LargeChange = 1;
+            this.BrkLinearitySlider.Location = new System.Drawing.Point(8, 208);
+            this.BrkLinearitySlider.Maximum = 150;
+            this.BrkLinearitySlider.Minimum = 50;
+            this.BrkLinearitySlider.Name = "BrkLinearitySlider";
+            this.BrkLinearitySlider.Size = new System.Drawing.Size(192, 32);
+            this.BrkLinearitySlider.TabIndex = 49;
+            this.BrkLinearitySlider.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.BrkLinearitySlider.Value = 100;
+            this.BrkLinearitySlider.Scroll += new System.EventHandler(this.BrkLinearitySlider_Scroll);
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(8, 184);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(96, 24);
+            this.label6.TabIndex = 48;
+            this.label6.Text = "Linearity:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BrkMaxSlider
             // 
@@ -576,7 +619,7 @@
             this.groupBox7.Controls.Add(this.label13);
             this.groupBox7.Controls.Add(this.ClutchAxisDisplayBar);
             this.groupBox7.Controls.Add(this.ClutchAxisDisplayText);
-            this.groupBox7.Location = new System.Drawing.Point(656, 200);
+            this.groupBox7.Location = new System.Drawing.Point(656, 232);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(208, 184);
@@ -640,7 +683,7 @@
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Location = new System.Drawing.Point(224, 8);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(208, 376);
+            this.groupBox4.Size = new System.Drawing.Size(208, 408);
             this.groupBox4.TabIndex = 32;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "FFB";
@@ -744,7 +787,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(872, 393);
+            this.ClientSize = new System.Drawing.Size(872, 425);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
@@ -770,6 +813,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AccMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AccMinSlider)).EndInit();
             this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BrkLinearitySlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BrkMaxSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BrkMinSlider)).EndInit();
             this.groupBox7.ResumeLayout(false);
@@ -837,6 +881,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TrackBar MaxVoutSlider;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label BrkLinearityDisplayText;
+        private System.Windows.Forms.TrackBar BrkLinearitySlider;
+        private System.Windows.Forms.Label label6;
     }
 }
 

@@ -169,7 +169,7 @@ namespace wheel01.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public int FFBLinearity {
             get {
                 return ((int)(this["FFBLinearity"]));
@@ -200,6 +200,18 @@ namespace wheel01.Properties {
             }
             set {
                 this["FFBMaxVout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int BrkLinearity {
+            get {
+                return ((int)(this["BrkLinearity"]));
+            }
+            set {
+                this["BrkLinearity"] = value;
             }
         }
     }

@@ -27,17 +27,6 @@ namespace wheel01
         {
             LoadAllSettings();
 
-            SteeringRangeSlider.Value = (int)(wheel.rotationRange * 2);
-
-            AccMinSlider.Value = accelerator.startHwValue;
-            AccMaxSlider.Value = accelerator.endHwValue;
-
-            BrkMinSlider.Value = brake.startHwValue;
-            BrkMaxSlider.Value = brake.endHwValue;
-
-            CltMinSlider.Value = clutch.startHwValue;
-            CltMaxSlider.Value = clutch.endHwValue;
-
             Logger.App("Detecting ports...");
             string[] ports = SerialPort.GetPortNames();
             COMPortsComboBox.DataSource = ports;
@@ -53,15 +42,28 @@ namespace wheel01
             wheel.hwOverRotationOffset = Properties.Settings.Default.WheelHwOverRotationOffset;
             wheel.flipDirection = Properties.Settings.Default.WheelFlipDirection;
             wheel.rotationRange = Properties.Settings.Default.WheelRotationRange;
+            SteeringRangeSlider.Value = (int)(wheel.rotationRange * 2);
 
             accelerator.startHwValue = Properties.Settings.Default.AccStartHwValue;
             accelerator.endHwValue = Properties.Settings.Default.AccEndHwValue;
+            AccMinSlider.Value = accelerator.startHwValue;
+            AccMaxSlider.Value = accelerator.endHwValue;
 
             brake.startHwValue = Properties.Settings.Default.BrkStartHwValue;
             brake.endHwValue = Properties.Settings.Default.BrkEndHwValue;
+            BrkMinSlider.Value = brake.startHwValue;
+            BrkMaxSlider.Value = brake.endHwValue;
+
+            BrkLinearitySlider.Value = Properties.Settings.Default.BrkLinearity;
+            double brkLinearitySlider = BrkLinearitySlider.Value;
+            double realBrkLinearity = brkLinearitySlider / 100;
+            brake.linearity = realBrkLinearity;
+            BrkLinearityDisplayText.Text = brake.linearity.ToString();
 
             clutch.startHwValue = Properties.Settings.Default.CltStartHwValue;
             clutch.endHwValue = Properties.Settings.Default.CltEndHwValue;
+            CltMinSlider.Value = clutch.startHwValue;
+            CltMaxSlider.Value = clutch.endHwValue;
 
             FfbMultSlider.Value = Properties.Settings.Default.FFBMultiplier;
             double slider = FfbMultSlider.Value;
@@ -92,6 +94,7 @@ namespace wheel01
 
             Properties.Settings.Default.BrkStartHwValue = brake.startHwValue;
             Properties.Settings.Default.BrkEndHwValue = brake.endHwValue;
+            Properties.Settings.Default.BrkLinearity = BrkLinearitySlider.Value;
 
             Properties.Settings.Default.CltStartHwValue = clutch.startHwValue;
             Properties.Settings.Default.CltEndHwValue = clutch.endHwValue;
@@ -351,6 +354,14 @@ namespace wheel01
             double slider = MaxVoutSlider.Value;
             maxFfbVoltage = slider / 10;
             Logger.App("Max Vout: " + maxFfbVoltage);
+            SaveAllSettings();
+        }
+
+        private void BrkLinearitySlider_Scroll(object sender, EventArgs e)
+        {
+            double slider = BrkLinearitySlider.Value;
+            brake.linearity = slider / 100;
+            BrkLinearityDisplayText.Text = brake.linearity.ToString();
             SaveAllSettings();
         }
     }

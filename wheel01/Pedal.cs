@@ -1,4 +1,6 @@
-﻿namespace wheel01
+﻿using System;
+
+namespace wheel01
 {
     internal class Pedal
     {
@@ -9,6 +11,7 @@
         public int currentHwValue = 0;
         public int startHwValue = minHwValue;
         public int endHwValue = maxHwValue;
+        public double linearity = 1;
 
         public int CalculateAxisValue()
         {
@@ -25,9 +28,12 @@
             double maxAllowedCalibratedHwValue = endHwValue - startHwValue;
             if (calibratedHwValue > maxAllowedCalibratedHwValue) calibratedHwValue = maxAllowedCalibratedHwValue;
 
-            // converting to axis scale
             double percentage = calibratedHwValue / maxAllowedCalibratedHwValue;
-            double toAxis = VJoyWrapper.maxAxisValue * percentage;
+
+            // transform curve
+            double transformer = Math.Pow(percentage, linearity);
+
+            double toAxis = VJoyWrapper.maxAxisValue * transformer;
 
             return (int)toAxis;
         }
