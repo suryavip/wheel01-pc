@@ -22,6 +22,7 @@ namespace wheel01
                 _portName = portName;
 
                 serialPort = new SerialPort();
+                serialPort.BaudRate = 115200;
                 serialPort.PortName = portName;
                 serialPort.StopBits = StopBits.One;
                 serialPort.Parity = Parity.None;
@@ -30,7 +31,7 @@ namespace wheel01
                 serialPort.WriteTimeout = 300;
                 serialPort.WriteBufferSize = 256;
                 serialPort.ReadBufferSize = 256;
-                serialPort.ReceivedBytesThreshold = 4;
+                serialPort.ReceivedBytesThreshold = 1;
                 serialPort.RtsEnable = true;
                 serialPort.DtrEnable = true;
                 serialPort.DataReceived += DataReceived;

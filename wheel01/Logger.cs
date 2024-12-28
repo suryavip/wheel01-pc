@@ -29,7 +29,7 @@ namespace wheel01
 
         public static void Rx(string log)
         {
-            Console.WriteLine(log);
+            //Console.WriteLine(log);
             //rxLog = log + Environment.NewLine + rxLog;
             //if (rxLog.Length > lengthLimit)
             //{
@@ -39,7 +39,7 @@ namespace wheel01
 
         public static void Tx(string log)
         {
-            Console.WriteLine(log);
+            //Console.WriteLine(log);
             //txLog = log + Environment.NewLine + txLog;
             //if (txLog.Length > lengthLimit)
             //{
