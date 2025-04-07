@@ -14,6 +14,7 @@ namespace wheel01
 
         double ffbMult = 1;
         double ffbLinearity = 1;
+        double ffbLinearityMix = 1;
         double maxFfbVoltage = 9.0;
         bool flipFfbVoltage = false;
         double lastFfbVoltageSent = 0;
@@ -76,6 +77,12 @@ namespace wheel01
             ffbLinearity = realFfbLinearity;
             FFBLinearityDisplayText.Text = ffbLinearity.ToString();
 
+            FfbLinearityMixSlider.Value = Properties.Settings.Default.FFBLinearityMix;
+            double ffbLinearityMixSlider = FfbLinearityMixSlider.Value;
+            double realFfbLinearityMix = ffbLinearityMixSlider / 100;
+            ffbLinearityMix = realFfbLinearityMix;
+            FFBLinearityMixDisplayText.Text = ffbLinearityMix.ToString();
+
             flipFfbVoltage = Properties.Settings.Default.FFBFlipVout;
 
             maxFfbVoltage = Properties.Settings.Default.FFBMaxVout;
@@ -102,6 +109,7 @@ namespace wheel01
             Properties.Settings.Default.FFBMultiplier = FfbMultSlider.Value;
 
             Properties.Settings.Default.FFBLinearity = FfbLinearitySlider.Value;
+            Properties.Settings.Default.FFBLinearityMix = FfbLinearityMixSlider.Value;
 
             Properties.Settings.Default.FFBFlipVout = flipFfbVoltage;
 
@@ -263,7 +271,7 @@ namespace wheel01
             if (signalInDouble < -1) signalInDouble = -1;
 
             // transform curve
-            double transformer = Math.Pow(Math.Abs(signalInDouble), ffbLinearity);
+            double transformer = (Math.Pow(Math.Abs(signalInDouble), ffbLinearity) * ffbLinearityMix) + (Math.Abs(signalInDouble) * (1 - ffbLinearityMix));
             if (signalInDouble < 0) signalInDouble = transformer * -1;
             else signalInDouble = transformer;
 
@@ -362,6 +370,14 @@ namespace wheel01
             double slider = BrkLinearitySlider.Value;
             brake.linearity = slider / 100;
             BrkLinearityDisplayText.Text = brake.linearity.ToString();
+            SaveAllSettings();
+        }
+
+        private void FfbLinearityMixSlider_Scroll(object sender, EventArgs e)
+        {
+            double slider = FfbLinearityMixSlider.Value;
+            ffbLinearityMix = slider / 100;
+            FFBLinearityMixDisplayText.Text = ffbLinearityMix.ToString();
             SaveAllSettings();
         }
     }

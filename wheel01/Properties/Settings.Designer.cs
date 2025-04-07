@@ -214,5 +214,17 @@ namespace wheel01.Properties {
                 this["BrkLinearity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int FFBLinearityMix {
+            get {
+                return ((int)(this["FFBLinearityMix"]));
+            }
+            set {
+                this["FFBLinearityMix"] = value;
+            }
+        }
     }
 }
