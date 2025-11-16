@@ -87,7 +87,7 @@ namespace wheel01
         {
             device.Ffb_h_Type(data, ref fFBPType);
 
-            int effectBlockIndex = -2;
+            uint effectBlockIndex = 0;
             device.Ffb_h_EBI(data, ref effectBlockIndex);
 
             switch (fFBPType)

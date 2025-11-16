@@ -195,9 +195,9 @@ namespace wheel01
         private void SendValueToVJoy()
         {
             VJoyWrapper.state.AxisX = wheel.CalculateAxisValue();
-            VJoyWrapper.state.AxisY = accelerator.CalculateAxisValue();
-            VJoyWrapper.state.AxisZ = brake.CalculateAxisValue();
-            VJoyWrapper.state.AxisXRot = clutch.CalculateAxisValue();
+            VJoyWrapper.state.AxisXRot = accelerator.CalculateAxisValue();
+            VJoyWrapper.state.AxisYRot = brake.CalculateAxisValue();
+            VJoyWrapper.state.AxisZRot = clutch.CalculateAxisValue();
             VJoyWrapper.UpdateState();
         }
 
