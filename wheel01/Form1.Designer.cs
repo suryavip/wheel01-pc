@@ -263,6 +263,7 @@
             // 
             this.SteeringRangeSlider.AutoSize = false;
             this.SteeringRangeSlider.Location = new System.Drawing.Point(8, 112);
+            this.SteeringRangeSlider.Maximum = 16;
             this.SteeringRangeSlider.Minimum = 1;
             this.SteeringRangeSlider.Name = "SteeringRangeSlider";
             this.SteeringRangeSlider.Size = new System.Drawing.Size(192, 32);
