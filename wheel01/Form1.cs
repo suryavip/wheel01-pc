@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace wheel01
@@ -19,6 +20,10 @@ namespace wheel01
         bool flipFfbVoltage = false;
         double lastFfbVoltageSent = 0;
 
+        // Add this inside your Form class
+        [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        public static extern int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
+
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +31,12 @@ namespace wheel01
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            SetWindowTheme(FFBValueDisplayBar.Handle, "", "");
+            SetWindowTheme(SteeringAxisDisplayBar.Handle, "", "");
+            SetWindowTheme(AcceleratorAxisDisplayBar.Handle, "", "");
+            SetWindowTheme(BrakeAxisDisplayBar.Handle, "", "");
+            SetWindowTheme(ClutchAxisDisplayBar.Handle, "", "");
+
             LoadAllSettings();
 
             Logger.App("Detecting ports...");

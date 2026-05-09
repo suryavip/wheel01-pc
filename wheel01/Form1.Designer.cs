@@ -309,6 +309,7 @@
             // 
             // SteeringAxisDisplayBar
             // 
+            this.SteeringAxisDisplayBar.BackColor = System.Drawing.SystemColors.HighlightText;
             this.SteeringAxisDisplayBar.Location = new System.Drawing.Point(8, 56);
             this.SteeringAxisDisplayBar.Maximum = 32767;
             this.SteeringAxisDisplayBar.Name = "SteeringAxisDisplayBar";
@@ -319,6 +320,7 @@
             // 
             // FFBValueDisplayBar
             // 
+            this.FFBValueDisplayBar.BackColor = System.Drawing.SystemColors.HighlightText;
             this.FFBValueDisplayBar.Location = new System.Drawing.Point(8, 384);
             this.FFBValueDisplayBar.Maximum = 20000;
             this.FFBValueDisplayBar.Name = "FFBValueDisplayBar";
@@ -384,6 +386,7 @@
             // 
             // ClutchAxisDisplayBar
             // 
+            this.ClutchAxisDisplayBar.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ClutchAxisDisplayBar.Location = new System.Drawing.Point(8, 48);
             this.ClutchAxisDisplayBar.Maximum = 32767;
             this.ClutchAxisDisplayBar.Name = "ClutchAxisDisplayBar";
@@ -393,6 +396,7 @@
             // 
             // BrakeAxisDisplayBar
             // 
+            this.BrakeAxisDisplayBar.BackColor = System.Drawing.SystemColors.HighlightText;
             this.BrakeAxisDisplayBar.Location = new System.Drawing.Point(8, 48);
             this.BrakeAxisDisplayBar.Maximum = 32767;
             this.BrakeAxisDisplayBar.Name = "BrakeAxisDisplayBar";
@@ -402,6 +406,7 @@
             // 
             // AcceleratorAxisDisplayBar
             // 
+            this.AcceleratorAxisDisplayBar.BackColor = System.Drawing.SystemColors.HighlightText;
             this.AcceleratorAxisDisplayBar.Location = new System.Drawing.Point(8, 48);
             this.AcceleratorAxisDisplayBar.Maximum = 32767;
             this.AcceleratorAxisDisplayBar.Name = "AcceleratorAxisDisplayBar";
