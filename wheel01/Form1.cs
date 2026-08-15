@@ -165,7 +165,7 @@ namespace wheel01
             SteeringRangeDisplayText.Text = (wheel.rotationRange * 360) + "°";
 
             FFBValueDisplayText.Text = lastFfbVoltageSent.ToString();
-            FFBValueDisplayBar.Value = (int)(lastFfbVoltageSent * 1000) + VJoyWrapper.maxFfbValue;
+            FFBValueDisplayBar.Value = (int)(lastFfbVoltageSent * 1000) + ((FFBValueDisplayBar.Maximum - FFBValueDisplayBar.Minimum) / 2);
 
             int accAxisValue = accelerator.CalculateAxisValue();
             AcceleratorAxisDisplayText.Text = accAxisValue.ToString();

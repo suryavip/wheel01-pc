@@ -322,12 +322,12 @@
             // 
             this.FFBValueDisplayBar.BackColor = System.Drawing.SystemColors.HighlightText;
             this.FFBValueDisplayBar.Location = new System.Drawing.Point(8, 384);
-            this.FFBValueDisplayBar.Maximum = 20000;
+            this.FFBValueDisplayBar.Maximum = 36000;
             this.FFBValueDisplayBar.Name = "FFBValueDisplayBar";
             this.FFBValueDisplayBar.Size = new System.Drawing.Size(192, 16);
             this.FFBValueDisplayBar.Step = 1;
             this.FFBValueDisplayBar.TabIndex = 27;
-            this.FFBValueDisplayBar.Value = 10000;
+            this.FFBValueDisplayBar.Value = 18000;
             // 
             // FFBValueDisplayText
             // 
@@ -757,7 +757,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 24);
             this.label3.TabIndex = 51;
-            this.label3.Text = "9V";
+            this.label3.Text = "18V";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
@@ -776,7 +776,7 @@
             this.MaxVoutSlider.AutoSize = false;
             this.MaxVoutSlider.LargeChange = 1;
             this.MaxVoutSlider.Location = new System.Drawing.Point(8, 312);
-            this.MaxVoutSlider.Maximum = 90;
+            this.MaxVoutSlider.Maximum = 180;
             this.MaxVoutSlider.Name = "MaxVoutSlider";
             this.MaxVoutSlider.Size = new System.Drawing.Size(192, 32);
             this.MaxVoutSlider.TabIndex = 49;
