@@ -38,9 +38,7 @@ namespace wheel01
 
             device = new vJoy();
 
-            Logger.App("Vendor: " + device.GetvJoyManufacturerString());
-            Logger.App("Product: " + device.GetvJoyProductString());
-            Logger.App("Version Number: " + device.GetvJoySerialNumberString());
+            Logger.App(string.Format("{0}, {1}, {2}", device.GetvJoyManufacturerString(), device.GetvJoyProductString(), device.GetvJoySerialNumberString()));
 
             VjdStat status = device.GetVJDStatus(deviceId);
             switch (status)
@@ -65,8 +63,7 @@ namespace wheel01
                 return;
             }
 
-            Logger.App(string.Format("Acquired: vJoy device number {0}", deviceId));
-            Logger.App(string.Format("FFB is {0}", Convert.ToString(device.IsDeviceFfb(deviceId))));
+            Logger.App(string.Format("Acquired: vJoy device number {0} (FFB: {1})", deviceId, Convert.ToString(device.IsDeviceFfb(deviceId))));
 
             device.ResetVJD(deviceId);
 

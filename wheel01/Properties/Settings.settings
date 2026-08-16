@@ -53,5 +53,10 @@
     <Setting Name="FFBLinearityMix" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="FFBMap" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0 0
+1 1
+10000 6</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Ports;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -13,12 +17,9 @@ namespace wheel01
         readonly Pedal clutch = new Pedal();
         readonly SerialCom serialCom = new SerialCom();
 
-        double ffbMult = 1;
-        double ffbLinearity = 1;
-        double ffbLinearityMix = 1;
-        double maxFfbVoltage = 9.0;
         bool flipFfbVoltage = false;
         double lastFfbVoltageSent = 0;
+        Dictionary<int, double> ffbMap;
 
         // Add this inside your Form class
         [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
@@ -31,7 +32,7 @@ namespace wheel01
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            SetWindowTheme(FFBValueDisplayBar.Handle, "", "");
+            SetWindowTheme(FfbValueDisplayBar.Handle, "", "");
             SetWindowTheme(SteeringAxisDisplayBar.Handle, "", "");
             SetWindowTheme(AcceleratorAxisDisplayBar.Handle, "", "");
             SetWindowTheme(BrakeAxisDisplayBar.Handle, "", "");
@@ -43,7 +44,6 @@ namespace wheel01
             string[] ports = SerialPort.GetPortNames();
             COMPortsComboBox.DataSource = ports;
             Logger.App("Port list updated!");
-            Logger.App("Please wait until vJoy device initialized!");
         }
 
         private void LoadAllSettings()
@@ -77,27 +77,18 @@ namespace wheel01
             CltMinSlider.Value = clutch.startHwValue;
             CltMaxSlider.Value = clutch.endHwValue;
 
-            FfbMultSlider.Value = Properties.Settings.Default.FFBMultiplier;
-            double slider = FfbMultSlider.Value;
-            double realMult = slider / 10;
-            ffbMult = realMult;
-
-            FfbLinearitySlider.Value = Properties.Settings.Default.FFBLinearity;
-            double ffbLinearitySlider = FfbLinearitySlider.Value;
-            double realFfbLinearity = ffbLinearitySlider / 100;
-            ffbLinearity = realFfbLinearity;
-            FFBLinearityDisplayText.Text = ffbLinearity.ToString();
-
-            FfbLinearityMixSlider.Value = Properties.Settings.Default.FFBLinearityMix;
-            double ffbLinearityMixSlider = FfbLinearityMixSlider.Value;
-            double realFfbLinearityMix = ffbLinearityMixSlider / 100;
-            ffbLinearityMix = realFfbLinearityMix;
-            FFBLinearityMixDisplayText.Text = ffbLinearityMix.ToString();
-
             flipFfbVoltage = Properties.Settings.Default.FFBFlipVout;
 
-            maxFfbVoltage = Properties.Settings.Default.FFBMaxVout;
-            MaxVoutSlider.Value = (int)(maxFfbVoltage * 10);
+            try
+            {
+                FfbMap.Text = Properties.Settings.Default.FFBMap;
+                ffbMap = ParseMap(FfbMap.Text);
+            }
+            catch {
+                Logger.App("Failed to load FFB map. Revert to default safe value.");
+                FfbMap.Text = "0 0\n10000 1";
+                SaveAllSettings();
+            }
         }
 
         private void SaveAllSettings()
@@ -117,14 +108,9 @@ namespace wheel01
             Properties.Settings.Default.CltStartHwValue = clutch.startHwValue;
             Properties.Settings.Default.CltEndHwValue = clutch.endHwValue;
 
-            Properties.Settings.Default.FFBMultiplier = FfbMultSlider.Value;
-
-            Properties.Settings.Default.FFBLinearity = FfbLinearitySlider.Value;
-            Properties.Settings.Default.FFBLinearityMix = FfbLinearityMixSlider.Value;
-
             Properties.Settings.Default.FFBFlipVout = flipFfbVoltage;
 
-            Properties.Settings.Default.FFBMaxVout = maxFfbVoltage;
+            Properties.Settings.Default.FFBMap = FfbMap.Text;
 
             Properties.Settings.Default.Save();
         }
@@ -164,8 +150,8 @@ namespace wheel01
 
             SteeringRangeDisplayText.Text = (wheel.rotationRange * 360) + "°";
 
-            FFBValueDisplayText.Text = lastFfbVoltageSent.ToString();
-            FFBValueDisplayBar.Value = (int)(lastFfbVoltageSent * 1000) + ((FFBValueDisplayBar.Maximum - FFBValueDisplayBar.Minimum) / 2);
+            FfbValueDisplayText.Text = lastFfbVoltageSent.ToString();
+            FfbValueDisplayBar.Value = (int)(lastFfbVoltageSent * 1000) + ((FfbValueDisplayBar.Maximum - FfbValueDisplayBar.Minimum) / 2);
 
             int accAxisValue = accelerator.CalculateAxisValue();
             AcceleratorAxisDisplayText.Text = accAxisValue.ToString();
@@ -255,7 +241,6 @@ namespace wheel01
             else
             {
                 double signalFromGame = VJoyWrapper.CalculateFFB();
-                signalFromGame *= ffbMult; // apply multiplier for signal from game
                 signalInDouble = signalFromGame / VJoyWrapper.maxFfbValue;
             }
 
@@ -281,19 +266,16 @@ namespace wheel01
             if (signalInDouble > 1) signalInDouble = 1;
             if (signalInDouble < -1) signalInDouble = -1;
 
-            // transform curve
-            double transformer = (Math.Pow(Math.Abs(signalInDouble), ffbLinearity) * ffbLinearityMix) + (Math.Abs(signalInDouble) * (1 - ffbLinearityMix));
-            if (signalInDouble < 0) signalInDouble = transformer * -1;
-            else signalInDouble = transformer;
-
-            // clamp ffbOutput again
-            if (signalInDouble > 1) signalInDouble = 1;
-            if (signalInDouble < -1) signalInDouble = -1;
-
             // convert to voltage
-            double inVoltage = signalInDouble * maxFfbVoltage;
+            double[] keys = ffbMap.Keys.Select(k => (double)k).ToArray();
+            double[] values = ffbMap.Values.ToArray();
+            int absolute = (int)Math.Abs(signalInDouble * VJoyWrapper.maxFfbValue);
+            double inVoltage = MultiMap.Get(absolute, keys, values);
 
-            // flip voltage if needed
+            // flip to original direction if needed
+            if (signalInDouble < 0) inVoltage *= -1;
+
+            // flip voltage if settings said flip
             if (flipFfbVoltage) inVoltage *= -1;
 
             return inVoltage;
@@ -344,35 +326,10 @@ namespace wheel01
             SaveAllSettings();
         }
 
-        private void FfbMultSlider_Scroll(object sender, EventArgs e)
-        {
-            double slider = FfbMultSlider.Value;
-            double realValue = slider / 10;
-
-            ffbMult = realValue;
-            SaveAllSettings();
-        }
-
-        private void FfbLinearitySlider_Scroll(object sender, EventArgs e)
-        {
-            double slider = FfbLinearitySlider.Value;
-            ffbLinearity = slider / 100;
-            FFBLinearityDisplayText.Text = ffbLinearity.ToString();
-            SaveAllSettings();
-        }
-
         private void FlipFfbButton_Click(object sender, EventArgs e)
         {
             flipFfbVoltage = !flipFfbVoltage;
             Logger.App("Flip FFB Vout: " + flipFfbVoltage);
-            SaveAllSettings();
-        }
-
-        private void MaxVoutSlider_Scroll(object sender, EventArgs e)
-        {
-            double slider = MaxVoutSlider.Value;
-            maxFfbVoltage = slider / 10;
-            Logger.App("Max Vout: " + maxFfbVoltage);
             SaveAllSettings();
         }
 
@@ -384,12 +341,49 @@ namespace wheel01
             SaveAllSettings();
         }
 
-        private void FfbLinearityMixSlider_Scroll(object sender, EventArgs e)
+        private void ApplyFfbMapButton_Click(object sender, EventArgs e)
         {
-            double slider = FfbLinearityMixSlider.Value;
-            ffbLinearityMix = slider / 100;
-            FFBLinearityMixDisplayText.Text = ffbLinearityMix.ToString();
-            SaveAllSettings();
+            Logger.App("Applying map...");
+            try
+            {
+                ffbMap = ParseMap(FfbMap.Text);
+                SaveAllSettings();
+                Logger.App("Map applied!");
+            }
+            catch (Exception ex)
+            {
+                Logger.App(string.Format("Failed to apply map: {0}", ex.Message));
+            }
+        }
+
+        private Dictionary<int, double> ParseMap(string input)
+        {
+            if (input == null) throw new ArgumentNullException(nameof(input));
+
+            var result = new Dictionary<int, double>();
+
+            var lines = input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var line in lines)
+            {
+                var parts = line.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (parts.Length != 2) throw new FormatException($"Invalid line: '{line}'. Expected '<key> <value>'.");
+
+                int key;
+                double value;
+
+                if (!int.TryParse(parts[0], out key)) throw new FormatException($"Invalid key '{parts[0]}' in line: '{line}'.");
+                if (!double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out value)) throw new FormatException($"Invalid value '{parts[1]}' in line: '{line}'.");
+                if (result.ContainsKey(key)) throw new FormatException($"Duplicate key '{key}'.");
+
+                result.Add(key, value);
+            }
+
+            if (!result.ContainsKey(0)) throw new FormatException("Required key '0' is missing.");
+            if (!result.ContainsKey(10000)) throw new FormatException("Required key '10000' is missing.");
+
+            return result;
         }
     }
 }

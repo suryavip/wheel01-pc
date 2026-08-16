@@ -226,5 +226,17 @@ namespace wheel01.Properties {
                 this["FFBLinearityMix"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0 0\r\n1 1\r\n10000 6")]
+        public string FFBMap {
+            get {
+                return ((string)(this["FFBMap"]));
+            }
+            set {
+                this["FFBMap"] = value;
+            }
+        }
     }
 }

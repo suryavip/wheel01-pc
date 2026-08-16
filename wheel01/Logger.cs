@@ -16,7 +16,7 @@ namespace wheel01
 
         public static void App(string log)
         {
-            appLog = "- " + log + Environment.NewLine + appLog;
+            appLog = "• " + log + Environment.NewLine + appLog;
             if (appLog.Length > lengthLimit)
             {
                 appLog = appLog.Substring(0, lengthLimit);
