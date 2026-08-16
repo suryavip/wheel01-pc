@@ -19,7 +19,9 @@ namespace wheel01
 
         bool flipFfbVoltage = false;
         double lastFfbVoltageSent = 0;
-        Dictionary<int, double> ffbMap;
+
+        double[] ffbMapKeys;
+        double[] ffbMapValues;
 
         // Add this inside your Form class
         [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
@@ -82,12 +84,12 @@ namespace wheel01
             try
             {
                 FfbMap.Text = Properties.Settings.Default.FFBMap;
-                ffbMap = ParseMap(FfbMap.Text);
+                ApplyFfbMap();
             }
             catch {
                 Logger.App("Failed to load FFB map. Revert to default safe value.");
                 FfbMap.Text = "0 0\n10000 1";
-                SaveAllSettings();
+                ApplyFfbMap();
             }
         }
 
@@ -267,10 +269,8 @@ namespace wheel01
             if (signalInDouble < -1) signalInDouble = -1;
 
             // convert to voltage
-            double[] keys = ffbMap.Keys.Select(k => (double)k).ToArray();
-            double[] values = ffbMap.Values.ToArray();
             int absolute = (int)Math.Abs(signalInDouble * VJoyWrapper.maxFfbValue);
-            double inVoltage = MultiMap.Get(absolute, keys, values);
+            double inVoltage = MultiMap.Get(absolute, ffbMapKeys, ffbMapValues);
 
             // flip to original direction if needed
             if (signalInDouble < 0) inVoltage *= -1;
@@ -341,12 +341,19 @@ namespace wheel01
             SaveAllSettings();
         }
 
+        private void ApplyFfbMap()
+        {
+            Dictionary<int, double> ffbMap = ParseMap(FfbMap.Text);
+            ffbMapKeys = ffbMap.Keys.Select(k => (double)k).ToArray();
+            ffbMapValues = ffbMap.Values.ToArray();
+        }
+
         private void ApplyFfbMapButton_Click(object sender, EventArgs e)
         {
             Logger.App("Applying map...");
             try
             {
-                ffbMap = ParseMap(FfbMap.Text);
+                ApplyFfbMap();
                 SaveAllSettings();
                 Logger.App("Map applied!");
             }

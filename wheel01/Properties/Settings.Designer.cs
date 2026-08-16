@@ -145,42 +145,6 @@ namespace wheel01.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6")]
-        public int FFBValueSenderInterval {
-            get {
-                return ((int)(this["FFBValueSenderInterval"]));
-            }
-            set {
-                this["FFBValueSenderInterval"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int FFBMultiplier {
-            get {
-                return ((int)(this["FFBMultiplier"]));
-            }
-            set {
-                this["FFBMultiplier"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int FFBLinearity {
-            get {
-                return ((int)(this["FFBLinearity"]));
-            }
-            set {
-                this["FFBLinearity"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool FFBFlipVout {
             get {
@@ -188,18 +152,6 @@ namespace wheel01.Properties {
             }
             set {
                 this["FFBFlipVout"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9")]
-        public double FFBMaxVout {
-            get {
-                return ((double)(this["FFBMaxVout"]));
-            }
-            set {
-                this["FFBMaxVout"] = value;
             }
         }
         
@@ -217,19 +169,7 @@ namespace wheel01.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int FFBLinearityMix {
-            get {
-                return ((int)(this["FFBLinearityMix"]));
-            }
-            set {
-                this["FFBLinearityMix"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0 0\r\n1 1\r\n10000 6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0 0\r\n10000 1")]
         public string FFBMap {
             get {
                 return ((string)(this["FFBMap"]));

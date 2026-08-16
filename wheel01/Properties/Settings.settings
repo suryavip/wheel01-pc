@@ -32,31 +32,15 @@
     <Setting Name="WheelHwOverRotationOffset" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="FFBValueSenderInterval" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">6</Value>
-    </Setting>
-    <Setting Name="FFBMultiplier" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
-    </Setting>
-    <Setting Name="FFBLinearity" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">100</Value>
-    </Setting>
     <Setting Name="FFBFlipVout" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="FFBMaxVout" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">9</Value>
     </Setting>
     <Setting Name="BrkLinearity" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="FFBLinearityMix" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">100</Value>
-    </Setting>
     <Setting Name="FFBMap" Type="System.String" Scope="User">
       <Value Profile="(Default)">0 0
-1 1
-10000 6</Value>
+10000 1</Value>
     </Setting>
   </Settings>
 </SettingsFile>
